@@ -66,7 +66,7 @@ export function BreedCatalogPage() {
           size="sm"
           className="shrink-0 self-start sm:mt-8"
         >
-          Ver catálogo HTML
+          Ver versão HTML da categoria
         </ButtonLink>
       </div>
 

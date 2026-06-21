@@ -2,6 +2,7 @@ const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
 const API_URL = process.env.API_URL ?? 'http://localhost:3333/api';
 
 const WEB_ROUTES = [
+  '/demo',
   '/explore',
   '/dogs',
   '/dogs/labrador-retriever',

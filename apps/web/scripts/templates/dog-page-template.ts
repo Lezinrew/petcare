@@ -1,5 +1,6 @@
 type BreedData = {
   slug: string;
+  species?: string;
   name: string;
   origin: string;
   originalFunction: string;
@@ -9,6 +10,9 @@ type BreedData = {
   apartmentFriendly: boolean;
   goodWithChildren: boolean;
   shortDescription: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  placeholderUrl?: string;
   care: {
     feeding: {
       dailyAmount: string;
@@ -98,6 +102,14 @@ const BASE_STYLES = `
     overflow: hidden;
   }
   .hero-emoji { position: absolute; right: 1rem; top: 0.5rem; font-size: 4rem; opacity: 0.15; }
+  .hero-img-wrap {
+    margin: 1rem 0 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    max-width: 320px;
+    background: rgba(255,255,255,0.1);
+  }
+  .hero-img-wrap img { width: 100%; height: auto; display: block; min-height: 120px; object-fit: cover; }
   .hero h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
   .hero p { color: #EAF4FF; max-width: 36rem; }
   .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
@@ -176,10 +188,30 @@ const BASE_STYLES = `
   .index-meta { font-size: 0.8125rem; color: #475569; font-weight: 400; }
 `;
 
+const SPECIES_EMOJI: Record<string, string> = {
+  dog: '🐕', cat: '🐱', fish: '🐠', hamster: '🐹', bird: '🐦', rabbit: '🐰',
+};
+
+function heroImageHtml(breed: BreedData): string {
+  const emoji = SPECIES_EMOJI[breed.species ?? 'dog'] ?? '🐾';
+  const alt = escapeHtml(breed.imageAlt ?? breed.name);
+  const src = escapeHtml(breed.imageUrl ?? '');
+  const fallback = escapeHtml(breed.placeholderUrl ?? `/images/placeholders/${breed.species ?? 'dog'}.svg`);
+  if (!src && !fallback) {
+    return `<span class="hero-emoji">${emoji}</span>`;
+  }
+  return `<div class="hero-img-wrap">
+    <img src="${src || fallback}" alt="${alt}"
+      onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.style.display='none';}"
+      data-fallback="${src ? fallback : ''}" />
+  </div>`;
+}
+
 export function renderDogPageHtml(breed: BreedData): string {
   const { care } = breed;
   const sizeLabel = SIZE_LABELS[breed.size] ?? breed.size;
   const energyLabel = ENERGY_LABELS[breed.energyLevel] ?? breed.energyLevel;
+  const emoji = SPECIES_EMOJI[breed.species ?? 'dog'] ?? '🐾';
 
   const cards = [
     card('Alimentação', '🍖', '#15803D', `
@@ -237,9 +269,10 @@ export function renderDogPageHtml(breed: BreedData): string {
 
   <main class="container">
     <section class="hero">
-      <span class="hero-emoji">🐕</span>
+      <span class="hero-emoji">${emoji}</span>
       <h2>${escapeHtml(breed.name)}</h2>
       <p>${escapeHtml(breed.shortDescription)}</p>
+      ${heroImageHtml(breed)}
       <div class="badges">
         <span class="badge">Porte: ${escapeHtml(sizeLabel)}</span>
         <span class="badge">Energia: ${escapeHtml(energyLabel)}</span>

@@ -1,42 +1,44 @@
-import { useState } from 'react';
 import { AnimalBreed } from '../../types/animal';
+import { getSpeciesLabel } from '../../utils/speciesCareSections';
 import { energyLabels, sizeLabels } from '../../utils/labels';
 import { getSpeciesEmoji } from '../../utils/speciesEmoji';
+import { AnimalImage } from './AnimalImage';
 
 type Props = { breed: AnimalBreed };
 
 export function BreedHero({ breed }: Props) {
-  const [imageError, setImageError] = useState(false);
   const emoji = getSpeciesEmoji(breed.species);
-  const showImage = breed.imageUrl && !imageError;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-6 text-white md:p-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        <div className="relative z-10 max-w-xl">
-          <h1 className="text-2xl font-bold md:text-3xl">{breed.name}</h1>
-          <p className="mt-3 text-primary-light">{breed.shortDescription}</p>
+    <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-soft">
+      <div className="grid md:grid-cols-[1fr,280px]">
+        <AnimalImage
+          src={breed.imageUrl}
+          fallbackSrc={breed.placeholderUrl}
+          alt={breed.imageAlt ?? breed.name}
+          emojiFallback={emoji}
+          className="aspect-[16/10] min-h-[200px] w-full md:aspect-auto md:min-h-[280px]"
+          imgClassName="object-cover"
+        />
+        <div className="flex flex-col justify-center bg-gradient-to-br from-primary to-primary-dark p-6 text-white md:p-8">
+          <p className="text-sm font-medium text-primary-light/90">{getSpeciesLabel(breed.species)}</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">{breed.name}</h1>
+          <p className="mt-3 leading-relaxed text-primary-light/95">{breed.shortDescription}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             <span className="rounded-full bg-white/20 px-3 py-1 text-sm">{sizeLabels[breed.size]}</span>
             <span className="rounded-full bg-white/20 px-3 py-1 text-sm">{energyLabels[breed.energyLevel]}</span>
+            <span className="rounded-full bg-white/20 px-3 py-1 text-sm">
+              {breed.apartmentFriendly ? 'Indoor OK' : 'Espaço amplo'}
+            </span>
           </div>
-        </div>
-        <div className="relative z-10 flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white/15 md:h-32 md:w-32">
-          {showImage ? (
-            <img
-              src={breed.imageUrl}
-              alt={breed.name}
-              className="h-full w-full object-cover"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <span className="text-5xl" aria-hidden>{emoji}</span>
+          {breed.imageCredit && (
+            <p className="mt-4 text-xs text-primary-light/70">
+              {breed.imageCredit}
+              {breed.imageSource ? ` · ${breed.imageSource}` : ''}
+            </p>
           )}
         </div>
       </div>
-      {!showImage && (
-        <div className="pointer-events-none absolute -right-4 -top-4 text-8xl opacity-10">{emoji}</div>
-      )}
     </div>
   );
 }

@@ -11,8 +11,9 @@
 | # | Teste | Passos | Esperado |
 |---|-------|--------|----------|
 | 1 | Home carrega | Acessar `/` | Hero, slogan, cards, aviso |
-| 2 | Explorar | Acessar `/explore` | 6 categorias, total 88 |
-| 3 | Cães 30 | `/dogs` | 30 cards |
+| 2 | Demo pitch | `/demo` | Problema, solução, 88 animais |
+| 3 | Explorar | `/explore` | 6 cards visuais + HTML |
+| 4 | Cães 30 | `/dogs` | 30 cards com imagem |
 | 4 | Gatos 20 | `/cats` | 20 cards |
 | 5 | Peixes 10 | `/fish` | 10 cards |
 | 6 | Hamsters 5 | `/hamsters` | 5 cards |

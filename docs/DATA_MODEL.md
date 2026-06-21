@@ -20,6 +20,10 @@ Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`.
   "goodWithChildren": true,
   "shortDescription": "Amigável, inteligente e leal...",
   "imageUrl": "/images/dogs/labrador-retriever.webp",
+  "imageAlt": "Labrador Retriever",
+  "imageCredit": "Imagem ilustrativa",
+  "imageSource": "Acervo do projeto",
+  "placeholderUrl": "/images/placeholders/dog.svg",
   "care": {
     "feeding": {
       "dailyAmount": "2% a 3% do peso corporal",
@@ -38,6 +42,18 @@ Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`.
   }
 }
 ```
+
+### Campos de imagem
+
+| Campo | Exemplo | Descrição |
+|-------|---------|-----------|
+| `imageUrl` | `/images/cats/persa.webp` | Foto real (`.webp`) |
+| `imageAlt` | `Persa` | Texto alternativo |
+| `imageCredit` | `Imagem ilustrativa` | Crédito exibido na ficha |
+| `imageSource` | `Acervo do projeto` | Fonte da imagem |
+| `placeholderUrl` | `/images/placeholders/cat.svg` | SVG quando `.webp` ausente |
+
+Preenchidos automaticamente em `allBreeds.ts` via `withImageFields()`.
 
 ## PetProfile
 

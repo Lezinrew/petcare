@@ -33,7 +33,34 @@ N/A (página informativa)
 ## Explorar Pets
 
 ### Objetivo
-Hub com 6 categorias e atalho para cada catálogo.
+Hub visual mobile-first com cards grandes por espécie e link para HTML estático.
+
+### Rota
+`/explore`
+
+### Regras
+- Hero: "Explore os pets" + subtítulo educativo
+- 6 cards com gradiente, contagem e botões Explorar / HTML
+- Botão **Abrir catálogo HTML** → `/generated/pets/index.html`
+
+### Critérios de aceite
+- [ ] 6 categorias com contagem correta
+- [ ] Cards responsivos (mobile + desktop)
+- [ ] Link para catálogo HTML geral
+
+---
+
+## Demo / pitch
+
+### Rota
+`/demo`
+
+### Conteúdo
+Problema, solução, entregas do piloto, próximos passos, CTAs para explore/adoção/HTML.
+
+---
+
+## Explorar Pets (legado título)
 
 ### Rota
 `/explore`

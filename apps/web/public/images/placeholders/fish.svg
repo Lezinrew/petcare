@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Peixe">
+  <rect width="120" height="120" rx="24" fill="#EAF4FF"/>
+  <ellipse cx="58" cy="60" rx="32" ry="18" fill="#0284C7" opacity="0.25"/>
+  <path d="M28 60c12-14 28-20 44-16 12 3 22 12 26 16-4 4-14 13-26 16-16 4-32-2-44-16z" fill="#0284C7"/>
+  <path d="M88 60l14-10v20l-14-10z" fill="#0B3A6E"/>
+  <circle cx="48" cy="56" r="3" fill="#fff"/>
+</svg>

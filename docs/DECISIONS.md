@@ -72,11 +72,17 @@
 
 **Motivo:** Seed MongoDB e gerador de HTML consomem os mesmos registros. Total: **88** (30 cães + 20 gatos + 10 peixes + 5 hamsters + 15 aves + 8 coelhos).
 
-## UI — botões e navegação
+## Imagens e placeholders
 
-**Decisão:** `Button` + `ButtonLink` com variantes centralizadas em `buttonStyles.ts`; `PageHeader.backTo` para voltar consistente.
+**Decisão:** `.webp` em `/images/{speciesPlural}/{slug}.webp`; fallback SVG em `/images/placeholders/{species}.svg`; componente `AnimalImage` com cascade até emoji.
 
-**Motivo:** Eliminar `<Link><button>` inválido, unificar CTAs (primary, outline, glass no hero) e melhorar acessibilidade (`focus-visible`).
+**Motivo:** Piloto apresentável sem upload; `check:pet-images.js` reporta faltantes sem bloquear CI.
+
+## Página `/demo`
+
+**Decisão:** Roteiro de pitch integrado ao app (não slide externo).
+
+**Motivo:** Demo em reunião abre uma URL; ver `docs/DEMO_SCRIPT.md`.
 
 ## Gerador de HTML estático
 

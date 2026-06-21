@@ -58,7 +58,7 @@ Endpoints por espécie (mesmos query params de filtros onde aplicável):
 
 Rotas equivalentes: `/api/animals/cats/:slug`, `/fish/:slug`, etc.
 
-**Response 200:** `AnimalBreed` (inclui `imageUrl` opcional)
+**Response 200:** `AnimalBreed` (inclui `imageUrl`, `imageAlt`, `imageCredit`, `imageSource`, `placeholderUrl`)
 
 **Erros:**
 - 404 BREED_NOT_FOUND

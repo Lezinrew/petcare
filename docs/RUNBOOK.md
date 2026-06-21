@@ -114,13 +114,16 @@ npm run check:api
 
 Valida health, 6 espécies (contagens 30/20/10/5/15/8), total 88, detalhes labrador e persa.
 
-## Imagens
-
-Coloque `.webp` em `apps/web/public/images/{dogs,cats,fish,hamsters,birds,rabbits}/`.
+Placeholders SVG: `apps/web/public/images/placeholders/{dog,cat,fish,hamster,bird,rabbit}.svg`
 
 ```bash
 npm run check:pet-images
+npm run generate:pet-images
 ```
+
+## Demo / pitch
+
+http://localhost:5173/demo — roteiro em `docs/DEMO_SCRIPT.md`
 
 ## HTML estático (todas espécies)
 

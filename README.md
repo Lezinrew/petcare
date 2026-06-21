@@ -75,7 +75,8 @@ O comando `npm run setup` instala dependências (raiz, API e Web) e cria os arqu
 | `npm run reset` | Repopula **88** animais no MongoDB |
 | `npm run check:api` | Valida todos os endpoints (API rodando) |
 | `npm run validate` | Alias de `check:api` |
-| `npm run check:pet-images` | Lista imagens `.webp` encontradas/faltantes |
+| `npm run check:pet-images` | Verifica `.webp` por espécie (não falha o build) |
+| `npm run generate:pet-images` | Gera placeholders `.webp` mínimos |
 | `npm run check:frontend-routes` | Smoke test das rotas SPA (Web rodando) |
 | `npm run generate:pet-images` | Gera placeholders `.webp` (88 fichas) |
 | `npm run check` | Lint + build |
@@ -135,6 +136,7 @@ npm run generate:pets-html
 ## Funcionalidades
 
 - Home institucional educativa
+- **Demo / pitch** (`/demo`) — apresentação do piloto
 - **Explorar Pets** (`/explore`) — 6 categorias, 88 fichas
 - Catálogo por espécie com busca e filtros
 - Ficha educativa por raça/espécie

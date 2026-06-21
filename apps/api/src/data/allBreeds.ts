@@ -24,12 +24,31 @@ export const SPECIES_IMAGE_FOLDER: Record<AnimalBreed['species'], string> = {
   rabbit: 'rabbits',
 };
 
+export function speciesPlural(species: AnimalBreed['species']): string {
+  return SPECIES_IMAGE_FOLDER[species];
+}
+
+export function placeholderUrlForSpecies(species: AnimalBreed['species']): string {
+  return `/images/placeholders/${species}.svg`;
+}
+
 export function imageUrlForBreed(species: AnimalBreed['species'], slug: string): string {
   return `/images/${SPECIES_IMAGE_FOLDER[species]}/${slug}.webp`;
 }
 
+export function withImageFields(breed: Omit<AnimalBreed, 'id'>): Omit<AnimalBreed, 'id'> {
+  return {
+    ...breed,
+    imageUrl: imageUrlForBreed(breed.species, breed.slug),
+    imageAlt: breed.name,
+    imageCredit: 'Imagem ilustrativa',
+    imageSource: 'Acervo do projeto',
+    placeholderUrl: placeholderUrlForSpecies(breed.species),
+  };
+}
+
 function withImageUrl(breed: Omit<AnimalBreed, 'id'>): Omit<AnimalBreed, 'id'> {
-  return { ...breed, imageUrl: imageUrlForBreed(breed.species, breed.slug) };
+  return withImageFields(breed);
 }
 
 export const allAnimalBreeds: Omit<AnimalBreed, 'id'>[] = [

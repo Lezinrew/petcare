@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AppShell } from '../components/layout/AppShell';
 import { HomePage } from '../pages/HomePage';
 import { ExplorePage } from '../pages/ExplorePage';
+import { DemoPage } from '../pages/DemoPage';
 import { BreedCatalogPage } from '../pages/BreedCatalogPage';
 import { BreedDetailPage } from '../pages/BreedDetailPage';
 import { MyPetsPage } from '../pages/MyPetsPage';
@@ -15,6 +16,7 @@ export function AppRoutes() {
       <Route element={<AppShell />}>
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
+        <Route path="demo" element={<DemoPage />} />
         <Route path="my-pets" element={<MyPetsPage />} />
         <Route path="reminders" element={<RemindersPage />} />
         <Route path="adoption-match" element={<AdoptionMatchPage />} />

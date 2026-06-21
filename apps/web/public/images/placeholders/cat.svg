@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Gato">
+  <rect width="120" height="120" rx="24" fill="#EAF4FF"/>
+  <path d="M34 42l8-14 8 10 8-10 8 14c14 4 22 16 22 30 0 18-14 32-32 32S16 90 16 72c0-14 8-26 18-30z" fill="#0B3A6E"/>
+  <circle cx="46" cy="68" r="3" fill="#fff"/>
+  <circle cx="74" cy="68" r="3" fill="#fff"/>
+  <path d="M54 78c2 2 10 2 12 0" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+</svg>

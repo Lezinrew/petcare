@@ -33,6 +33,14 @@
     overflow: hidden;
   }
   .hero-emoji { position: absolute; right: 1rem; top: 0.5rem; font-size: 4rem; opacity: 0.15; }
+  .hero-img-wrap {
+    margin: 1rem 0 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    max-width: 320px;
+    background: rgba(255,255,255,0.1);
+  }
+  .hero-img-wrap img { width: 100%; height: auto; display: block; min-height: 120px; object-fit: cover; }
   .hero h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
   .hero p { color: #EAF4FF; max-width: 36rem; }
   .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
@@ -122,6 +130,11 @@
       <span class="hero-emoji">🐕</span>
       <h2>Golden Retriever</h2>
       <p>Dócil, inteligente e devotado, o Golden é um dos melhores cães de família, conhecido pela paciência com crianças.</p>
+      <div class="hero-img-wrap">
+    <img src="/images/dogs/golden-retriever.webp" alt="Golden Retriever"
+      onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.style.display='none';}"
+      data-fallback="/images/placeholders/dog.svg" />
+  </div>
       <div class="badges">
         <span class="badge">Porte: Grande</span>
         <span class="badge">Energia: Alto</span>

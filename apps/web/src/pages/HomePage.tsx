@@ -85,6 +85,12 @@ export function HomePage() {
       <aside className="disclaimer-banner">
         ⚕️ Este app oferece informações educativas e <strong>não substitui orientação veterinária</strong>.
       </aside>
+
+      <p className="mt-6 text-center">
+        <ButtonLink to="/demo" variant="ghost-primary" size="sm">
+          Ver apresentação do piloto →
+        </ButtonLink>
+      </p>
     </div>
   );
 }

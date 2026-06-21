@@ -67,6 +67,10 @@ export type AnimalBreed = {
   goodWithChildren: boolean;
   shortDescription: string;
   imageUrl?: string;
+  imageAlt?: string;
+  imageCredit?: string;
+  imageSource?: string;
+  placeholderUrl?: string;
   care: CareInfo;
   createdAt?: string;
   updatedAt?: string;

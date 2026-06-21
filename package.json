@@ -8,7 +8,7 @@
     "reset": "node scripts/reset.mjs",
     "validate": "node scripts/check-api.js",
     "check:api": "node scripts/check-api.js",
-    "check:pet-images": "npm --prefix apps/web run check:pet-images",
+    "check:pet-images": "node scripts/check-pet-images.js",
     "check:frontend-routes": "node scripts/check-frontend-routes.mjs",
     "generate:pet-images": "npm --prefix apps/web run generate:pet-images",
     "check": "npm-run-all lint build",

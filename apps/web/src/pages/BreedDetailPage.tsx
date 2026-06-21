@@ -8,6 +8,7 @@ import { LoadingState } from '../components/ui/LoadingState';
 import { getCategoryByRoute, SpeciesRouteKey } from '../config/species';
 import { useAsync } from '../hooks/useAsync';
 import { fetchBreedBySlug } from '../services/animals.service';
+import { getCareSectionsForSpecies } from '../utils/speciesCareSections';
 
 export function BreedDetailPage() {
   const { speciesKey, slug } = useParams<{ speciesKey: SpeciesRouteKey; slug: string }>();
@@ -35,7 +36,7 @@ export function BreedDetailPage() {
     );
   }
 
-  const { care } = breed;
+  const sections = getCareSectionsForSpecies(breed.species);
 
   return (
     <div className="page-container space-y-6">
@@ -47,10 +48,10 @@ export function BreedDetailPage() {
           href={`/generated/pets/${speciesKey}/${breed.slug}.html`}
           target="_blank"
           rel="noopener noreferrer"
-          variant="outline"
+          variant="outline-accent"
           size="sm"
         >
-          Abrir versão HTML
+          Abrir HTML deste pet
         </ButtonLink>
       </div>
 
@@ -58,72 +59,23 @@ export function BreedDetailPage() {
       <BreedStatsBar breed={breed} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <CareInfoCard title="Alimentação" icon="🍖" color="text-feeding" borderColor="border-feeding">
-          <p><strong>Quantidade:</strong> {care.feeding.dailyAmount}</p>
-          <p><strong>Refeições:</strong> {care.feeding.mealsPerDay}</p>
-          <p><strong>Proibidos:</strong> {care.feeding.forbiddenFoods.join(', ')}</p>
-          <p><strong>Necessidades:</strong> {care.feeding.specialNeeds}</p>
-        </CareInfoCard>
-
-        <CareInfoCard title="Hidratação" icon="💧" color="text-hydration" borderColor="border-hydration">
-          <p><strong>Água:</strong> {care.hydration.waterAmount}</p>
-          <p><strong>Sinais de alerta:</strong></p>
-          <ul className="list-inside list-disc">
-            {care.hydration.dehydrationSigns.map((s) => <li key={s}>{s}</li>)}
-          </ul>
-        </CareInfoCard>
-
-        <CareInfoCard title="Exercícios" icon="🏃" color="text-exercise" borderColor="border-exercise">
-          <p><strong>Atividade:</strong> {care.exercise.dailyWalkTime}</p>
-          <p><strong>Energia:</strong> {care.exercise.energyLevel}</p>
-          <p><strong>Atividades:</strong></p>
-          <ul className="list-inside list-disc">
-            {care.exercise.recommendedActivities.map((a) => <li key={a}>{a}</li>)}
-          </ul>
-        </CareInfoCard>
-
-        <CareInfoCard
-          title="Saúde"
-          icon="❤️"
-          color="text-health"
-          borderColor="border-health"
-          disclaimer="Informação educativa. Não substitui orientação veterinária."
-        >
-          <p><strong>Peso ideal:</strong> {care.health.idealWeight}</p>
-          <p><strong>Vacinas / prevenção:</strong> {care.health.vaccines.join(', ')}</p>
-          <p><strong>Doenças comuns:</strong> {care.health.commonDiseases.join(', ')}</p>
-        </CareInfoCard>
-
-        <CareInfoCard title="Higiene" icon="🛁" color="text-hygiene" borderColor="border-hygiene">
-          <p><strong>Banho / limpeza:</strong> {care.hygiene.bathFrequency}</p>
-          <p><strong>Pelagem / ambiente:</strong> {care.hygiene.coatCare}</p>
-        </CareInfoCard>
-
-        <CareInfoCard title="Comportamento" icon="🎾" color="text-behavior" borderColor="border-behavior">
-          <p><strong>Temperamento:</strong> {care.behavior.temperament}</p>
-          <p><strong>Treinamento:</strong> {care.behavior.trainability}</p>
-          <p><strong>Sociabilidade:</strong> {care.behavior.sociability}</p>
-          <p><strong>Outros animais:</strong> {care.behavior.otherAnimals}</p>
-        </CareInfoCard>
-
-        <CareInfoCard title="Ambiente" icon="🏡" color="text-environment" borderColor="border-environment">
-          <p><strong>Espaço:</strong> {care.environment.recommendedSpace}</p>
-          <p><strong>Apartamento:</strong> {care.environment.canLiveInApartment}</p>
-          <p><strong>Clima:</strong> {care.environment.climateSensitivity}</p>
-          <p><strong>Quintal / externo:</strong> {care.environment.backyardNeed}</p>
-        </CareInfoCard>
-
-        <CareInfoCard title="Reprodução e crescimento" icon="📏" color="text-primary" borderColor="border-primary">
-          <p><strong>Tamanho adulto:</strong> {care.growth.adultSize}</p>
-          <p><strong>Fase adulta:</strong> {care.growth.adultAge}</p>
-        </CareInfoCard>
+        {sections.map((section) => (
+          <CareInfoCard
+            key={section.key}
+            title={section.title}
+            icon={section.icon}
+            color={section.color}
+            borderColor={section.borderColor}
+            disclaimer={section.disclaimer}
+          >
+            {section.render(breed.care)}
+          </CareInfoCard>
+        ))}
       </div>
 
-      <CareInfoCard title="Curiosidades" icon="✨" color="text-primary" borderColor="border-primary">
-        <ul className="list-inside list-disc">
-          {care.curiosities.map((c) => <li key={c}>{c}</li>)}
-        </ul>
-      </CareInfoCard>
+      <aside className="disclaimer-banner">
+        ⚕️ Informação educativa. Não substitui orientação veterinária.
+      </aside>
     </div>
   );
 }
