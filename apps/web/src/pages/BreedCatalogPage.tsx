@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BreedCard } from '../components/animal/BreedCard';
 import { PageHeader } from '../components/layout/PageHeader';
+import { ButtonLink } from '../components/ui/ButtonLink';
 import { ErrorState } from '../components/ui/ErrorState';
 import { Input } from '../components/ui/Input';
 import { LoadingState } from '../components/ui/LoadingState';
@@ -50,22 +51,23 @@ export function BreedCatalogPage() {
 
   return (
     <div className="page-container">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <Link to="/explore" className="text-sm text-primary hover:underline">← Explorar</Link>
-          <PageHeader
-            title={`${category.emoji} ${category.labelPlural}`}
-            subtitle={`Explore ${category.count} fichas educativas de ${category.labelPlural.toLowerCase()}.`}
-          />
-        </div>
-        <a
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <PageHeader
+          backTo="/explore"
+          backLabel="← Explorar"
+          title={`${category.emoji} ${category.labelPlural}`}
+          subtitle={`Explore ${category.count} fichas educativas de ${category.labelPlural.toLowerCase()}.`}
+        />
+        <ButtonLink
           href={`/generated/pets/${category.routeKey}/index.html`}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 rounded-xl border border-primary/20 bg-primary-light px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+          variant="outline-accent"
+          size="sm"
+          className="shrink-0 self-start sm:mt-8"
         >
           Ver catálogo HTML
-        </a>
+        </ButtonLink>
       </div>
 
       <div className={`mb-6 grid gap-3 ${showSizeFilters ? 'sm:grid-cols-3' : ''}`}>

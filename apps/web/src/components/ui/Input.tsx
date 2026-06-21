@@ -16,7 +16,7 @@ export function Input({ label, error, className = '', id, ...props }: Props) {
       )}
       <input
         id={inputId}
-        className={`rounded-xl border border-slate-300 px-3 py-2.5 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${error ? 'border-health' : ''} ${className}`}
+        className={`rounded-xl border border-slate-200/90 bg-white px-3 py-2.5 text-base transition-colors outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${error ? 'border-health' : ''} ${className}`}
         {...props}
       />
       {error && <span className="text-sm text-health">{error}</span>}

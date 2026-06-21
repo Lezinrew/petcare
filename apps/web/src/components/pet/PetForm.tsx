@@ -116,7 +116,7 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
         <Button type="submit" fullWidth disabled={loading}>
           {loading ? 'Salvando...' : initial ? 'Atualizar' : 'Cadastrar'}
         </Button>
-        <Button type="button" variant="ghost" onClick={onCancel}>
+        <Button type="button" variant="ghost-primary" onClick={onCancel}>
           Cancelar
         </Button>
       </div>

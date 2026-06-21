@@ -1,18 +1,26 @@
 const API_URL = process.env.API_URL ?? 'http://localhost:3333/api';
 
-const tests = [];
+const SPECIES_ENDPOINTS = [
+  { path: 'dogs', count: 30 },
+  { path: 'cats', count: 20 },
+  { path: 'fish', count: 10 },
+  { path: 'hamsters', count: 5 },
+  { path: 'birds', count: 15 },
+  { path: 'rabbits', count: 8 },
+];
+
+const EXPECTED_TOTAL = 88;
+
 let passed = 0;
 let failed = 0;
 
 function ok(name) {
   passed++;
-  tests.push({ name, status: 'ok' });
   console.log(`  ✅ ${name}`);
 }
 
 function fail(name, detail) {
   failed++;
-  tests.push({ name, status: 'fail', detail });
   console.log(`  ❌ ${name}${detail ? ` — ${detail}` : ''}`);
 }
 
@@ -36,7 +44,7 @@ async function request(method, path, body) {
   return { response, data };
 }
 
-console.log(`🐾 PetCare Responsável — Validação da API\n`);
+console.log('🐾 PetCare Responsável — validate (legado, use check:api)\n');
 console.log(`Base: ${API_URL}\n`);
 
 try {
@@ -52,48 +60,42 @@ try {
   process.exit(1);
 }
 
-try {
-  const dogs = await request('GET', '/animals/dogs');
-  if (dogs.response.ok && Array.isArray(dogs.data) && dogs.data.length === 30) {
-    ok('GET /animals/dogs (30 raças)');
-  } else {
-    fail('GET /animals/dogs', `esperado 30, recebido ${dogs.data?.length ?? '?'}`);
+let runningTotal = 0;
+
+for (const { path, count } of SPECIES_ENDPOINTS) {
+  try {
+    const result = await request('GET', `/animals/${path}`);
+    if (result.response.ok && Array.isArray(result.data) && result.data.length === count) {
+      ok(`GET /animals/${path} (${count})`);
+      runningTotal += result.data.length;
+    } else {
+      fail(`GET /animals/${path}`, `esperado ${count}, recebido ${result.data?.length ?? '?'}`);
+    }
+  } catch (err) {
+    fail(`GET /animals/${path}`, err.message);
   }
-} catch (err) {
-  fail('GET /animals/dogs', err.message);
 }
 
-try {
-  const cats = await request('GET', '/animals/cats');
-  if (cats.response.ok && Array.isArray(cats.data) && cats.data.length === 20) {
-    ok('GET /animals/cats (20 raças)');
-  } else {
-    fail('GET /animals/cats', `esperado 20, recebido ${cats.data?.length ?? '?'}`);
-  }
-} catch (err) {
-  fail('GET /animals/cats', err.message);
+if (runningTotal === EXPECTED_TOTAL) {
+  ok(`Total geral: ${EXPECTED_TOTAL} animais`);
+} else {
+  fail('Total geral', `esperado ${EXPECTED_TOTAL}, soma ${runningTotal}`);
 }
 
-try {
-  const lab = await request('GET', '/animals/dogs/labrador-retriever');
-  if (lab.response.ok && lab.data?.slug === 'labrador-retriever' && lab.data?.care?.feeding) {
-    ok('GET /animals/dogs/labrador-retriever');
-  } else {
-    fail('GET /animals/dogs/labrador-retriever', 'ficha incompleta');
+for (const { species, slug, label } of [
+  { species: 'dogs', slug: 'labrador-retriever', label: 'Labrador' },
+  { species: 'cats', slug: 'persa', label: 'Persa' },
+]) {
+  try {
+    const result = await request('GET', `/animals/${species}/${slug}`);
+    if (result.response.ok && result.data?.slug === slug && result.data?.care?.feeding) {
+      ok(`GET /animals/${species}/${slug} (${label})`);
+    } else {
+      fail(`GET /animals/${species}/${slug}`, 'ficha incompleta');
+    }
+  } catch (err) {
+    fail(`GET /animals/${species}/${slug}`, err.message);
   }
-} catch (err) {
-  fail('GET /animals/dogs/labrador-retriever', err.message);
-}
-
-try {
-  const search = await request('GET', '/animals/dogs?search=labrador');
-  if (search.response.ok && Array.isArray(search.data) && search.data.length >= 1) {
-    ok('GET /animals/dogs?search=labrador');
-  } else {
-    fail('GET /animals/dogs?search=labrador');
-  }
-} catch (err) {
-  fail('GET /animals/dogs?search=labrador', err.message);
 }
 
 try {
@@ -108,12 +110,8 @@ try {
     preferredSize: 'pequeno',
     likesActivePets: false,
   });
-  if (
-    match.response.ok &&
-    match.data?.recommendedBreeds?.length === 3 &&
-    match.data?.antiAbandonmentMessage
-  ) {
-    ok('POST /adoption/match (3 raças)');
+  if (match.response.ok && match.data?.recommendedBreeds?.length === 3) {
+    ok('POST /adoption/match');
   } else {
     fail('POST /adoption/match', 'resposta inválida');
   }
@@ -130,20 +128,9 @@ try {
   const petId = createPet.data?.id;
   if (createPet.response.status === 201 && petId) {
     ok('POST /pets');
-
-    const list = await request('GET', '/pets');
-    if (list.response.ok && list.data.some((p) => p.id === petId)) {
-      ok('GET /pets');
-    } else {
-      fail('GET /pets');
-    }
-
     const del = await request('DELETE', `/pets/${petId}`);
-    if (del.response.status === 204) {
-      ok('DELETE /pets/:id');
-    } else {
-      fail('DELETE /pets/:id');
-    }
+    if (del.response.status === 204) ok('DELETE /pets/:id');
+    else fail('DELETE /pets/:id');
   } else {
     fail('POST /pets');
   }
@@ -152,9 +139,5 @@ try {
 }
 
 console.log(`\nResultado: ${passed} ok, ${failed} falha(s)`);
-
-if (failed > 0) {
-  process.exit(1);
-}
-
-console.log('\n✨ Validação concluída com sucesso.\n');
+if (failed > 0) process.exit(1);
+console.log('\n✨ Validação concluída.\n');

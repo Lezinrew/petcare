@@ -1,15 +1,22 @@
 import { HTMLAttributes } from 'react';
+import { cn } from '../../utils/cn';
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   padding?: 'sm' | 'md' | 'lg';
+  interactive?: boolean;
 };
 
 const paddingMap = { sm: 'p-3', md: 'p-4', lg: 'p-6' };
 
-export function Card({ padding = 'md', className = '', children, ...props }: Props) {
+export function Card({ padding = 'md', interactive, className, children, ...props }: Props) {
   return (
     <div
-      className={`rounded-2xl border border-slate-200 bg-white shadow-sm ${paddingMap[padding]} ${className}`}
+      className={cn(
+        'rounded-2xl border border-slate-200/90 bg-white shadow-xs',
+        paddingMap[padding],
+        interactive && 'card-interactive',
+        className,
+      )}
       {...props}
     >
       {children}

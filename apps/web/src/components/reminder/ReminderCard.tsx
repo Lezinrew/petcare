@@ -18,7 +18,7 @@ export function ReminderCard({ reminder, highlight, onDone, onEdit, onDelete }: 
   const upcoming = reminder.status === 'pending' && isUpcoming(reminder.dueDate);
 
   return (
-    <Card className={`flex flex-col gap-3 ${highlight ? 'ring-2 ring-primary' : ''} ${overdue ? 'border-health/50' : ''}`}>
+    <Card className={`flex flex-col gap-3 ${highlight ? 'ring-2 ring-primary/30' : ''} ${overdue ? 'border-health/40' : ''}`}>
       <div className="flex items-start justify-between">
         <div>
           <h3 className="font-semibold">{reminder.title}</h3>
@@ -32,16 +32,16 @@ export function ReminderCard({ reminder, highlight, onDone, onEdit, onDelete }: 
         </div>
       </div>
       <p className="text-xs text-text-secondary">Recorrência: {recurrenceLabels[reminder.recurrence]}</p>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2 pt-1">
         {reminder.status === 'pending' && reminder.id && (
-          <Button variant="secondary" className="flex-1" onClick={() => onDone(reminder.id!)}>
+          <Button variant="secondary" size="sm" className="flex-1 min-w-[7rem]" onClick={() => onDone(reminder.id!)}>
             Concluir
           </Button>
         )}
-        <Button variant="ghost" onClick={() => onEdit(reminder)}>
+        <Button variant="ghost" size="sm" onClick={() => onEdit(reminder)}>
           Editar
         </Button>
-        <Button variant="ghost" className="text-health" onClick={() => reminder.id && onDelete(reminder.id)}>
+        <Button variant="danger-ghost" size="sm" onClick={() => reminder.id && onDelete(reminder.id)}>
           Excluir
         </Button>
       </div>

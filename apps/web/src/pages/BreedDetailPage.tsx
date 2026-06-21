@@ -1,8 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BreedHero } from '../components/animal/BreedHero';
 import { BreedStatsBar } from '../components/animal/BreedStatsBar';
 import { CareInfoCard } from '../components/animal/CareInfoCard';
-import { Button } from '../components/ui/Button';
+import { ButtonLink } from '../components/ui/ButtonLink';
 import { ErrorState } from '../components/ui/ErrorState';
 import { LoadingState } from '../components/ui/LoadingState';
 import { getCategoryByRoute, SpeciesRouteKey } from '../config/species';
@@ -40,17 +40,18 @@ export function BreedDetailPage() {
   return (
     <div className="page-container space-y-6">
       <div className="flex flex-wrap items-center gap-2">
-        <Link to={`/${speciesKey}`}>
-          <Button variant="ghost" className="mb-0">← Voltar</Button>
-        </Link>
-        <a
+        <ButtonLink to={`/${speciesKey}`} variant="ghost-primary" size="sm">
+          ← Voltar
+        </ButtonLink>
+        <ButtonLink
           href={`/generated/pets/${speciesKey}/${breed.slug}.html`}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:border-primary/30 hover:text-primary"
+          variant="outline"
+          size="sm"
         >
           Abrir versão HTML
-        </a>
+        </ButtonLink>
       </div>
 
       <BreedHero breed={breed} />

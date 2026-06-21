@@ -66,9 +66,9 @@
 
 ## Estratégia de seed
 
-- Script `npm run seed` executa `seedDogs.ts`
-- Limpa coleção `animals` e insere 30 raças
-- 7 raças com dados ricos, demais com template genérico
+- Script `npm run seed` / `npm run reset` executa seed de **88** animais (6 espécies)
+- Limpa coleção `animals` e reinsere 30 cães + 58 outras espécies
+- 7 raças caninas com dados ricos; demais via `breedFactory.ts`
 - Endpoint `POST /api/animals/seed` disponível só em development
 
 ## Estratégia de erro

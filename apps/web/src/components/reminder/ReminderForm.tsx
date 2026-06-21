@@ -62,7 +62,7 @@ export function ReminderForm({ initial, onSubmit, onCancel }: Props) {
         <Button type="submit" fullWidth disabled={loading}>
           {loading ? 'Salvando...' : initial ? 'Atualizar' : 'Criar lembrete'}
         </Button>
-        <Button type="button" variant="ghost" onClick={onCancel}>
+        <Button type="button" variant="ghost-primary" onClick={onCancel}>
           Cancelar
         </Button>
       </div>

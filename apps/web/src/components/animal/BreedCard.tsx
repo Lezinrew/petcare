@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
 import { AnimalBreed } from '../../types/animal';
 import { SpeciesRouteKey } from '../../config/species';
 import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
+import { ButtonLink } from '../ui/ButtonLink';
 import { Card } from '../ui/Card';
 import { energyLabels, sizeLabels } from '../../utils/labels';
 
@@ -10,10 +9,10 @@ type Props = { breed: AnimalBreed; routeKey?: SpeciesRouteKey };
 
 export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
   return (
-    <Card className="flex flex-col gap-3">
+    <Card className="flex h-full flex-col gap-3">
       <div>
         <h3 className="text-lg font-semibold text-text-primary">{breed.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-text-secondary">{breed.shortDescription}</p>
+        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-text-secondary">{breed.shortDescription}</p>
       </div>
       <div className="flex flex-wrap gap-2">
         <Badge>{sizeLabels[breed.size]}</Badge>
@@ -25,11 +24,14 @@ export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
           Crianças: {breed.goodWithChildren ? 'Sim' : 'Não'}
         </Badge>
       </div>
-      <Link to={`/${routeKey}/${breed.slug}`}>
-        <Button fullWidth variant="secondary">
-          Ver cuidados
-        </Button>
-      </Link>
+      <ButtonLink
+        to={`/${routeKey}/${breed.slug}`}
+        variant="secondary"
+        fullWidth
+        className="mt-auto"
+      >
+        Ver cuidados
+      </ButtonLink>
     </Card>
   );
 }

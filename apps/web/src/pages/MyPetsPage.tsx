@@ -60,7 +60,7 @@ export function MyPetsPage() {
       <div className="mb-6 flex items-center justify-between">
         <PageHeader title="Meu Pet" subtitle="Cadastre seus pets e acompanhe informações básicas." />
         {!showForm && !editing && (
-          <Button onClick={() => setShowForm(true)}>+ Novo pet</Button>
+          <Button size="sm" onClick={() => setShowForm(true)}>+ Novo pet</Button>
         )}
       </div>
 

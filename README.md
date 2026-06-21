@@ -76,6 +76,8 @@ O comando `npm run setup` instala dependências (raiz, API e Web) e cria os arqu
 | `npm run check:api` | Valida todos os endpoints (API rodando) |
 | `npm run validate` | Alias de `check:api` |
 | `npm run check:pet-images` | Lista imagens `.webp` encontradas/faltantes |
+| `npm run check:frontend-routes` | Smoke test das rotas SPA (Web rodando) |
+| `npm run generate:pet-images` | Gera placeholders `.webp` (88 fichas) |
 | `npm run check` | Lint + build |
 | `npm run dev` | API + Web em paralelo |
 | `npm run seed` | Popula banco (mesmo que reset) |

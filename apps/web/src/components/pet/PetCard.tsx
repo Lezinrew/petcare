@@ -26,11 +26,11 @@ export function PetCard({ pet, onEdit, onDelete }: Props) {
         {pet.weightKg != null && <Badge color="bg-slate-100 text-text-secondary">{pet.weightKg} kg</Badge>}
       </div>
       {pet.notes && <p className="text-sm text-text-secondary">{pet.notes}</p>}
-      <div className="flex gap-2">
-        <Button variant="secondary" className="flex-1" onClick={() => onEdit(pet)}>
+      <div className="flex gap-2 pt-1">
+        <Button variant="secondary" size="sm" className="flex-1" onClick={() => onEdit(pet)}>
           Editar
         </Button>
-        <Button variant="ghost" className="text-health" onClick={() => pet.id && onDelete(pet.id)}>
+        <Button variant="danger-ghost" size="sm" onClick={() => pet.id && onDelete(pet.id)}>
           Excluir
         </Button>
       </div>

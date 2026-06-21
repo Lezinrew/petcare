@@ -77,7 +77,7 @@ export function RemindersPage() {
       <div className="mb-6 flex items-center justify-between">
         <PageHeader title="Lembretes" subtitle="Organize vacinas, banhos, consultas e cuidados do dia a dia." />
         {!showForm && !editing && (
-          <Button onClick={() => setShowForm(true)}>+ Novo</Button>
+          <Button size="sm" onClick={() => setShowForm(true)}>+ Novo</Button>
         )}
       </div>
 

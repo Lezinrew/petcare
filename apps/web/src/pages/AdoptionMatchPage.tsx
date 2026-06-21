@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Button } from '../components/ui/Button';
+import { ButtonLink } from '../components/ui/ButtonLink';
 import { Card } from '../components/ui/Card';
 import { Select } from '../components/ui/Select';
 import { matchAdoption } from '../services/adoption.service';
@@ -122,9 +122,14 @@ export function AdoptionMatchPage() {
                 <Card key={breed.slug}>
                   <h3 className="font-semibold">{breed.name}</h3>
                   <p className="mt-2 text-sm text-text-secondary">{breed.reason}</p>
-                  <Link to={`/dogs/${breed.slug}`} className="mt-3 inline-block text-sm text-primary hover:underline">
+                  <ButtonLink
+                    to={`/dogs/${breed.slug}`}
+                    variant="ghost-primary"
+                    size="sm"
+                    className="mt-3 -ml-2"
+                  >
                     Ver ficha →
-                  </Link>
+                  </ButtonLink>
                 </Card>
               ))}
             </div>
@@ -160,12 +165,12 @@ function Checkbox({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm">
+    <label className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-slate-200/80 px-3 py-2.5 text-sm transition-colors hover:border-primary/20 hover:bg-surface">
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="h-4 w-4 rounded"
+        className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary/30"
       />
       {label}
     </label>

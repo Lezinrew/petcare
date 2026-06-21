@@ -72,6 +72,12 @@
 
 **Motivo:** Seed MongoDB e gerador de HTML consomem os mesmos registros. Total: **88** (30 cães + 20 gatos + 10 peixes + 5 hamsters + 15 aves + 8 coelhos).
 
+## UI — botões e navegação
+
+**Decisão:** `Button` + `ButtonLink` com variantes centralizadas em `buttonStyles.ts`; `PageHeader.backTo` para voltar consistente.
+
+**Motivo:** Eliminar `<Link><button>` inválido, unificar CTAs (primary, outline, glass no hero) e melhorar acessibilidade (`focus-visible`).
+
 ## Gerador de HTML estático
 
 **Decisão:** `generate:pets-html` gera fichas para as 88 espécies em `public/generated/pets/`. `generate:dogs-html` mantido para compatibilidade (`public/generated/dogs/`).
