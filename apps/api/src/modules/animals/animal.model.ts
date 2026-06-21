@@ -51,7 +51,12 @@ const careSchema = new Schema(
 const animalSchema = new Schema(
   {
     slug: { type: String, required: true, unique: true, index: true },
-    species: { type: String, required: true, enum: ['dog'], default: 'dog' },
+    species: {
+      type: String,
+      required: true,
+      enum: ['dog', 'cat', 'fish', 'hamster', 'bird', 'rabbit'],
+      index: true,
+    },
     name: { type: String, required: true },
     origin: { type: String, required: true },
     originalFunction: { type: String, required: true },
@@ -69,6 +74,7 @@ const animalSchema = new Schema(
     apartmentFriendly: { type: Boolean, required: true },
     goodWithChildren: { type: Boolean, required: true },
     shortDescription: { type: String, required: true },
+    imageUrl: { type: String },
     care: { type: careSchema, required: true },
   },
   { timestamps: true },

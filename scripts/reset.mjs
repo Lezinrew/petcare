@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 console.log('🐾 PetCare Responsável — Reset do banco\n');
-console.log('Este comando repopula as 30 raças de cães (limpa e reinsere).\n');
+console.log('Este comando repopula os 88 animais do catálogo (limpa e reinsere).\n');
 console.log('Certifique-se de que o MongoDB está rodando:');
 console.log('  docker compose up -d\n');
 

@@ -45,10 +45,18 @@ export type CareInfo = {
   curiosities: string[];
 };
 
+export type Species =
+  | 'dog'
+  | 'cat'
+  | 'fish'
+  | 'hamster'
+  | 'bird'
+  | 'rabbit';
+
 export type AnimalBreed = {
   id?: string;
   slug: string;
-  species: 'dog';
+  species: Species;
   name: string;
   origin: string;
   originalFunction: string;
@@ -58,14 +66,18 @@ export type AnimalBreed = {
   apartmentFriendly: boolean;
   goodWithChildren: boolean;
   shortDescription: string;
+  imageUrl?: string;
   care: CareInfo;
   createdAt?: string;
   updatedAt?: string;
 };
 
-export type DogFilters = {
+export type BreedFilters = {
   search?: string;
   size?: Size;
   energyLevel?: EnergyLevel;
   apartmentFriendly?: boolean;
 };
+
+/** @deprecated use BreedFilters */
+export type DogFilters = BreedFilters;

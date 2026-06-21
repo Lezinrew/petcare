@@ -2,10 +2,9 @@ import { NavLink } from 'react-router-dom';
 
 const links = [
   { to: '/', label: 'Início', icon: '🏠' },
-  { to: '/dogs', label: 'Cães', icon: '🐕' },
+  { to: '/explore', label: 'Explorar', icon: '🔍' },
   { to: '/my-pets', label: 'Meu Pet', icon: '🐾' },
   { to: '/reminders', label: 'Lembretes', icon: '🔔' },
-  { to: '/adoption-match', label: 'Adoção', icon: '❤️' },
 ];
 
 export function BottomNav() {
@@ -16,6 +15,7 @@ export function BottomNav() {
           <NavLink
             key={link.to}
             to={link.to}
+            end={link.to === '/'}
             className={({ isActive }) =>
               `flex flex-col items-center gap-0.5 px-2 py-1 text-xs ${isActive ? 'text-primary font-semibold' : 'text-text-secondary'}`
             }

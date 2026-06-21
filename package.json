@@ -5,7 +5,9 @@
   "scripts": {
     "setup": "node scripts/setup.mjs",
     "reset": "node scripts/reset.mjs",
-    "validate": "node scripts/validate-api.mjs",
+    "validate": "node scripts/check-api.js",
+    "check:api": "node scripts/check-api.js",
+    "check:pet-images": "npm --prefix apps/web run check:pet-images",
     "check": "npm-run-all lint build",
     "dev": "npm-run-all --parallel dev:api dev:web",
     "dev:api": "npm --prefix apps/api run dev",
@@ -17,7 +19,8 @@
     "lint": "npm-run-all lint:api lint:web",
     "lint:api": "npm --prefix apps/api run lint",
     "lint:web": "npm --prefix apps/web run lint",
-    "generate:dogs-html": "npm --prefix apps/web run generate:dogs-html"
+    "generate:dogs-html": "npm --prefix apps/web run generate:dogs-html",
+    "generate:pets-html": "npm --prefix apps/web run generate:pets-html"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5"

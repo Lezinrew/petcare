@@ -21,6 +21,19 @@ Base URL: `http://localhost:3333/api`
 
 ## Animals
 
+Endpoints por espécie (mesmos query params de filtros onde aplicável):
+
+| Método | URL | Qtd esperada |
+|--------|-----|--------------|
+| GET | `/api/animals/dogs` | 30 |
+| GET | `/api/animals/cats` | 20 |
+| GET | `/api/animals/fish` | 10 |
+| GET | `/api/animals/hamsters` | 5 |
+| GET | `/api/animals/birds` | 15 |
+| GET | `/api/animals/rabbits` | 8 |
+
+**Total no seed:** 88 animais.
+
 ### GET /api/animals/dogs
 
 **Descrição:** Lista raças de cães com filtros opcionais.
@@ -41,9 +54,11 @@ Base URL: `http://localhost:3333/api`
 
 ### GET /api/animals/dogs/:slug
 
-**Descrição:** Detalhe de uma raça pelo slug.
+**Descrição:** Detalhe pelo slug (ex: `labrador-retriever`, `persa` em `/cats/persa`).
 
-**Response 200:** `AnimalBreed`
+Rotas equivalentes: `/api/animals/cats/:slug`, `/fish/:slug`, etc.
+
+**Response 200:** `AnimalBreed` (inclui `imageUrl` opcional)
 
 **Erros:**
 - 404 BREED_NOT_FOUND
@@ -52,11 +67,11 @@ Base URL: `http://localhost:3333/api`
 
 ### POST /api/animals/seed
 
-**Descrição:** Repopula raças (development only).
+**Descrição:** Repopula todas as espécies (development only).
 
 **Response 200:**
 ```json
-{ "message": "Seed concluído", "count": 30 }
+{ "message": "Seed concluído", "count": 88 }
 ```
 
 **Erros:**

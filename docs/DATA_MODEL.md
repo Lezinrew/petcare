@@ -2,7 +2,9 @@
 
 ## AnimalBreed
 
-Coleção: `animals`
+Coleção: `animals` — **88** registros no seed (6 espécies).
+
+Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`.
 
 ```json
 {
@@ -17,6 +19,7 @@ Coleção: `animals`
   "apartmentFriendly": true,
   "goodWithChildren": true,
   "shortDescription": "Amigável, inteligente e leal...",
+  "imageUrl": "/images/dogs/labrador-retriever.webp",
   "care": {
     "feeding": {
       "dailyAmount": "2% a 3% do peso corporal",

@@ -1,25 +1,36 @@
-import { useParams, Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BreedHero } from '../components/animal/BreedHero';
 import { BreedStatsBar } from '../components/animal/BreedStatsBar';
 import { CareInfoCard } from '../components/animal/CareInfoCard';
+import { Button } from '../components/ui/Button';
 import { ErrorState } from '../components/ui/ErrorState';
 import { LoadingState } from '../components/ui/LoadingState';
-import { Button } from '../components/ui/Button';
+import { getCategoryByRoute, SpeciesRouteKey } from '../config/species';
 import { useAsync } from '../hooks/useAsync';
-import { fetchDogBySlug } from '../services/animals.service';
+import { fetchBreedBySlug } from '../services/animals.service';
 
-export function DogDetailPage() {
-  const { slug } = useParams<{ slug: string }>();
+export function BreedDetailPage() {
+  const { speciesKey, slug } = useParams<{ speciesKey: SpeciesRouteKey; slug: string }>();
+  const category = speciesKey ? getCategoryByRoute(speciesKey) : undefined;
+
   const { data: breed, loading, error, refetch } = useAsync(
-    () => fetchDogBySlug(slug!),
-    [slug],
+    () => fetchBreedBySlug(speciesKey!, slug!),
+    [speciesKey, slug],
   );
+
+  if (!category) {
+    return (
+      <div className="page-container">
+        <ErrorState message="Categoria não encontrada" />
+      </div>
+    );
+  }
 
   if (loading) return <div className="page-container"><LoadingState /></div>;
   if (error || !breed) {
     return (
       <div className="page-container">
-        <ErrorState message={error ?? 'Raça não encontrada'} onRetry={refetch} />
+        <ErrorState message={error ?? 'Ficha não encontrada'} onRetry={refetch} />
       </div>
     );
   }
@@ -29,11 +40,11 @@ export function DogDetailPage() {
   return (
     <div className="page-container space-y-6">
       <div className="flex flex-wrap items-center gap-2">
-        <Link to="/dogs">
+        <Link to={`/${speciesKey}`}>
           <Button variant="ghost" className="mb-0">← Voltar</Button>
         </Link>
         <a
-          href={`/generated/dogs/${breed.slug}.html`}
+          href={`/generated/pets/${speciesKey}/${breed.slug}.html`}
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:border-primary/30 hover:text-primary"
@@ -55,14 +66,14 @@ export function DogDetailPage() {
 
         <CareInfoCard title="Hidratação" icon="💧" color="text-hydration" borderColor="border-hydration">
           <p><strong>Água:</strong> {care.hydration.waterAmount}</p>
-          <p><strong>Desidratação:</strong></p>
+          <p><strong>Sinais de alerta:</strong></p>
           <ul className="list-inside list-disc">
             {care.hydration.dehydrationSigns.map((s) => <li key={s}>{s}</li>)}
           </ul>
         </CareInfoCard>
 
         <CareInfoCard title="Exercícios" icon="🏃" color="text-exercise" borderColor="border-exercise">
-          <p><strong>Passeio:</strong> {care.exercise.dailyWalkTime}</p>
+          <p><strong>Atividade:</strong> {care.exercise.dailyWalkTime}</p>
           <p><strong>Energia:</strong> {care.exercise.energyLevel}</p>
           <p><strong>Atividades:</strong></p>
           <ul className="list-inside list-disc">
@@ -78,13 +89,13 @@ export function DogDetailPage() {
           disclaimer="Informação educativa. Não substitui orientação veterinária."
         >
           <p><strong>Peso ideal:</strong> {care.health.idealWeight}</p>
-          <p><strong>Vacinas:</strong> {care.health.vaccines.join(', ')}</p>
+          <p><strong>Vacinas / prevenção:</strong> {care.health.vaccines.join(', ')}</p>
           <p><strong>Doenças comuns:</strong> {care.health.commonDiseases.join(', ')}</p>
         </CareInfoCard>
 
         <CareInfoCard title="Higiene" icon="🛁" color="text-hygiene" borderColor="border-hygiene">
-          <p><strong>Banho:</strong> {care.hygiene.bathFrequency}</p>
-          <p><strong>Pelagem:</strong> {care.hygiene.coatCare}</p>
+          <p><strong>Banho / limpeza:</strong> {care.hygiene.bathFrequency}</p>
+          <p><strong>Pelagem / ambiente:</strong> {care.hygiene.coatCare}</p>
         </CareInfoCard>
 
         <CareInfoCard title="Comportamento" icon="🎾" color="text-behavior" borderColor="border-behavior">
@@ -98,7 +109,7 @@ export function DogDetailPage() {
           <p><strong>Espaço:</strong> {care.environment.recommendedSpace}</p>
           <p><strong>Apartamento:</strong> {care.environment.canLiveInApartment}</p>
           <p><strong>Clima:</strong> {care.environment.climateSensitivity}</p>
-          <p><strong>Quintal:</strong> {care.environment.backyardNeed}</p>
+          <p><strong>Quintal / externo:</strong> {care.environment.backyardNeed}</p>
         </CareInfoCard>
 
         <CareInfoCard title="Reprodução e crescimento" icon="📏" color="text-primary" borderColor="border-primary">

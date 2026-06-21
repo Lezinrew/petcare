@@ -1,11 +1,11 @@
 import { AnimalModel } from './animal.model';
-import { AnimalBreed, DogFilters } from './animal.types';
+import { AnimalBreed, BreedFilters, Species } from './animal.types';
 
 function toAnimalBreed(doc: Record<string, unknown>): AnimalBreed {
   return {
     id: String(doc._id),
     slug: doc.slug as string,
-    species: doc.species as 'dog',
+    species: doc.species as AnimalBreed['species'],
     name: doc.name as string,
     origin: doc.origin as string,
     originalFunction: doc.originalFunction as string,
@@ -15,6 +15,7 @@ function toAnimalBreed(doc: Record<string, unknown>): AnimalBreed {
     apartmentFriendly: doc.apartmentFriendly as boolean,
     goodWithChildren: doc.goodWithChildren as boolean,
     shortDescription: doc.shortDescription as string,
+    imageUrl: doc.imageUrl as string | undefined,
     care: doc.care as AnimalBreed['care'],
     createdAt: (doc.createdAt as Date)?.toISOString(),
     updatedAt: (doc.updatedAt as Date)?.toISOString(),
@@ -22,8 +23,8 @@ function toAnimalBreed(doc: Record<string, unknown>): AnimalBreed {
 }
 
 export class AnimalRepository {
-  async findDogs(filters: DogFilters): Promise<AnimalBreed[]> {
-    const query: Record<string, unknown> = { species: 'dog' };
+  async findBySpecies(species: Species, filters: BreedFilters = {}): Promise<AnimalBreed[]> {
+    const query: Record<string, unknown> = { species };
 
     if (filters.search) {
       query.name = { $regex: filters.search, $options: 'i' };
@@ -42,8 +43,12 @@ export class AnimalRepository {
     return docs.map((d) => toAnimalBreed(d as Record<string, unknown>));
   }
 
-  async findBySlug(slug: string): Promise<AnimalBreed | null> {
-    const doc = await AnimalModel.findOne({ slug, species: 'dog' }).lean();
+  async findDogs(filters: BreedFilters): Promise<AnimalBreed[]> {
+    return this.findBySpecies('dog', filters);
+  }
+
+  async findBySlug(slug: string, species: Species): Promise<AnimalBreed | null> {
+    const doc = await AnimalModel.findOne({ slug, species }).lean();
     if (!doc) return null;
     return toAnimalBreed(doc as Record<string, unknown>);
   }
@@ -58,8 +63,8 @@ export class AnimalRepository {
     return result.length;
   }
 
-  async count(): Promise<number> {
-    return AnimalModel.countDocuments({ species: 'dog' });
+  async count(species?: Species): Promise<number> {
+    return AnimalModel.countDocuments(species ? { species } : {});
   }
 }
 

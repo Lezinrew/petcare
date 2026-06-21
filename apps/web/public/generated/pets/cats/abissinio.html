@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abissínio | PetCare Responsável</title>
+  <meta name="description" content="Guia educativo de cuidados para Abissínio." />
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #F8FAFC;
+    color: #0F172A;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+  .site-header {
+    background: #0B3A6E;
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+  }
+  .site-header h1 { font-size: 1.25rem; font-weight: 700; }
+  .site-header p { font-size: 0.875rem; color: #EAF4FF; margin-top: 0.25rem; }
+  .hero {
+    background: linear-gradient(135deg, #0B3A6E 0%, #1565a8 100%);
+    color: #fff;
+    border-radius: 1rem;
+    padding: 1.75rem;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-emoji { position: absolute; right: 1rem; top: 0.5rem; font-size: 4rem; opacity: 0.15; }
+  .hero h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .hero p { color: #EAF4FF; max-width: 36rem; }
+  .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .badge {
+    background: rgba(255,255,255,0.2);
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    background: #EAF4FF;
+    border-radius: 0.75rem;
+    padding: 0.875rem;
+    text-align: center;
+  }
+  .stat-label { font-size: 0.75rem; color: #475569; font-weight: 500; }
+  .stat-value { font-size: 0.875rem; font-weight: 600; color: #0B3A6E; margin-top: 0.25rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  .card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-left: 4px solid;
+  }
+  .card-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .card-icon { font-size: 1.25rem; }
+  .card-body p { font-size: 0.9375rem; color: #475569; margin-bottom: 0.5rem; }
+  .card-body ul { font-size: 0.9375rem; color: #475569; padding-left: 1.25rem; margin-top: 0.25rem; }
+  .card-body li { margin-bottom: 0.25rem; }
+  .disclaimer {
+    margin-top: 0.75rem;
+    padding: 0.625rem;
+    background: #FEF2F2;
+    color: #DC2626;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  .site-footer {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: #475569;
+    border-top: 1px solid #E2E8F0;
+  }
+  .site-footer strong { color: #0B3A6E; }
+  .index-list { list-style: none; padding: 0; }
+  .index-list li {
+    background: #fff;
+    border-radius: 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .index-list a {
+    display: block;
+    padding: 1rem 1.25rem;
+    color: #0B3A6E;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .index-list a:hover { background: #EAF4FF; border-radius: 0.75rem; }
+  .index-meta { font-size: 0.8125rem; color: #475569; font-weight: 400; }
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>🐾 PetCare Responsável</h1>
+    <p>Conheça melhor. Cuide melhor. Abandone menos.</p>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-emoji">🐕</span>
+      <h2>Abissínio</h2>
+      <p>Abissínio — guia educativo de cuidados essenciais para tutores responsáveis.</p>
+      <div class="badges">
+        <span class="badge">Porte: Médio</span>
+        <span class="badge">Energia: Moderado</span>
+        <span class="badge">Apartamento: Sim</span>
+        <span class="badge">Crianças: Sim</span>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Origem</div><div class="stat-value">Variada</div></div>
+      <div class="stat"><div class="stat-label">Função original</div><div class="stat-value">Companhia</div></div>
+      <div class="stat"><div class="stat-label">Expectativa de vida</div><div class="stat-value">12 a 16 anos</div></div>
+    </div>
+
+    <div class="grid">
+    <section class="card" style="border-left-color: #15803D">
+      <h2 class="card-title" style="color: #15803D"><span class="card-icon">🍖</span> Alimentação</h2>
+      <div class="card-body">
+      <p><strong>Quantidade:</strong> 2% a 3% do peso corporal em ração para gatos</p>
+      <p><strong>Refeições:</strong> 2 a 3 refeições</p>
+      <p><strong>Proibidos:</strong> cebola, alho, chocolate, uvas, passas, leite de vaca</p>
+      <p><strong>Necessidades:</strong> Ração completa para gatos, rica em proteína animal</p></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #0284C7">
+      <h2 class="card-title" style="color: #0284C7"><span class="card-icon">💧</span> Hidratação</h2>
+      <div class="card-body">
+      <p><strong>Água:</strong> Água limpa sempre disponível</p>
+      <p><strong>Sinais de desidratação:</strong></p>
+      <ul><li>apatia</li><li>perda de apetite</li><li>mudança de comportamento</li></ul></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #EA580C">
+      <h2 class="card-title" style="color: #EA580C"><span class="card-icon">🏃</span> Exercícios</h2>
+      <div class="card-body">
+      <p><strong>Passeio:</strong> 15 a 30 minutos de brincadeira ativa</p>
+      <p><strong>Energia:</strong> moderado</p>
+      <p><strong>Atividades:</strong></p>
+      <ul><li>arranhador</li><li>brinquedos interativos</li><li>caixa de papelão</li></ul></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #DC2626">
+      <h2 class="card-title" style="color: #DC2626"><span class="card-icon">❤️</span> Saúde</h2>
+      <div class="card-body">
+      <p><strong>Peso ideal:</strong> Consulte veterinário</p>
+      <p><strong>Vacinas:</strong> Conforme orientação veterinária</p>
+      <p><strong>Doenças comuns:</strong> Consulte veterinário para predisposições</p></div>
+      <p class="disclaimer">Informação educativa. Não substitui orientação veterinária.</p>
+    </section>
+
+    <section class="card" style="border-left-color: #7C3AED">
+      <h2 class="card-title" style="color: #7C3AED"><span class="card-icon">🛁</span> Higiene</h2>
+      <div class="card-body">
+      <p><strong>Banho:</strong> Gatos se limpam — banho raramente necessário</p>
+      <p><strong>Pelagem:</strong> Escovação regular, especialmente em pelos longos</p></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #D97706">
+      <h2 class="card-title" style="color: #D97706"><span class="card-icon">🎾</span> Comportamento</h2>
+      <div class="card-body">
+      <p><strong>Temperamento:</strong> Varia conforme linhagem e socialização</p>
+      <p><strong>Treinamento:</strong> Depende da espécie e do tutor</p>
+      <p><strong>Sociabilidade:</strong> Introdução gradual recomendada</p>
+      <p><strong>Outros animais:</strong> Compatibilidade varia — pesquise antes</p></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #166534">
+      <h2 class="card-title" style="color: #166534"><span class="card-icon">🏡</span> Ambiente</h2>
+      <div class="card-body">
+      <p><strong>Espaço:</strong> vertical (prateleiras) + horizontal</p>
+      <p><strong>Apartamento:</strong> sim, com enriquecimento ambiental</p>
+      <p><strong>Clima:</strong> Evitar correntes de ar e calor excessivo</p>
+      <p><strong>Quintal:</strong> não necessário</p></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #0B3A6E">
+      <h2 class="card-title" style="color: #0B3A6E"><span class="card-icon">📏</span> Reprodução e crescimento</h2>
+      <div class="card-body">
+      <p><strong>Tamanho adulto:</strong> Varia conforme sexo e linhagem</p>
+      <p><strong>Fase adulta:</strong> Conforme espécie</p></div>
+      
+    </section>
+
+    <section class="card" style="border-left-color: #9333EA">
+      <h2 class="card-title" style="color: #9333EA"><span class="card-icon">✨</span> Curiosidades</h2>
+      <div class="card-body"><ul><li>Abissínio é uma opção popular entre tutores responsáveis</li></ul></div>
+      
+    </section></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Este conteúdo é educativo e não substitui orientação veterinária.</p>
+    <p><strong>PetCare Responsável</strong></p>
+  </footer>
+</body>
+</html>

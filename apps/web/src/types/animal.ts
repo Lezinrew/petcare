@@ -1,5 +1,6 @@
 export type Size = 'pequeno' | 'médio' | 'grande' | 'gigante';
 export type EnergyLevel = 'baixo' | 'moderado' | 'alto' | 'muito alto';
+export type Species = 'dog' | 'cat' | 'fish' | 'hamster' | 'bird' | 'rabbit';
 
 export type CareInfo = {
   feeding: {
@@ -48,7 +49,7 @@ export type CareInfo = {
 export type AnimalBreed = {
   id?: string;
   slug: string;
-  species: 'dog';
+  species: Species;
   name: string;
   origin: string;
   originalFunction: string;
@@ -58,6 +59,7 @@ export type AnimalBreed = {
   apartmentFriendly: boolean;
   goodWithChildren: boolean;
   shortDescription: string;
+  imageUrl?: string;
   care: CareInfo;
 };
 

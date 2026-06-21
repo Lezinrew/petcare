@@ -64,6 +64,17 @@ try {
 }
 
 try {
+  const cats = await request('GET', '/animals/cats');
+  if (cats.response.ok && Array.isArray(cats.data) && cats.data.length === 20) {
+    ok('GET /animals/cats (20 raças)');
+  } else {
+    fail('GET /animals/cats', `esperado 20, recebido ${cats.data?.length ?? '?'}`);
+  }
+} catch (err) {
+  fail('GET /animals/cats', err.message);
+}
+
+try {
   const lab = await request('GET', '/animals/dogs/labrador-retriever');
   if (lab.response.ok && lab.data?.slug === 'labrador-retriever' && lab.data?.care?.feeding) {
     ok('GET /animals/dogs/labrador-retriever');

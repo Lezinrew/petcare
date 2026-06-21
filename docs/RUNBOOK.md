@@ -72,7 +72,7 @@ Instala dependências da raiz, `apps/api` e `apps/web`, e cria `.env` a partir d
 npm run reset
 ```
 
-Esperado: `30 raças inseridas`. Também disponível: `npm run seed` (mesmo efeito, saída mais técnica).
+Esperado: `88 animais inseridos` (30 cães, 20 gatos, 10 peixes, 5 hamsters, 15 aves, 8 coelhos). Também disponível: `npm run seed` (mesmo efeito, saída mais técnica).
 
 ## Rodar API e Web juntos
 
@@ -102,15 +102,33 @@ curl http://localhost:3333/api/health
 npm run reset
 ```
 
-Ou diretamente: `npm run seed`. Ambos limpam a coleção `animals` e reinserem 30 raças.
+Ou diretamente: `npm run seed`. Ambos limpam a coleção `animals` e reinserem **88** animais.
 
 ## Validar API
 
 Com a API rodando (`npm run dev:api` ou `npm run dev`):
 
 ```bash
-npm run validate
+npm run check:api
 ```
+
+Valida health, 6 espécies (contagens 30/20/10/5/15/8), total 88, detalhes labrador e persa.
+
+## Imagens
+
+Coloque `.webp` em `apps/web/public/images/{dogs,cats,fish,hamsters,birds,rabbits}/`.
+
+```bash
+npm run check:pet-images
+```
+
+## HTML estático (todas espécies)
+
+```bash
+npm run generate:pets-html
+```
+
+Saída: `apps/web/public/generated/pets/`. Legado cães: `npm run generate:dogs-html`.
 
 ## Demo rápida
 
@@ -174,17 +192,23 @@ Verifique `CORS_ORIGIN` em `apps/api/.env` — deve ser `http://localhost:5173`.
 
 Ou incremente `CACHE_VERSION` em `apps/web/public/service-worker.js`.
 
-## Gerar HTML das raças
+## Gerar HTML das fichas
+
+```powershell
+npm run generate:pets-html
+```
+
+Gera 88+ arquivos em `apps/web/public/generated/pets/` + índices por espécie.
+
+Legado (só cães):
 
 ```powershell
 npm run generate:dogs-html
 ```
 
-Gera 30 arquivos em `apps/web/public/generated/dogs/` + `index.html`.
-
 Abrir com o app rodando:
 
-- http://localhost:5173/generated/dogs/index.html
-- http://localhost:5173/generated/dogs/labrador-retriever.html
+- http://localhost:5173/generated/pets/index.html
+- http://localhost:5173/generated/pets/cats/persa.html
 
-Regenerar após alterar dados em `apps/api/src/data/dogBreeds.ts`.
+Regenerar após alterar dados em `apps/api/src/data/`.

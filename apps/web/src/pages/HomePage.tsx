@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { TOTAL_BREEDS } from '../config/species';
 
 const navCards = [
-  { to: '/dogs', title: 'Cães', desc: 'Conheça 30 raças e seus cuidados', icon: '🐕', color: 'from-primary to-blue-700' },
+  { to: '/explore', title: 'Explorar Pets', desc: `${TOTAL_BREEDS} raças e espécies catalogadas`, icon: '🔍', color: 'from-primary to-blue-700' },
   { to: '/my-pets', title: 'Meu Pet', desc: 'Cadastre e organize seus pets', icon: '🐾', color: 'from-feeding to-green-700' },
   { to: '/reminders', title: 'Lembretes', desc: 'Vacinas, banho, consultas e mais', icon: '🔔', color: 'from-behavior to-yellow-700' },
   { to: '/adoption-match', title: 'Adoção responsável', desc: 'Descubra qual raça combina com você', icon: '❤️', color: 'from-health to-red-700' },
 ];
 
 const stats = [
-  { value: '30', label: 'Raças catalogadas' },
-  { value: '4', label: 'Ferramentas práticas' },
+  { value: String(TOTAL_BREEDS), label: 'Raças catalogadas' },
+  { value: '6', label: 'Tipos de pets' },
   { value: 'PWA', label: 'Instalável no celular' },
 ];
 
@@ -29,9 +30,9 @@ export function HomePage() {
             e tomarem decisões mais conscientes sobre adoção.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/dogs">
+            <Link to="/explore">
               <Button className="bg-white text-primary hover:bg-primary-light">
-                Explorar raças
+                Explorar pets
               </Button>
             </Link>
             <Link to="/adoption-match">

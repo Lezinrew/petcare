@@ -1,11 +1,11 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { allAnimalBreeds } from '../data/allBreeds';
 import { AnimalModel } from '../modules/animals/animal.model';
-import { allDogBreeds } from '../data/dogBreeds';
 
 dotenv.config();
 
-export async function runDogSeed(): Promise<number> {
+export async function runAnimalSeed(): Promise<number> {
   const uri = process.env.MONGODB_URI ?? 'mongodb://localhost:27017/petcare';
 
   if (mongoose.connection.readyState === 0) {
@@ -13,16 +13,19 @@ export async function runDogSeed(): Promise<number> {
   }
 
   await AnimalModel.deleteMany({});
-  const result = await AnimalModel.insertMany(allDogBreeds);
+  const result = await AnimalModel.insertMany(allAnimalBreeds);
 
-  console.log(`[seed] ${result.length} raças inseridas`);
+  console.log(`[seed] ${result.length} animais inseridos (88 raças/espécies no total)`);
   return result.length;
 }
 
+/** @deprecated use runAnimalSeed */
+export const runDogSeed = runAnimalSeed;
+
 if (require.main === module) {
-  runDogSeed()
+  runAnimalSeed()
     .then((count) => {
-      console.log(`[seed] Concluído: ${count} raças`);
+      console.log(`[seed] Concluído: ${count} animais`);
       return mongoose.disconnect();
     })
     .then(() => process.exit(0))

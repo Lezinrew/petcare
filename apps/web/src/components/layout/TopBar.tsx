@@ -13,6 +13,7 @@ export function TopBar() {
         </Link>
         <nav className="hidden gap-4 md:flex">
           <NavLink to="/">Início</NavLink>
+          <NavLink to="/explore">Explorar</NavLink>
           <NavLink to="/dogs">Cães</NavLink>
           <NavLink to="/my-pets">Meu Pet</NavLink>
           <NavLink to="/reminders">Lembretes</NavLink>

@@ -68,12 +68,12 @@
 
 ## Dados compartilhados das raças
 
-**Decisão:** Fonte única em `apps/api/src/data/dogBreeds.ts`.
+**Decisão:** Fonte única em `apps/api/src/data/` — `dogBreeds.ts` (30, dados ricos) + arquivos por espécie via `breedFactory.ts` + agregador `allBreeds.ts`.
 
-**Motivo:** Seed MongoDB e gerador de HTML consomem os mesmos 30 registros sem duplicação. O antigo `dogBreeds.seed.ts` reexporta por compatibilidade.
+**Motivo:** Seed MongoDB e gerador de HTML consomem os mesmos registros. Total: **88** (30 cães + 20 gatos + 10 peixes + 5 hamsters + 15 aves + 8 coelhos).
 
 ## Gerador de HTML estático
 
-**Decisão:** Script em `apps/web/scripts/generate-dog-html.ts` importando dados da API via caminho relativo.
+**Decisão:** `generate:pets-html` gera fichas para as 88 espécies em `public/generated/pets/`. `generate:dogs-html` mantido para compatibilidade (`public/generated/dogs/`).
 
-**Motivo:** Saída fica em `public/generated/dogs/` (servida pelo Vite). Template com CSS inline em `scripts/templates/dog-page-template.ts` — HTML offline, sem Tailwind CDN. Alternativa `packages/shared-data` descartada no MVP para evitar novo pacote no monorepo.
+**Motivo:** Saída servida pelo Vite; template com CSS inline — HTML offline. Dados importados de `apps/api/src/data/allBreeds.ts`.

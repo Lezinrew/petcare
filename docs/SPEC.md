@@ -30,7 +30,41 @@ N/A (página informativa)
 
 ---
 
-## Catálogo de cães
+## Explorar Pets
+
+### Objetivo
+Hub com 6 categorias e atalho para cada catálogo.
+
+### Rota
+`/explore`
+
+### Critérios de aceite
+- [ ] 6 cards (cães, gatos, peixes, hamsters, aves, coelhos)
+- [ ] Total 88 fichas indicado
+- [ ] Cada card navega para `/{speciesKey}`
+
+---
+
+## Catálogo por espécie
+
+### Objetivo
+Listar raças/variedades com busca e filtros (cães, gatos, etc.).
+
+### Rotas
+`/dogs`, `/cats`, `/fish`, `/hamsters`, `/birds`, `/rabbits`
+
+### Regras
+- Contagens: cães 30, gatos 20, peixes 10, hamsters 5, aves 15, coelhos 8
+- Botão "Ver catálogo HTML" → `/generated/pets/{speciesKey}/index.html`
+- `imageUrl` opcional com fallback emoji
+
+### Critérios de aceite
+- [ ] Contagem correta por espécie após seed
+- [ ] Slugs sem acento (ex: `persa`, `sirio`, `holland-lop`)
+
+---
+
+## Catálogo de cães (legado na SPEC)
 
 ### Objetivo
 Listar 30 raças com busca e filtros.
@@ -47,7 +81,7 @@ Listar 30 raças com busca e filtros.
 - Grid responsivo de cards
 - Cada card: nome, porte, energia, apartamento, crianças, botão "Ver cuidados"
 - Filtros disparam nova busca na API
-- Botão "Ver catálogo HTML" abre `/generated/dogs/index.html` em nova aba
+- Botão "Ver catálogo HTML" abre `/generated/pets/dogs/index.html` em nova aba
 
 ### Estados de tela
 - Loading: spinner/skeleton
