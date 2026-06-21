@@ -1,0 +1,18 @@
+{
+  "name": "PetCare Responsável",
+  "short_name": "PetCare",
+  "description": "Conheça melhor. Cuide melhor. Abandone menos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0B3A6E",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

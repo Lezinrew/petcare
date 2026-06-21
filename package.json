@@ -1,0 +1,25 @@
+{
+  "name": "petcare-responsavel",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "reset": "node scripts/reset.mjs",
+    "validate": "node scripts/validate-api.mjs",
+    "check": "npm-run-all lint build",
+    "dev": "npm-run-all --parallel dev:api dev:web",
+    "dev:api": "npm --prefix apps/api run dev",
+    "dev:web": "npm --prefix apps/web run dev",
+    "seed": "npm --prefix apps/api run seed",
+    "build": "npm-run-all build:api build:web",
+    "build:api": "npm --prefix apps/api run build",
+    "build:web": "npm --prefix apps/web run build",
+    "lint": "npm-run-all lint:api lint:web",
+    "lint:api": "npm --prefix apps/api run lint",
+    "lint:web": "npm --prefix apps/web run lint",
+    "generate:dogs-html": "npm --prefix apps/web run generate:dogs-html"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

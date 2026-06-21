@@ -1,0 +1,59 @@
+---
+description: Regras do projeto PetCare Responsável
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.md"
+alwaysApply: true
+---
+
+# PetCare Responsável — Regras do Projeto
+
+Este projeto é um MVP educativo para cuidado responsável de pets.
+
+Stack:
+- Node.js
+- Express
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- MongoDB
+- Docker Compose
+- PWA básico
+
+Princípios:
+- Mobile-first
+- Simples antes de complexo
+- Código legível antes de abstração excessiva
+- Componentes pequenos
+- Backend separado por módulos
+- Não usar Next.js
+- Não usar banco relacional
+- Não criar autenticação real no MVP
+- Não usar dependências pesadas sem justificativa
+- Não chamar APIs externas obrigatórias
+
+Backend:
+- Controller recebe request/response.
+- Service contém regra de negócio.
+- Repository acessa MongoDB.
+- Model define schema.
+- Middleware trata erros.
+- Não expor stack trace em produção.
+
+Frontend:
+- Pages montam telas.
+- Components renderizam UI.
+- Services chamam API.
+- Hooks controlam estado reutilizável.
+- Types centralizam interfaces.
+- Tailwind mobile-first.
+
+Produto:
+- O app é educativo e não substitui veterinário.
+- Toda seção de saúde deve conter aviso discreto.
+- Linguagem clara para tutores iniciantes.
+- Visual amigável, limpo e acolhedor.
+
+Sempre atualizar documentação quando mudar arquitetura, API, modelo de dados ou fluxo importante.
