@@ -10,7 +10,8 @@
     "lint": "eslint src --ext .ts,.tsx",
     "generate:dogs-html": "tsx scripts/generate-dog-html.ts",
     "generate:pets-html": "tsx scripts/generate-pets-html.ts",
-    "check:pet-images": "tsx scripts/check-pet-images.ts"
+    "check:pet-images": "tsx scripts/check-pet-images.ts",
+    "generate:pet-images": "tsx scripts/generate-placeholder-images.ts"
   },
   "dependencies": {
     "react": "^18.3.1",
