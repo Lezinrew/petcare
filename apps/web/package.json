@@ -11,7 +11,8 @@
     "generate:dogs-html": "tsx scripts/generate-dog-html.ts",
     "generate:pets-html": "tsx scripts/generate-pets-html.ts",
     "check:pet-images": "tsx scripts/check-pet-images.ts",
-    "generate:pet-images": "tsx scripts/generate-placeholder-images.ts"
+    "generate:pet-images": "tsx scripts/generate-placeholder-images.ts",
+    "download:pet-images": "tsx scripts/download-pet-images.ts"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -29,6 +30,7 @@
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "postcss": "^8.4.49",
+    "sharp": "^0.35.2",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",

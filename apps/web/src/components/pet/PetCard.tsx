@@ -22,8 +22,8 @@ export function PetCard({ pet, onEdit, onDelete }: Props) {
       </div>
       <div className="flex flex-wrap gap-2">
         {pet.breedSlug && <Badge>{pet.breedSlug.replace(/-/g, ' ')}</Badge>}
-        {pet.ageMonths != null && <Badge color="bg-slate-100 text-text-secondary">{pet.ageMonths} meses</Badge>}
-        {pet.weightKg != null && <Badge color="bg-slate-100 text-text-secondary">{pet.weightKg} kg</Badge>}
+        {pet.ageMonths != null && <Badge color="bg-muted text-text-secondary">{pet.ageMonths} meses</Badge>}
+        {pet.weightKg != null && <Badge color="bg-muted text-text-secondary">{pet.weightKg} kg</Badge>}
       </div>
       {pet.notes && <p className="text-sm text-text-secondary">{pet.notes}</p>}
       <div className="flex gap-2 pt-1">

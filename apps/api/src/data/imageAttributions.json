@@ -1,0 +1,455 @@
+{
+  "labrador-retriever": {
+    "credit": "Desaix83, d'après le travail de Chrizwheatley",
+    "source": "Wikimedia Commons",
+    "license": "Public domain",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Retriever_Du_Labrador.jpg"
+  },
+  "shih-tzu": {
+    "credit": "danny O.",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Shih_Tzu_portrait_show_dog.jpg"
+  },
+  "border-collie": {
+    "credit": "Wikimedia Commons",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Border_Collie_600.jpg"
+  },
+  "pit-bull": {
+    "credit": "https://www.flickr.com/people/geoggirl/",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:000_American_Pit_Bull_Terrier.jpg"
+  },
+  "bichon-frise": {
+    "credit": "Wikimedia Commons",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Bichon_Frise_600.jpg"
+  },
+  "ring-neck": {
+    "credit": "Unknown authorUnknown author",
+    "source": "Wikimedia Commons",
+    "license": "Public domain",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Phasianus_colchicus_1905.jpg"
+  },
+  "loris": {
+    "credit": "Paginazero",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 2.5",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Lorius_lory.JPG"
+  },
+  "arara": {
+    "credit": "Luc Viatour",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Ara_ararauna_Luc_Viatour.jpg"
+  },
+  "diamante-de-gould": {
+    "credit": "Kym Nicolson",
+    "source": "Wikimedia Commons",
+    "license": "CC BY 4.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Chloebia_gouldiae%2C_Elsey%2C_Northern_Territory%2C_Australia_1.jpg"
+  },
+  "golden-retriever": {
+    "credit": "Wikipedia — Golden Retriever",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "pastor-alemao": {
+    "credit": "Wikipedia — German Shepherd",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "pug": {
+    "credit": "Wikipedia — Pug",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "beagle": {
+    "credit": "Wikipedia — Beagle",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "boston-terrier": {
+    "credit": "Wikipedia — Boston Terrier",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "boxer": {
+    "credit": "Wikipedia — Boxer (dog breed)",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "bulldog": {
+    "credit": "Wikipedia — Bulldog",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "bulldog-ingles": {
+    "credit": "Wikipedia — Bulldog",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "bully": {
+    "credit": "Wikipedia — American Bully",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "cane-corso": {
+    "credit": "Wikipedia — Cane Corso",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chihuahua": {
+    "credit": "Wikipedia — Chihuahua (dog breed)",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "cocker-spaniel": {
+    "credit": "Wikipedia — Cocker Spaniel",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "dachshund": {
+    "credit": "Wikipedia — Dachshund",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "doberman": {
+    "credit": "Wikipedia — Dobermann",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "husky-siberiano": {
+    "credit": "Wikipedia — Siberian Husky",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "lhasa-apso": {
+    "credit": "Wikipedia — Lhasa Apso",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "maltes": {
+    "credit": "Wikipedia — Maltese dog",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "pinscher": {
+    "credit": "Wikipedia — Miniature Pinscher",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "poodle": {
+    "credit": "Wikipedia — Poodle",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "rottweiler": {
+    "credit": "Wikipedia — Rottweiler",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "schnauzer": {
+    "credit": "Wikipedia — Schnauzer",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "spitz-alemao": {
+    "credit": "Wikipedia — German Spitz",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "vira-lata": {
+    "credit": "Wikipedia — Mongrel",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "west-highland-white-terrier": {
+    "credit": "Wikipedia — West Highland White Terrier",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "yorkshire": {
+    "credit": "Wikipedia — Yorkshire Terrier",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "persa": {
+    "credit": "Wikipedia — Persian cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "maine-coon": {
+    "credit": "Wikipedia — Maine Coon",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "siames": {
+    "credit": "Wikipedia — Siamese cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "ragdoll": {
+    "credit": "Wikipedia — Ragdoll",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "sphynx": {
+    "credit": "Wikipedia — Sphynx cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "bengala": {
+    "credit": "Wikipedia — Bengal cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "vira-lata-gato": {
+    "credit": "Wikipedia — Cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "angora": {
+    "credit": "Wikipedia — Turkish Angora",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "siberiano": {
+    "credit": "Wikipedia — Siberian cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "azul-russo": {
+    "credit": "Wikipedia — Russian Blue",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "persa-exotico": {
+    "credit": "Wikipedia — Exotic Shorthair",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "british-shorthair": {
+    "credit": "Wikipedia — British Shorthair",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "burmes": {
+    "credit": "Wikipedia — Burmese cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "abissinio": {
+    "credit": "Wikipedia — Abyssinian cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "munchkin": {
+    "credit": "Wikipedia — Munchkin cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "scottish-fold": {
+    "credit": "Wikipedia — Scottish Fold",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "noruegues-da-floresta": {
+    "credit": "Wikipedia — Norwegian Forest Cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "savannah": {
+    "credit": "Wikipedia — Savannah cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "himalaio": {
+    "credit": "Wikipedia — Himalayan cat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chartreux": {
+    "credit": "Wikipedia — Chartreux",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "betta": {
+    "credit": "Wikipedia — Siamese fighting fish",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "cascudo": {
+    "credit": "Wikipedia — Hypostomus plecostomus",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "guppy": {
+    "credit": "Wikipedia — Guppy",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "corydora": {
+    "credit": "Wikipedia — Corydoras",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "peixe-palhaco": {
+    "credit": "Wikipedia — Clownfish",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "oscar": {
+    "credit": "Wikipedia — Oscar (fish)",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "colisa": {
+    "credit": "Wikipedia — Dwarf gourami",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "ramirezi": {
+    "credit": "Wikipedia — Ram cichlid",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "lagosta": {
+    "credit": "Wikipedia — Spiny lobster",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "camarao": {
+    "credit": "Wikipedia — Caridina multidentata",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chines": {
+    "credit": "Wikipedia — Chinese hamster",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "roborovski": {
+    "credit": "Bullet",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Phodopus_roborovskii_side.jpg"
+  },
+  "sirio": {
+    "credit": "Wikipedia — Golden hamster",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "anao-russo": {
+    "credit": "Wikipedia — Winter white dwarf hamster",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "campbells": {
+    "credit": "Wikipedia — Campbell's dwarf hamster",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "calopsita": {
+    "credit": "Wikipedia — Cockatiel",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "periquito-australiano": {
+    "credit": "Wikipedia — Budgerigar",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "agapornis": {
+    "credit": "Wikipedia — Lovebird",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "papagaio": {
+    "credit": "Wikipedia — Parrot",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "canario-belga": {
+    "credit": "Wikipedia — Domestic canary",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "diamante-mandarim": {
+    "credit": "Wikipedia — Mandarin duck",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "marreco": {
+    "credit": "Wikipedia — Duck",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "coleiro": {
+    "credit": "Didier Descouens",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Carduelis_spinus_MHNT.ZOO.2010.11_Anvers.jpg"
+  },
+  "trinca-ferro": {
+    "credit": "Wikipedia — Green-winged saltator",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "codorna-chinesa": {
+    "credit": "Wikipedia — Japanese quail",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "ganso": {
+    "credit": "Wikipedia — Goose",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "mini-lion-head": {
+    "credit": "Wikipedia — Lionhead rabbit",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chinchila": {
+    "credit": "Wikipedia — Chinchilla rabbit",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "holland-lop": {
+    "credit": "Wikipedia — Holland Lop",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "anao-holandes": {
+    "credit": "Wikipedia — Netherland Dwarf rabbit",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "rex": {
+    "credit": "Wikipedia — Rex rabbit",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "angora-ingles": {
+    "credit": "Rabaid sith",
+    "source": "Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Angora_rabbit_hair.png"
+  },
+  "california": {
+    "credit": "Flyz1",
+    "source": "Wikimedia Commons",
+    "license": "CC0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:Kr%C3%B3liki_kalifornijskie_californian_rabbits.jpg"
+  },
+  "fuzzy-lop": {
+    "credit": "Wikipedia — American Fuzzy Lop",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  }
+}

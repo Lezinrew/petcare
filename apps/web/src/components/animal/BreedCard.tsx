@@ -31,7 +31,7 @@ export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
         <div className="flex flex-wrap gap-2">
           <Badge>{meta.primary}</Badge>
           <Badge color="bg-orange-100 text-exercise">{meta.secondary}</Badge>
-          <Badge color="bg-slate-100 text-text-secondary">{meta.tertiary}</Badge>
+          <Badge color="bg-muted text-text-secondary">{meta.tertiary}</Badge>
           {meta.beginnerFriendly && (
             <Badge color="bg-green-100 text-feeding">Iniciantes</Badge>
           )}

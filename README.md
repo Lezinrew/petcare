@@ -78,7 +78,8 @@ O comando `npm run setup` instala dependências (raiz, API e Web) e cria os arqu
 | `npm run check:pet-images` | Verifica `.webp` por espécie (não falha o build) |
 | `npm run generate:pet-images` | Gera placeholders `.webp` mínimos |
 | `npm run check:frontend-routes` | Smoke test das rotas SPA (Web rodando) |
-| `npm run generate:pet-images` | Gera placeholders `.webp` (88 fichas) |
+| `npm run download:pet-images` | Baixa fotos CC/Wikipedia para as 88 fichas |
+| `npm run generate:pet-images` | Gera placeholders `.webp` mínimos (sem internet) |
 | `npm run check` | Lint + build |
 | `npm run dev` | API + Web em paralelo |
 | `npm run seed` | Popula banco (mesmo que reset) |
@@ -110,7 +111,15 @@ apps/web/public/images/fish/betta.webp
 ...
 ```
 
-Padrão: `/images/{speciesPlural}/{slug}.webp` — fallback com emoji se ausente.
+Padrão: `/images/{speciesPlural}/{slug}.webp` — fallback SVG/emoji se ausente.
+
+Baixar fotos reais (Wikipedia / Wikimedia Commons, licença aberta):
+
+```powershell
+npm run download:pet-images
+```
+
+Créditos em `apps/api/src/data/imageAttributions.json`.
 
 ```powershell
 npm run check:pet-images

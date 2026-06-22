@@ -3,8 +3,32 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-surface: 248 250 252;
+    --color-card: 255 255 255;
+    --color-border: 226 232 240;
+    --color-primary-light: 234 244 255;
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 71 85 105;
+    --color-muted: 241 245 249;
+    --shadow-soft: 0 1px 3px rgba(11, 58, 110, 0.08), 0 4px 14px rgba(11, 58, 110, 0.06);
+    --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.04);
+  }
+
+  .dark {
+    --color-surface: 15 23 42;
+    --color-card: 30 41 59;
+    --color-border: 51 65 85;
+    --color-primary-light: 30 58 95;
+    --color-text-primary: 248 250 252;
+    --color-text-secondary: 148 163 184;
+    --color-muted: 51 65 85;
+    --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.2);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
   body {
-    @apply bg-surface text-text-primary antialiased;
+    @apply bg-surface text-text-primary antialiased transition-colors duration-200;
     font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   }
 }
@@ -18,15 +42,29 @@
     @apply bg-hero-gradient;
   }
 
+  .dark .hero-gradient {
+    background: linear-gradient(135deg, #051525 0%, #0b3a6e 45%, #0e4a8a 100%);
+  }
+
   .card-interactive {
     @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/15 hover:shadow-card;
   }
 
   .stat-tile {
-    @apply rounded-2xl border border-slate-200/80 bg-white px-3 py-4 text-center shadow-xs;
+    @apply rounded-2xl border border-border bg-card px-3 py-4 text-center shadow-xs;
   }
 
   .disclaimer-banner {
-    @apply rounded-2xl border border-amber-200/80 bg-amber-50/90 p-4 text-sm leading-relaxed text-amber-900 shadow-xs;
+    @apply rounded-2xl border border-amber-200/80 bg-amber-50/90 p-4 text-sm leading-relaxed text-amber-900 shadow-xs dark:border-amber-700/40 dark:bg-amber-950/50 dark:text-amber-100;
+  }
+}
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
 }

@@ -116,9 +116,17 @@ Valida health, 6 espécies (contagens 30/20/10/5/15/8), total 88, detalhes labra
 
 Placeholders SVG: `apps/web/public/images/placeholders/{dog,cat,fish,hamster,bird,rabbit}.svg`
 
+Fotos reais (Wikipedia / Wikimedia Commons):
+
+```bash
+npm run download:pet-images
+npm run download:pet-images -- --retry-failed   # só faltantes
+```
+
+Créditos: `apps/api/src/data/imageAttributions.json`
+
 ```bash
 npm run check:pet-images
-npm run generate:pet-images
 ```
 
 ## Demo / pitch

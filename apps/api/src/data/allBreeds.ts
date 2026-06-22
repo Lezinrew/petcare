@@ -5,6 +5,16 @@ import { allHamsterBreeds } from './hamsterBreeds';
 import { allBirdBreeds } from './birdBreeds';
 import { allRabbitBreeds } from './rabbitBreeds';
 import { AnimalBreed } from '../modules/animals/animal.types';
+import imageAttributions from './imageAttributions.json';
+
+type ImageAttribution = {
+  credit: string;
+  source: string;
+  license: string;
+  fileUrl?: string;
+};
+
+const attributions = imageAttributions as Record<string, ImageAttribution>;
 
 export const SPECIES_ROUTE_MAP = {
   dogs: 'dog',
@@ -37,12 +47,13 @@ export function imageUrlForBreed(species: AnimalBreed['species'], slug: string):
 }
 
 export function withImageFields(breed: Omit<AnimalBreed, 'id'>): Omit<AnimalBreed, 'id'> {
+  const attr = attributions[breed.slug];
   return {
     ...breed,
     imageUrl: imageUrlForBreed(breed.species, breed.slug),
     imageAlt: breed.name,
-    imageCredit: 'Imagem ilustrativa',
-    imageSource: 'Acervo do projeto',
+    imageCredit: attr?.credit ?? 'Imagem ilustrativa',
+    imageSource: attr ? `${attr.source} — ${attr.license}` : 'Acervo do projeto',
     placeholderUrl: placeholderUrlForSpecies(breed.species),
   };
 }

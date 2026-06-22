@@ -11,6 +11,7 @@
     "check:pet-images": "node scripts/check-pet-images.js",
     "check:frontend-routes": "node scripts/check-frontend-routes.mjs",
     "generate:pet-images": "npm --prefix apps/web run generate:pet-images",
+    "download:pet-images": "npm --prefix apps/web run download:pet-images",
     "check": "npm-run-all lint build",
     "dev": "npm-run-all --parallel dev:api dev:web",
     "dev:api": "npm --prefix apps/api run dev",

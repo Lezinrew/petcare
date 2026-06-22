@@ -10,7 +10,7 @@ export function BreedHero({ breed }: Props) {
   const emoji = getSpeciesEmoji(breed.species);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-soft">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
       <div className="grid md:grid-cols-[1fr,280px]">
         <AnimalImage
           src={breed.imageUrl}

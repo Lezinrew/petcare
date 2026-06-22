@@ -15,7 +15,7 @@ export type ButtonVariant =
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const base =
-  'inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]';
+  'inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]';
 
 const sizes: Record<ButtonSize, string> = {
   sm: 'h-9 rounded-lg px-3.5 text-xs',
@@ -28,10 +28,10 @@ const variants: Record<ButtonVariant, string> = {
   secondary:
     'border border-primary/10 bg-primary-light text-primary hover:border-primary/20 hover:bg-primary-light/80',
   outline:
-    'border border-slate-200/90 bg-white text-text-secondary shadow-xs hover:border-primary/30 hover:bg-surface hover:text-primary',
+    'border border-border bg-card text-text-secondary shadow-xs hover:border-primary/30 hover:bg-muted hover:text-primary',
   'outline-accent':
     'border border-primary/20 bg-primary-light/60 text-primary hover:border-primary/35 hover:bg-primary-light',
-  ghost: 'text-text-secondary hover:bg-slate-100 hover:text-primary',
+  ghost: 'text-text-secondary hover:bg-muted hover:text-primary',
   'ghost-primary': 'text-primary hover:bg-primary-light',
   danger: 'bg-health text-white shadow-soft hover:bg-health/90',
   'danger-ghost': 'text-health hover:bg-health/10',

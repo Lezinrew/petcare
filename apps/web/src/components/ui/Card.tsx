@@ -12,7 +12,7 @@ export function Card({ padding = 'md', interactive, className, children, ...prop
   return (
     <div
       className={cn(
-        'rounded-2xl border border-slate-200/90 bg-white shadow-xs',
+        'rounded-2xl border border-border bg-card shadow-xs',
         paddingMap[padding],
         interactive && 'card-interactive',
         className,
