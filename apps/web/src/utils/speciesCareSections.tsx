@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { CareBulletList, CareBulletPoints } from '../components/animal/CareBulletList';
 import { AnimalBreed, CareInfo, Species } from '../types/animal';
 
 export type CareSectionDef = {
@@ -6,18 +7,10 @@ export type CareSectionDef = {
   title: string;
   icon: string;
   color: string;
-  borderColor: string;
+  iconBg: string;
   disclaimer?: string;
   render: (care: CareInfo) => ReactNode;
 };
-
-const list = (items: string[]) => (
-  <ul className="list-inside list-disc">
-    {items.map((item) => (
-      <li key={item}>{item}</li>
-    ))}
-  </ul>
-);
 
 function standardSections(): CareSectionDef[] {
   return [
@@ -26,14 +19,16 @@ function standardSections(): CareSectionDef[] {
       title: 'Alimentação',
       icon: '🍖',
       color: 'text-feeding',
-      borderColor: 'border-feeding',
+      iconBg: 'bg-feeding/15',
       render: (c) => (
-        <>
-          <p><strong>Quantidade:</strong> {c.feeding.dailyAmount}</p>
-          <p><strong>Refeições:</strong> {c.feeding.mealsPerDay}</p>
-          <p><strong>Proibidos:</strong> {c.feeding.forbiddenFoods.join(', ')}</p>
-          <p><strong>Necessidades:</strong> {c.feeding.specialNeeds}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Quantidade diária', value: c.feeding.dailyAmount },
+            { label: 'Refeições', value: c.feeding.mealsPerDay },
+            { label: 'Alimentos proibidos', value: c.feeding.forbiddenFoods.join(', ') },
+            { label: 'Necessidades especiais', value: c.feeding.specialNeeds },
+          ]}
+        />
       ),
     },
     {
@@ -41,12 +36,12 @@ function standardSections(): CareSectionDef[] {
       title: 'Hidratação',
       icon: '💧',
       color: 'text-hydration',
-      borderColor: 'border-hydration',
+      iconBg: 'bg-hydration/15',
       render: (c) => (
         <>
-          <p><strong>Água:</strong> {c.hydration.waterAmount}</p>
-          <p><strong>Sinais de alerta:</strong></p>
-          {list(c.hydration.dehydrationSigns)}
+          <CareBulletList items={[{ label: 'Água', value: c.hydration.waterAmount }]} />
+          <p className="mb-2 mt-3 text-sm font-semibold text-text-primary">Sinais de desidratação</p>
+          <CareBulletPoints points={c.hydration.dehydrationSigns} />
         </>
       ),
     },
@@ -55,13 +50,24 @@ function standardSections(): CareSectionDef[] {
       title: 'Exercícios',
       icon: '🏃',
       color: 'text-exercise',
-      borderColor: 'border-exercise',
+      iconBg: 'bg-exercise/15',
       render: (c) => (
         <>
-          <p><strong>Atividade:</strong> {c.exercise.dailyWalkTime}</p>
-          <p><strong>Energia:</strong> {c.exercise.energyLevel}</p>
-          <p><strong>Atividades:</strong></p>
-          {list(c.exercise.recommendedActivities)}
+          <CareBulletList
+            items={[
+              { label: 'Atividade diária', value: c.exercise.dailyWalkTime },
+              {
+                label: 'Nível de energia',
+                value: (
+                  <span className="inline-flex rounded-full bg-exercise/15 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-exercise">
+                    {c.exercise.energyLevel}
+                  </span>
+                ),
+              },
+            ]}
+          />
+          <p className="mb-2 mt-3 text-sm font-semibold text-text-primary">Atividades recomendadas</p>
+          <CareBulletPoints points={c.exercise.recommendedActivities} />
         </>
       ),
     },
@@ -70,14 +76,16 @@ function standardSections(): CareSectionDef[] {
       title: 'Saúde',
       icon: '❤️',
       color: 'text-health',
-      borderColor: 'border-health',
+      iconBg: 'bg-health/15',
       disclaimer: 'Informação educativa. Não substitui orientação veterinária.',
       render: (c) => (
-        <>
-          <p><strong>Peso ideal:</strong> {c.health.idealWeight}</p>
-          <p><strong>Vacinas / prevenção:</strong> {c.health.vaccines.join(', ')}</p>
-          <p><strong>Doenças comuns:</strong> {c.health.commonDiseases.join(', ')}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Peso ideal', value: c.health.idealWeight },
+            { label: 'Vacinas e prevenção', value: c.health.vaccines.join(', ') },
+            { label: 'Doenças comuns', value: c.health.commonDiseases.join(', ') },
+          ]}
+        />
       ),
     },
     {
@@ -85,12 +93,14 @@ function standardSections(): CareSectionDef[] {
       title: 'Higiene',
       icon: '🛁',
       color: 'text-hygiene',
-      borderColor: 'border-hygiene',
+      iconBg: 'bg-hygiene/15',
       render: (c) => (
-        <>
-          <p><strong>Banho / limpeza:</strong> {c.hygiene.bathFrequency}</p>
-          <p><strong>Pelagem / ambiente:</strong> {c.hygiene.coatCare}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Banho e limpeza', value: c.hygiene.bathFrequency },
+            { label: 'Pelagem e ambiente', value: c.hygiene.coatCare },
+          ]}
+        />
       ),
     },
     {
@@ -98,14 +108,16 @@ function standardSections(): CareSectionDef[] {
       title: 'Comportamento',
       icon: '🎾',
       color: 'text-behavior',
-      borderColor: 'border-behavior',
+      iconBg: 'bg-behavior/15',
       render: (c) => (
-        <>
-          <p><strong>Temperamento:</strong> {c.behavior.temperament}</p>
-          <p><strong>Treinamento:</strong> {c.behavior.trainability}</p>
-          <p><strong>Sociabilidade:</strong> {c.behavior.sociability}</p>
-          <p><strong>Outros animais:</strong> {c.behavior.otherAnimals}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Temperamento', value: c.behavior.temperament },
+            { label: 'Treinamento', value: c.behavior.trainability },
+            { label: 'Sociabilidade', value: c.behavior.sociability },
+            { label: 'Outros animais', value: c.behavior.otherAnimals },
+          ]}
+        />
       ),
     },
     {
@@ -113,36 +125,40 @@ function standardSections(): CareSectionDef[] {
       title: 'Ambiente',
       icon: '🏡',
       color: 'text-environment',
-      borderColor: 'border-environment',
+      iconBg: 'bg-environment/15',
       render: (c) => (
-        <>
-          <p><strong>Espaço:</strong> {c.environment.recommendedSpace}</p>
-          <p><strong>Apartamento:</strong> {c.environment.canLiveInApartment}</p>
-          <p><strong>Clima:</strong> {c.environment.climateSensitivity}</p>
-          <p><strong>Quintal / externo:</strong> {c.environment.backyardNeed}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Espaço recomendado', value: c.environment.recommendedSpace },
+            { label: 'Apartamento', value: c.environment.canLiveInApartment },
+            { label: 'Clima', value: c.environment.climateSensitivity },
+            { label: 'Quintal / externo', value: c.environment.backyardNeed },
+          ]}
+        />
       ),
     },
     {
       key: 'growth',
       title: 'Reprodução e crescimento',
       icon: '📏',
-      color: 'text-primary',
-      borderColor: 'border-primary',
+      color: 'text-hydration',
+      iconBg: 'bg-hydration/15',
       render: (c) => (
-        <>
-          <p><strong>Tamanho adulto:</strong> {c.growth.adultSize}</p>
-          <p><strong>Fase adulta:</strong> {c.growth.adultAge}</p>
-        </>
+        <CareBulletList
+          items={[
+            { label: 'Tamanho adulto', value: c.growth.adultSize },
+            { label: 'Fase adulta', value: c.growth.adultAge },
+          ]}
+        />
       ),
     },
     {
       key: 'curiosities',
       title: 'Curiosidades',
       icon: '✨',
-      color: 'text-primary',
-      borderColor: 'border-primary',
-      render: (c) => list(c.curiosities),
+      color: 'text-behavior',
+      iconBg: 'bg-behavior/15',
+      render: (c) => <CareBulletPoints points={c.curiosities} />,
     },
   ];
 }
@@ -173,6 +189,47 @@ const SPECIES_OVERRIDES: Partial<Record<Species, Partial<Record<string, Partial<
     environment: { title: 'Espaço seguro', icon: '🏡' },
     behavior: { title: 'Sociabilidade', icon: '💕' },
   },
+  turtle: {
+    feeding: { title: 'Dieta e suplementação', icon: '🥬' },
+    hydration: { title: 'Água e umidade', icon: '💧' },
+    exercise: { title: 'Exploração segura', icon: '🐢' },
+    environment: { title: 'Terrário e UVB', icon: '☀️' },
+    behavior: { title: 'Manejo e estresse', icon: '🤲' },
+    hygiene: { title: 'Casco e limpeza', icon: '🧽' },
+    growth: { title: 'Longevidade', icon: '⏳' },
+  },
+  twister: {
+    exercise: { title: 'Exploração e brincadeiras', icon: '🐀' },
+    environment: { title: 'Recinto e enriquecimento', icon: '🏠' },
+    behavior: { title: 'Socialização', icon: '🤝' },
+  },
+  guinea_pig: {
+    feeding: { title: 'Feno e vitamina C', icon: '🥬' },
+    exercise: { title: 'Rotina e exploração', icon: '🌿' },
+    environment: { title: 'Cercado e abrigo', icon: '🏠' },
+  },
+  chinchilla: {
+    hygiene: { title: 'Banho seco', icon: '🛁' },
+    environment: { title: 'Ambiente fresco', icon: '❄️' },
+    behavior: { title: 'Manejo delicado', icon: '🤲' },
+  },
+  gerbil: {
+    exercise: { title: 'Túneis e escavação', icon: '🕳️' },
+    environment: { title: 'Substrato profundo', icon: '🏜️' },
+    behavior: { title: 'Pares compatíveis', icon: '🤝' },
+  },
+  ferret: {
+    feeding: { title: 'Dieta carnívora', icon: '🍗' },
+    exercise: { title: 'Brincadeiras diárias', icon: '🎾' },
+    environment: { title: 'Casa segura', icon: '🔒' },
+  },
+  lizard: {
+    feeding: { title: 'Dieta e cálcio', icon: '🦗' },
+    hydration: { title: 'Umidade', icon: '💧' },
+    environment: { title: 'Terrário e UVB', icon: '☀️' },
+    behavior: { title: 'Manejo calmo', icon: '🦎' },
+    hygiene: { title: 'Muda e limpeza', icon: '🧽' },
+  },
 };
 
 export function getCareSectionsForSpecies(species: Species): CareSectionDef[] {
@@ -194,6 +251,13 @@ export function getSpeciesLabel(species: Species): string {
     hamster: 'Hamster',
     bird: 'Ave',
     rabbit: 'Coelho',
+    turtle: 'Tartaruga',
+    twister: 'Twister',
+    guinea_pig: 'Porquinho-da-índia',
+    chinchilla: 'Chinchila',
+    gerbil: 'Gerbil',
+    ferret: 'Furão',
+    lizard: 'Lagarto',
   };
   return labels[species];
 }
@@ -237,6 +301,31 @@ export function getBreedCardMeta(breed: AnimalBreed): BreedCardMeta {
         secondary: breed.care.behavior.sociability.slice(0, 36),
         tertiary: `Porte: ${breed.size}`,
         beginnerFriendly: breed.goodWithChildren && beginner,
+      };
+    case 'turtle':
+      return {
+        primary: `Ambiente: ${breed.care.environment.recommendedSpace.slice(0, 30)}`,
+        secondary: breed.care.environment.climateSensitivity.slice(0, 36),
+        tertiary: `Energia: ${breed.energyLevel}`,
+        beginnerFriendly: false,
+      };
+    case 'twister':
+    case 'guinea_pig':
+    case 'chinchilla':
+    case 'gerbil':
+    case 'ferret':
+      return {
+        primary: `Rotina: ${breed.energyLevel}`,
+        secondary: breed.care.environment.recommendedSpace.slice(0, 36),
+        tertiary: breed.care.behavior.sociability.slice(0, 36),
+        beginnerFriendly: breed.species === 'guinea_pig',
+      };
+    case 'lizard':
+      return {
+        primary: `Terrário: ${breed.energyLevel}`,
+        secondary: breed.care.environment.climateSensitivity.slice(0, 36),
+        tertiary: `Porte: ${breed.size}`,
+        beginnerFriendly: false,
       };
     default:
       return {

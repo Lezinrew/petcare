@@ -8,6 +8,7 @@ import { BreedDetailPage } from '../pages/BreedDetailPage';
 import { MyPetsPage } from '../pages/MyPetsPage';
 import { RemindersPage } from '../pages/RemindersPage';
 import { AdoptionMatchPage } from '../pages/AdoptionMatchPage';
+import { ProfilePage } from '../pages/ProfilePage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export function AppRoutes() {
@@ -19,6 +20,7 @@ export function AppRoutes() {
         <Route path="demo" element={<DemoPage />} />
         <Route path="my-pets" element={<MyPetsPage />} />
         <Route path="reminders" element={<RemindersPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="adoption-match" element={<AdoptionMatchPage />} />
         <Route path=":speciesKey" element={<BreedCatalogPage />} />
         <Route path=":speciesKey/:slug" element={<BreedDetailPage />} />

@@ -2,9 +2,9 @@
 
 ## AnimalBreed
 
-Coleção: `animals` — **88** registros no seed (6 espécies).
+Coleção: `animals` — **132** registros no seed (13 espécies).
 
-Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`.
+Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`, `turtle`, `twister`, `guinea_pig`, `chinchilla`, `gerbil`, `ferret`, `lizard`.
 
 ```json
 {
@@ -59,6 +59,8 @@ Preenchidos automaticamente em `allBreeds.ts` via `withImageFields()`.
 
 Coleção: `pets`
 
+Valores de `species`: `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`, `turtle`, `twister`, `guinea_pig`, `chinchilla`, `gerbil`, `ferret`, `lizard`, `other`.
+
 ```json
 {
   "userId": "demo-user",
@@ -73,6 +75,28 @@ Coleção: `pets`
   "photoUrl": null
 }
 ```
+
+## TutorProfile
+
+Coleção: `tutorprofiles` — um documento por `userId` (usuário demo no MVP).
+
+```json
+{
+  "userId": "demo-user",
+  "name": "Ana",
+  "city": "São Paulo",
+  "state": "SP",
+  "housingType": "apartment",
+  "petExperience": "some",
+  "notes": "Primeiro apartamento com pet."
+}
+```
+
+Valores de `housingType`: `apartment`, `house`, `house_with_yard`, `other`.
+
+Valores de `petExperience`: `none`, `some`, `experienced`.
+
+Pets e lembretes compartilham o mesmo `userId` do tutor demo, preparando multi-usuário futuro sem autenticação real no MVP.
 
 ## Reminder
 
@@ -116,7 +140,16 @@ Resposta do POST `/api/adoption/match`:
 {
   "profile": "Tutor iniciante em apartamento",
   "recommendedBreeds": [
-    { "name": "Shih Tzu", "slug": "shih-tzu", "reason": "Porte pequeno, energia moderada" }
+    {
+      "name": "Shih Tzu",
+      "slug": "shih-tzu",
+      "imageUrl": "/images/dogs/shih-tzu.webp",
+      "imageAlt": "Shih Tzu",
+      "compatibilityScore": 88,
+      "compatibilityLabel": "Alta compatibilidade",
+      "reason": "Adaptável a apartamento. Energia moderado, adequada ao seu perfil.",
+      "attentionPoints": ["Confirme rotina, custos e temperamento individual antes da decisão."]
+    }
   ],
   "responsibilityAlerts": ["Reserve tempo diário para passeios"],
   "antiAbandonmentMessage": "Adotar é assumir uma vida..."

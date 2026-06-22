@@ -54,7 +54,7 @@ const animalSchema = new Schema(
     species: {
       type: String,
       required: true,
-      enum: ['dog', 'cat', 'fish', 'hamster', 'bird', 'rabbit'],
+      enum: ['dog', 'cat', 'fish', 'hamster', 'bird', 'rabbit', 'turtle', 'twister', 'guinea_pig', 'chinchilla', 'gerbil', 'ferret', 'lizard'],
       index: true,
     },
     name: { type: String, required: true },

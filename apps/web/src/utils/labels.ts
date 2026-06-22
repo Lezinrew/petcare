@@ -37,6 +37,17 @@ export const recurrenceLabels: Record<ReminderRecurrence, string> = {
 export const speciesLabels: Record<string, string> = {
   dog: 'Cão',
   cat: 'Gato',
+  fish: 'Peixe',
+  hamster: 'Hamster',
+  bird: 'Ave',
+  rabbit: 'Coelho',
+  turtle: 'Tartaruga',
+  twister: 'Twister',
+  guinea_pig: 'Porquinho-da-índia',
+  chinchilla: 'Chinchila',
+  gerbil: 'Gerbil',
+  ferret: 'Furão',
+  lizard: 'Lagarto',
   other: 'Outro',
 };
 

@@ -10,7 +10,7 @@ export function Select({ label, options, className = '', id, ...props }: Props) 
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label htmlFor={selectId} className="text-sm font-medium text-text-secondary">
+        <label htmlFor={selectId} className="text-sm font-semibold text-text-secondary">
           {label}
         </label>
       )}

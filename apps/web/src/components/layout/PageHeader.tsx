@@ -16,7 +16,7 @@ export function PageHeader({ title, subtitle, backTo, backLabel = '← Voltar' }
         </ButtonLink>
       )}
       <h1 className="text-2xl font-bold tracking-tight text-text-primary md:text-3xl">{title}</h1>
-      {subtitle && <p className="mt-2 max-w-2xl leading-relaxed text-text-secondary">{subtitle}</p>}
+      {subtitle && <p className="mt-2 max-w-2xl font-medium leading-relaxed text-text-secondary">{subtitle}</p>}
     </div>
   );
 }

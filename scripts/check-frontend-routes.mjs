@@ -4,6 +4,7 @@ const API_URL = process.env.API_URL ?? 'http://localhost:3333/api';
 const WEB_ROUTES = [
   '/demo',
   '/explore',
+  '/profile',
   '/dogs',
   '/dogs/labrador-retriever',
   '/cats',
@@ -14,8 +15,23 @@ const WEB_ROUTES = [
   '/hamsters/sirio',
   '/birds',
   '/birds/calopsita',
+  '/birds/gaviao-asa-de-telha',
   '/rabbits',
   '/rabbits/holland-lop',
+  '/turtles',
+  '/turtles/tartaruga-de-orelha-vermelha',
+  '/twisters',
+  '/twisters/twister-dumbo',
+  '/guinea-pigs',
+  '/guinea-pigs/porquinho-da-india-ingles',
+  '/chinchillas',
+  '/chinchillas/chinchila-standard',
+  '/gerbils',
+  '/gerbils/gerbil-mongol',
+  '/ferrets',
+  '/ferrets/furao-sable',
+  '/lizards',
+  '/lizards/gecko-leopardo',
 ];
 
 const API_DETAIL_CHECKS = [
@@ -24,7 +40,15 @@ const API_DETAIL_CHECKS = [
   { species: 'fish', slug: 'betta' },
   { species: 'hamsters', slug: 'sirio' },
   { species: 'birds', slug: 'calopsita' },
+  { species: 'birds', slug: 'gaviao-asa-de-telha' },
   { species: 'rabbits', slug: 'holland-lop' },
+  { species: 'turtles', slug: 'tartaruga-de-orelha-vermelha' },
+  { species: 'twisters', slug: 'twister-dumbo' },
+  { species: 'guinea-pigs', slug: 'porquinho-da-india-ingles' },
+  { species: 'chinchillas', slug: 'chinchila-standard' },
+  { species: 'gerbils', slug: 'gerbil-mongol' },
+  { species: 'ferrets', slug: 'furao-sable' },
+  { species: 'lizards', slug: 'gecko-leopardo' },
 ];
 
 let passed = 0;

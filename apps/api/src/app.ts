@@ -8,6 +8,7 @@ import animalRoutes from './modules/animals/animal.routes';
 import petRoutes from './modules/pets/pet.routes';
 import reminderRoutes from './modules/reminders/reminder.routes';
 import adoptionRoutes from './modules/adoption/adoption.routes';
+import tutorProfileRoutes from './modules/tutor-profile/tutor-profile.routes';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api/animals', animalRoutes);
 app.use('/api/pets', petRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/adoption', adoptionRoutes);
+app.use('/api/tutor-profile', tutorProfileRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

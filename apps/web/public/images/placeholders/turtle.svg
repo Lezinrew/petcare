@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Tartaruga">
+  <rect width="120" height="120" rx="28" fill="#ECFDF5"/>
+  <ellipse cx="59" cy="66" rx="31" ry="24" fill="#2D6A4F"/>
+  <path d="M34 65c6-16 17-25 31-25 15 0 27 10 31 26-8 13-17 20-31 20-15 0-25-7-31-21z" fill="#40916C"/>
+  <path d="M48 50l16 12-13 17M80 50L64 62l13 17M64 42v42" stroke="#B7E4C7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  <circle cx="96" cy="61" r="12" fill="#40916C"/>
+  <circle cx="100" cy="57" r="2" fill="#081C15"/>
+  <path d="M26 60c-6-3-10-2-14 2 4 5 8 6 14 3" fill="#2D6A4F"/>
+  <path d="M41 84l-8 10M81 84l8 10M40 45l-9-8M82 45l9-8" stroke="#2D6A4F" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,8 +1,7 @@
 import { AnimalBreed } from '../../types/animal';
-import { getSpeciesLabel } from '../../utils/speciesCareSections';
-import { energyLabels, sizeLabels } from '../../utils/labels';
 import { getSpeciesEmoji } from '../../utils/speciesEmoji';
 import { AnimalImage } from './AnimalImage';
+import { BreedQuickTags, BreedStatsBar } from './BreedStatsBar';
 
 type Props = { breed: AnimalBreed };
 
@@ -10,35 +9,39 @@ export function BreedHero({ breed }: Props) {
   const emoji = getSpeciesEmoji(breed.species);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-      <div className="grid md:grid-cols-[1fr,280px]">
-        <AnimalImage
-          src={breed.imageUrl}
-          fallbackSrc={breed.placeholderUrl}
-          alt={breed.imageAlt ?? breed.name}
-          emojiFallback={emoji}
-          className="aspect-[16/10] min-h-[200px] w-full md:aspect-auto md:min-h-[280px]"
-          imgClassName="object-cover"
-        />
-        <div className="flex flex-col justify-center bg-gradient-to-br from-primary to-primary-dark p-6 text-white md:p-8">
-          <p className="text-sm font-medium text-primary-light/90">{getSpeciesLabel(breed.species)}</p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight md:text-3xl">{breed.name}</h1>
-          <p className="mt-3 leading-relaxed text-primary-light/95">{breed.shortDescription}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <span className="rounded-full bg-white/20 px-3 py-1 text-sm">{sizeLabels[breed.size]}</span>
-            <span className="rounded-full bg-white/20 px-3 py-1 text-sm">{energyLabels[breed.energyLevel]}</span>
-            <span className="rounded-full bg-white/20 px-3 py-1 text-sm">
-              {breed.apartmentFriendly ? 'Indoor OK' : 'Espaço amplo'}
-            </span>
+    <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
+      <div className="grid md:grid-cols-[1fr,minmax(220px,42%)]">
+        <div className="flex flex-col justify-center p-6 md:p-8">
+          <h1 className="text-3xl font-bold tracking-tight text-brand md:text-4xl">{breed.name}</h1>
+          <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-text-secondary">
+            {breed.shortDescription}
+          </p>
+          <div className="mt-5">
+            <BreedQuickTags breed={breed} />
           </div>
-          {breed.imageCredit && (
-            <p className="mt-4 text-xs text-primary-light/70">
-              {breed.imageCredit}
-              {breed.imageSource ? ` · ${breed.imageSource}` : ''}
-            </p>
-          )}
+        </div>
+
+        <div className="relative min-h-[240px] bg-gradient-to-l from-card via-card/80 to-transparent md:min-h-[300px]">
+          <AnimalImage
+            src={breed.imageUrl}
+            fallbackSrc={breed.placeholderUrl}
+            alt={breed.imageAlt ?? breed.name}
+            emojiFallback={emoji}
+            className="absolute inset-0 h-full w-full"
+            imgClassName="object-cover object-center md:object-right"
+          />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-card to-transparent md:w-24" />
         </div>
       </div>
-    </div>
+
+      <BreedStatsBar breed={breed} />
+
+      {breed.imageCredit && (
+        <p className="border-t border-border px-6 py-2 text-xs font-medium text-text-secondary md:px-8">
+          {breed.imageCredit}
+          {breed.imageSource ? ` · ${breed.imageSource}` : ''}
+        </p>
+      )}
+    </section>
   );
 }

@@ -4,7 +4,21 @@ import { animalController } from './animal.controller';
 
 const router = Router();
 
-const SPECIES_ROUTES: SpeciesRouteKey[] = ['dogs', 'cats', 'fish', 'hamsters', 'birds', 'rabbits'];
+const SPECIES_ROUTES: SpeciesRouteKey[] = [
+  'dogs',
+  'cats',
+  'fish',
+  'hamsters',
+  'birds',
+  'rabbits',
+  'turtles',
+  'twisters',
+  'guinea-pigs',
+  'chinchillas',
+  'gerbils',
+  'ferrets',
+  'lizards',
+];
 
 for (const routeKey of SPECIES_ROUTES) {
   router.get(`/${routeKey}`, (req, res, next) => animalController.listByRoute(routeKey, req, res, next));

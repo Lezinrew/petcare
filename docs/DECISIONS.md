@@ -36,6 +36,12 @@
 
 **Motivo:** Prepara estrutura multi-usuário sem implementar auth completa.
 
+## Perfil do tutor no MVP
+
+**Decisão:** Coleção `tutorprofiles` com upsert por `userId`, tela `/profile` e seed no `npm run reset` — sem login real.
+
+**Motivo:** Contextualiza pets, lembretes e adoção responsável no modo demo; a migração futura reutiliza o mesmo `userId` quando a autenticação entrar.
+
 ## Mongoose vs MongoDB Driver
 
 **Decisão:** **Mongoose** para models, schemas e validação.
@@ -70,7 +76,7 @@
 
 **Decisão:** Fonte única em `apps/api/src/data/` — `dogBreeds.ts` (30, dados ricos) + arquivos por espécie via `breedFactory.ts` + agregador `allBreeds.ts`.
 
-**Motivo:** Seed MongoDB e gerador de HTML consomem os mesmos registros. Total: **88** (30 cães + 20 gatos + 10 peixes + 5 hamsters + 15 aves + 8 coelhos).
+**Motivo:** Seed MongoDB e gerador de HTML legado consomem os mesmos registros. Total: **132** animais em 13 grupos.
 
 ## Imagens e placeholders
 
@@ -84,8 +90,8 @@
 
 **Motivo:** Demo em reunião abre uma URL; ver `docs/DEMO_SCRIPT.md`.
 
-## Gerador de HTML estático
+## Gerador de HTML estático legado
 
-**Decisão:** `generate:pets-html` gera fichas para as 88 espécies em `public/generated/pets/`. `generate:dogs-html` mantido para compatibilidade (`public/generated/dogs/`).
+**Decisão:** `generate:pets-html` gera fichas para as 132 espécies/raças em `public/generated/pets/`, mas não é mais exposto como CTA no app. `generate:dogs-html` mantido para compatibilidade (`public/generated/dogs/`).
 
-**Motivo:** Saída servida pelo Vite; template com CSS inline — HTML offline. Dados importados de `apps/api/src/data/allBreeds.ts`.
+**Motivo:** Após o refinamento visual da ficha React, a experiência principal passou a ser a tela do app. O HTML fica como saída offline/legada, servida pelo Vite com CSS inline e dados importados de `apps/api/src/data/allBreeds.ts`.

@@ -436,10 +436,10 @@
     "license": "Ver página"
   },
   "angora-ingles": {
-    "credit": "Rabaid sith",
+    "credit": "Wikimedia Commons",
     "source": "Wikimedia Commons",
-    "license": "CC BY-SA 4.0",
-    "fileUrl": "https://commons.wikimedia.org/wiki/File:Angora_rabbit_hair.png"
+    "license": "CC BY-SA 3.0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:EnglishAngoraRabbit.jpg"
   },
   "california": {
     "credit": "Flyz1",
@@ -449,6 +449,227 @@
   },
   "fuzzy-lop": {
     "credit": "Wikipedia — American Fuzzy Lop",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "tartaruga-de-orelha-vermelha": {
+    "credit": "Wikipedia — Red-eared slider",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "tigre-dagua": {
+    "credit": "Wikipedia — D'Orbigny's slider",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "tartaruga-russa": {
+    "credit": "Wikipedia — Central Asian tortoise",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "jabuti-piranga": {
+    "credit": "Wikipedia — Red-footed tortoise",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "jabuti-tinga": {
+    "credit": "Wikipedia — Yellow-footed tortoise",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "cagado-de-barbicha": {
+    "credit": "Wikipedia — Phrynops geoffroanus",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "tartaruga-da-amazonia": {
+    "credit": "Wikipedia — Arrau turtle",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "twister-dumbo": {
+    "credit": "Wikipedia — Fancy rat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "twister-standard": {
+    "credit": "Wikipedia — Fancy rat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "twister-rex": {
+    "credit": "Piotr Siedlecki",
+    "source": "Wikimedia Commons",
+    "license": "CC0",
+    "fileUrl": "https://commons.wikimedia.org/wiki/File:King-rat.jpg"
+  },
+  "twister-satin": {
+    "credit": "Wikipedia — Fancy rat",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-ingles": {
+    "credit": "Wikipedia — Guinea pig",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-abissinio": {
+    "credit": "Wikipedia — Abyssinian guinea pig",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-peruano": {
+    "credit": "Wikipedia — Peruvian guinea pig",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-sheltie": {
+    "credit": "Wikipedia — List of guinea pig breeds",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-skinny": {
+    "credit": "Wikipedia — Skinny pig",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "porquinho-da-india-teddy": {
+    "credit": "Wikipedia — List of guinea pig breeds",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chinchila-standard": {
+    "credit": "Wikipedia — Chinchilla",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chinchila-bege": {
+    "credit": "Wikipedia — Chinchilla",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chinchila-mosaico": {
+    "credit": "Wikipedia — Chinchilla",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "chinchila-ebony": {
+    "credit": "Wikipedia — Chinchilla",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gerbil-mongol": {
+    "credit": "Wikipedia — Mongolian gerbil",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gerbil-argente": {
+    "credit": "Wikipedia — Mongolian gerbil",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gerbil-burmese": {
+    "credit": "Wikipedia — Mongolian gerbil",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gerbil-siamese": {
+    "credit": "Wikipedia — Mongolian gerbil",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "furao-sable": {
+    "credit": "Wikipedia — Ferret",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "furao-albino": {
+    "credit": "Wikipedia — Ferret",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "furao-champagne": {
+    "credit": "Wikipedia — Ferret",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "furao-cinnamon": {
+    "credit": "Wikipedia — Ferret",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gecko-leopardo": {
+    "credit": "Wikipedia — Leopard gecko",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "dragao-barbudo": {
+    "credit": "Wikipedia — Central bearded dragon",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "iguana-verde": {
+    "credit": "Wikipedia — Green iguana",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "teiu": {
+    "credit": "Wikipedia — Tupinambis",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "anolis-verde": {
+    "credit": "Wikipedia — Anolis carolinensis",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "uromastyx": {
+    "credit": "Wikipedia — Uromastyx",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "lagarto-de-lingua-azul": {
+    "credit": "Wikipedia — Blue-tongued skink",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "carcara": {
+    "credit": "Wikipedia — Crested caracara",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "quiriquiri": {
+    "credit": "Wikipedia — American kestrel",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "falcao-de-coleira": {
+    "credit": "Wikipedia — Aplomado falcon",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "falcao-peregrino": {
+    "credit": "Wikipedia — Peregrine falcon",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "caure": {
+    "credit": "Wikipedia — Bat falcon",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gaviao-asa-de-telha": {
+    "credit": "Wikipedia — Harris's hawk",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "gaviao-carijo": {
+    "credit": "Wikipedia — Roadside hawk",
+    "source": "Wikipedia / Wikimedia",
+    "license": "Ver página"
+  },
+  "coruja-buraqueira": {
+    "credit": "Wikipedia — Burrowing owl",
     "source": "Wikipedia / Wikimedia",
     "license": "Ver página"
   }

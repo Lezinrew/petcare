@@ -15,7 +15,7 @@ export function ThemeToggle({ className, showLabel }: Props) {
       type="button"
       onClick={toggleTheme}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card p-2 text-sm font-medium text-text-secondary transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
+        'inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card p-2 text-sm font-medium text-text-secondary transition-colors hover:bg-muted hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
         showLabel && 'px-3',
         className,
       )}

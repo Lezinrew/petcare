@@ -1,8 +1,24 @@
+export type PetSpecies =
+  | 'dog'
+  | 'cat'
+  | 'fish'
+  | 'hamster'
+  | 'bird'
+  | 'rabbit'
+  | 'turtle'
+  | 'twister'
+  | 'guinea_pig'
+  | 'chinchilla'
+  | 'gerbil'
+  | 'ferret'
+  | 'lizard'
+  | 'other';
+
 export type PetProfile = {
   id?: string;
   userId?: string;
   name: string;
-  species: 'dog' | 'cat' | 'other';
+  species: PetSpecies;
   breedSlug?: string;
   ageMonths?: number;
   weightKg?: number;

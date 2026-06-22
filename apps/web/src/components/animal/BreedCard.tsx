@@ -24,7 +24,7 @@ export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
           <h3 className="text-lg font-semibold text-text-primary">{breed.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-text-secondary">
+          <p className="mt-1 line-clamp-2 text-sm font-medium leading-relaxed text-text-secondary">
             {breed.shortDescription}
           </p>
         </div>

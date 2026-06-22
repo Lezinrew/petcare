@@ -61,16 +61,59 @@ function scoreBreed(breed: AnimalBreed, req: AdoptionMatchRequest): number {
   return score;
 }
 
+function normalizeScore(score: number): number {
+  return Math.max(0, Math.min(100, Math.round(score)));
+}
+
+function compatibilityLabel(score: number): string {
+  if (score >= 85) return 'Alta compatibilidade';
+  if (score >= 70) return 'Boa compatibilidade';
+  if (score >= 55) return 'Compatível com atenção';
+  return 'Exige muito cuidado';
+}
+
+function energyLabel(energy: AnimalBreed['energyLevel']): string {
+  if (energy === 'baixo') return 'baixa';
+  if (energy === 'moderado') return 'moderada';
+  return energy;
+}
+
 function buildReason(breed: AnimalBreed, req: AdoptionMatchRequest): string {
   const parts: string[] = [];
   if (req.hasChildren && breed.goodWithChildren) parts.push('Boa convivência com crianças');
   if (req.housing === 'apartment' && breed.apartmentFriendly) parts.push('Adaptável a apartamento');
+  if (req.preferredSize !== 'any' && breed.size === req.preferredSize) parts.push(`Porte ${breed.size} dentro da preferência`);
   if (breed.energyLevel === 'baixo' || breed.energyLevel === 'moderado') {
-    parts.push(`Energia ${breed.energyLevel}, adequada ao seu perfil`);
+    parts.push(`Energia ${energyLabel(breed.energyLevel)}, adequada ao seu perfil`);
   } else {
     parts.push(`Porte ${breed.size}, energia ${breed.energyLevel}`);
   }
   return parts.join('. ') + '.';
+}
+
+function buildAttentionPoints(breed: AnimalBreed, req: AdoptionMatchRequest): string[] {
+  const points: string[] = [];
+
+  if (req.housing === 'apartment' && !breed.apartmentFriendly) {
+    points.push('Pode exigir mais espaço ou adaptação cuidadosa em apartamento.');
+  }
+  if (!req.canWalkDaily && (breed.energyLevel === 'alto' || breed.energyLevel === 'muito alto')) {
+    points.push('Energia alta pede passeios e estímulos diários.');
+  }
+  if (req.freeTimePerDay === 'low' && (breed.energyLevel === 'alto' || breed.energyLevel === 'muito alto')) {
+    points.push('Pouco tempo livre pode gerar frustração e comportamento indesejado.');
+  }
+  if (req.hasChildren && !breed.goodWithChildren) {
+    points.push('Convivência com crianças deve ser avaliada com orientação e supervisão.');
+  }
+  if (req.experienceLevel === 'none' && breed.energyLevel === 'muito alto') {
+    points.push('Tutor iniciante pode precisar de apoio profissional para manejo e treinamento.');
+  }
+  if (points.length === 0) {
+    points.push('Ainda assim, confirme rotina, custos e temperamento individual antes da decisão.');
+  }
+
+  return points;
 }
 
 function buildProfile(req: AdoptionMatchRequest): string {
@@ -111,7 +154,7 @@ export class AdoptionService {
     const breeds = await animalRepository.findDogs({});
 
     const scored = breeds
-      .map((breed) => ({ breed, score: scoreBreed(breed, req) }))
+      .map((breed) => ({ breed, score: normalizeScore(scoreBreed(breed, req)) }))
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
 
@@ -121,10 +164,15 @@ export class AdoptionService {
 
     return {
       profile: buildProfile(req),
-      recommendedBreeds: scored.map(({ breed }) => ({
+      recommendedBreeds: scored.map(({ breed, score }) => ({
         name: breed.name,
         slug: breed.slug,
+        imageUrl: breed.imageUrl,
+        imageAlt: breed.imageAlt,
+        compatibilityScore: score,
+        compatibilityLabel: compatibilityLabel(score),
         reason: buildReason(breed, req),
+        attentionPoints: buildAttentionPoints(breed, req),
       })),
       responsibilityAlerts: buildAlerts(req),
       antiAbandonmentMessage: ANTI_ABANDONMENT,

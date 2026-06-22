@@ -1,6 +1,19 @@
 export type Size = 'pequeno' | 'médio' | 'grande' | 'gigante';
 export type EnergyLevel = 'baixo' | 'moderado' | 'alto' | 'muito alto';
-export type Species = 'dog' | 'cat' | 'fish' | 'hamster' | 'bird' | 'rabbit';
+export type Species =
+  | 'dog'
+  | 'cat'
+  | 'fish'
+  | 'hamster'
+  | 'bird'
+  | 'rabbit'
+  | 'turtle'
+  | 'twister'
+  | 'guinea_pig'
+  | 'chinchilla'
+  | 'gerbil'
+  | 'ferret'
+  | 'lizard';
 
 export type CareInfo = {
   feeding: {

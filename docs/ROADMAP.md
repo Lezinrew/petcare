@@ -2,10 +2,10 @@
 
 ## Fase 2 — Piloto visual (concluída parcialmente)
 
-- [x] Catálogo 88 animais / 6 espécies
+- [x] Catálogo 132 animais / 13 espécies
 - [x] Tela `/explore` mobile-first
 - [x] Imagens + placeholders SVG por espécie
-- [x] HTML estático `generate:pets-html`
+- [x] HTML estático legado opcional (`generate:pets-html`)
 - [x] Página `/demo` para apresentação
 - [ ] Login e cadastro real
 - [ ] Upload de foto do pet

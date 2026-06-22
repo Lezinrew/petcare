@@ -1,13 +1,13 @@
 # Checklist de Demo — PetCare Responsável
 
-Roteiro rápido (~5 min) para apresentar o piloto com **88 animais** em 6 espécies.
+Roteiro rápido (~5 min) para apresentar o piloto com **132 animais** em 13 grupos.
 
 ## Antes da demo
 
 ```bash
 docker compose up -d
 npm run setup      # só na primeira vez
-npm run reset      # garante 88 animais no banco
+npm run reset      # garante 132 animais no banco
 npm run dev
 npm run check:api  # confirma API (outro terminal)
 ```
@@ -29,20 +29,20 @@ URLs:
 
 ### 2. Explorar Pets (45 seg)
 
-- [ ] Abrir `/explore` — 6 categorias, total **88** fichas
-- [ ] Entrar em **Cachorros** (30) e **Gatos** (20)
+- [ ] Abrir `/explore` — 13 categorias, total **132** fichas
+- [ ] Entrar em **Cachorros** (30), **Gatos** (20), **Tartarugas** (7) ou **Lagartos** (7)
 
 ### 3. Catálogo por espécie (1 min)
 
 - [ ] `/dogs` — buscar "labrador", filtrar porte "grande"
 - [ ] `/cats/persa` — ficha completa
-- [ ] Opcional: `/fish/betta`, `/hamsters/sirio`, `/birds/calopsita`, `/rabbits/holland-lop`
+- [ ] Opcional: `/fish/betta`, `/hamsters/sirio`, `/birds/calopsita`, `/rabbits/holland-lop`, `/turtles/tartaruga-de-orelha-vermelha`, `/guinea-pigs/porquinho-da-india-ingles`, `/lizards/gecko-leopardo`
 
 ### 4. Ficha educativa (1 min)
 
 - [ ] Abrir `/dogs/labrador-retriever`
 - [ ] Percorrer cards: alimentação, exercício, saúde
-- [ ] Botão **Abrir versão HTML** → `/generated/pets/dogs/labrador-retriever.html`
+- [ ] Mostrar que a ficha React é a versão principal para apresentação
 
 ### 5. Adoção responsável (1 min)
 
@@ -99,4 +99,4 @@ npm run check:frontend-routes
 npm run check:pet-images
 ```
 
-Esperado: health ✅, 6 espécies (30+20+10+5+15+8=**88**), detalhes labrador/persa, rotas SPA e slugs API.
+Esperado: health OK, 13 grupos, total **132**, detalhes labrador/persa/gavião/tartaruga/porquinho/lagarto, rotas SPA e slugs API.

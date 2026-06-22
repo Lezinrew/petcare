@@ -5,11 +5,18 @@ const SPECIES_ENDPOINTS = [
   { path: 'cats', count: 20 },
   { path: 'fish', count: 10 },
   { path: 'hamsters', count: 5 },
-  { path: 'birds', count: 15 },
+  { path: 'birds', count: 23 },
   { path: 'rabbits', count: 8 },
+  { path: 'turtles', count: 7 },
+  { path: 'twisters', count: 4 },
+  { path: 'guinea-pigs', count: 6 },
+  { path: 'chinchillas', count: 4 },
+  { path: 'gerbils', count: 4 },
+  { path: 'ferrets', count: 4 },
+  { path: 'lizards', count: 7 },
 ];
 
-const EXPECTED_TOTAL = 88;
+const EXPECTED_TOTAL = 132;
 
 let passed = 0;
 let failed = 0;
@@ -85,6 +92,10 @@ if (runningTotal === EXPECTED_TOTAL) {
 const detailChecks = [
   { species: 'dogs', slug: 'labrador-retriever', label: 'Labrador Retriever' },
   { species: 'cats', slug: 'persa', label: 'Persa' },
+  { species: 'birds', slug: 'gaviao-asa-de-telha', label: 'Gavião-asa-de-telha' },
+  { species: 'turtles', slug: 'tartaruga-de-orelha-vermelha', label: 'Tartaruga de Orelha Vermelha' },
+  { species: 'guinea-pigs', slug: 'porquinho-da-india-ingles', label: 'Porquinho da Índia' },
+  { species: 'lizards', slug: 'gecko-leopardo', label: 'Gecko Leopardo' },
 ];
 
 for (const { species, slug, label } of detailChecks) {
@@ -130,6 +141,31 @@ try {
   }
 } catch (err) {
   fail('POST /adoption/match', err.message);
+}
+
+try {
+  const profileGet = await request('GET', '/tutor-profile');
+  if (profileGet.response.ok && profileGet.data?.userId) {
+    ok('GET /tutor-profile');
+  } else {
+    fail('GET /tutor-profile');
+  }
+
+  const profilePut = await request('PUT', '/tutor-profile', {
+    name: 'Tutor Validação',
+    city: 'São Paulo',
+    state: 'SP',
+    housingType: 'apartment',
+    petExperience: 'some',
+    notes: 'Perfil de teste',
+  });
+  if (profilePut.response.ok && profilePut.data?.name === 'Tutor Validação') {
+    ok('PUT /tutor-profile');
+  } else {
+    fail('PUT /tutor-profile');
+  }
+} catch (err) {
+  fail('/tutor-profile', err.message);
 }
 
 console.log(`\nResultado: ${passed} ok, ${failed} falha(s)`);

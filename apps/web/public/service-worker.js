@@ -1,5 +1,5 @@
 const CACHE_VERSION = 'petcare-v1';
-const STATIC_ASSETS = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon.svg'];
+const STATIC_ASSETS = ['/', '/index.html', '/manifest.webmanifest', '/icons/favicon.svg', '/icons/icon.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

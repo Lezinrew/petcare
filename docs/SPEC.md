@@ -13,6 +13,8 @@ N/A (página informativa)
 
 ### Regras
 - Exibir hero com nome e slogan
+- Saudação personalizada quando o perfil demo tiver nome
+- Banner e badge de perfil incompleto (5 campos essenciais) com link para `/profile`
 - Cards de navegação para Cães, Meu Pet, Lembretes, Adoção
 - Seção "Por que isso importa?"
 - Aviso educativo sobre não substituir veterinário
@@ -33,20 +35,21 @@ N/A (página informativa)
 ## Explorar Pets
 
 ### Objetivo
-Hub visual mobile-first com cards grandes por espécie e link para HTML estático.
+Hub visual mobile-first com cards grandes por espécie.
 
 ### Rota
 `/explore`
 
 ### Regras
-- Hero: "Explore os pets" + subtítulo educativo
-- 6 cards com gradiente, contagem e botões Explorar / HTML
-- Botão **Abrir catálogo HTML** → `/generated/pets/index.html`
+- Tela com linguagem editorial clara, fundo claro e navegação mobile no topo
+- Cabeçalho: "Explorar Pets", chip com total de fichas, divisor sutil e subtítulo educativo
+- 13 cards visuais limpos com imagem, nome da espécie e seta de navegação
+- A experiência principal é a ficha React responsiva; HTML estático não aparece como CTA no app
 
 ### Critérios de aceite
-- [ ] 6 categorias com contagem correta
+- [ ] 13 categorias com contagem correta
 - [ ] Cards responsivos (mobile + desktop)
-- [ ] Link para catálogo HTML geral
+- [ ] Cada card navega para `/{speciesKey}`
 
 ---
 
@@ -56,7 +59,7 @@ Hub visual mobile-first com cards grandes por espécie e link para HTML estátic
 `/demo`
 
 ### Conteúdo
-Problema, solução, entregas do piloto, próximos passos, CTAs para explore/adoção/HTML.
+Problema, solução, entregas do piloto, próximos passos, CTAs para explorar pets e adoção responsável.
 
 ---
 
@@ -66,8 +69,8 @@ Problema, solução, entregas do piloto, próximos passos, CTAs para explore/ado
 `/explore`
 
 ### Critérios de aceite
-- [ ] 6 cards (cães, gatos, peixes, hamsters, aves, coelhos)
-- [ ] Total 88 fichas indicado
+- [ ] 13 cards (cães, gatos, peixes, hamsters, aves, coelhos, tartarugas, twisters, porquinhos-da-índia, chinchilas, gerbis, furões, lagartos)
+- [ ] Total 132 fichas indicado
 - [ ] Cada card navega para `/{speciesKey}`
 
 ---
@@ -78,11 +81,11 @@ Problema, solução, entregas do piloto, próximos passos, CTAs para explore/ado
 Listar raças/variedades com busca e filtros (cães, gatos, etc.).
 
 ### Rotas
-`/dogs`, `/cats`, `/fish`, `/hamsters`, `/birds`, `/rabbits`
+`/dogs`, `/cats`, `/fish`, `/hamsters`, `/birds`, `/rabbits`, `/turtles`, `/twisters`, `/guinea-pigs`, `/chinchillas`, `/gerbils`, `/ferrets`, `/lizards`
 
 ### Regras
-- Contagens: cães 30, gatos 20, peixes 10, hamsters 5, aves 15, coelhos 8
-- Botão "Ver catálogo HTML" → `/generated/pets/{speciesKey}/index.html`
+- Contagens: cães 30, gatos 20, peixes 10, hamsters 5, aves 23, coelhos 8, tartarugas 7, twisters 4, porquinhos-da-índia 6, chinchilas 4, gerbis 4, furões 4, lagartos 7
+- Aves de rapina devem ser apresentadas como fauna silvestre sob cuidados humanos, nunca como fauna doméstica; as fichas devem orientar origem legal, marcação/anilha, documentação e autorização do órgão ambiental competente.
 - `imageUrl` opcional com fallback emoji
 
 ### Critérios de aceite
@@ -108,7 +111,6 @@ Listar 30 raças com busca e filtros.
 - Grid responsivo de cards
 - Cada card: nome, porte, energia, apartamento, crianças, botão "Ver cuidados"
 - Filtros disparam nova busca na API
-- Botão "Ver catálogo HTML" abre `/generated/pets/dogs/index.html` em nova aba
 
 ### Estados de tela
 - Loading: spinner/skeleton
@@ -140,7 +142,6 @@ Todos os campos de `AnimalBreed.care`
 - Stats bar: origem, função, expectativa de vida, porte, energia
 - Cards temáticos por área de cuidado
 - Card Saúde com aviso educativo
-- Botão "Abrir versão HTML" abre `/generated/dogs/{slug}.html` em nova aba
 
 ### Estados de tela
 - Loading, erro, not found
@@ -162,13 +163,14 @@ CRUD de pets do usuário demo.
 `/my-pets`
 
 ### Campos
-nome, espécie, raça (slug), idade (meses), peso (kg), sexo, castrado, observações, foto URL
+nome, espécie (13 grupos catalogados + outro), raça/variedade (slug), idade (meses), peso (kg), sexo, castrado, observações, foto URL
 
 ### Regras
 - Usuário demo via API
-- Modal/formulário para criar/editar
+- Banner com resumo do tutor vinculado e link para `/profile`
+- Formulário para criar/editar com a mesma linguagem visual do app
 - Confirmação para excluir
-- Estado vazio amigável
+- Estado vazio amigável e resumo visual dos perfis cadastrados
 
 ### Estados de tela
 - Loading, erro, vazio, lista com dados
@@ -194,8 +196,10 @@ tipo, título, data, recorrência, pet (opcional), status
 
 ### Regras
 - Ordenar por data
+- Banner com resumo do tutor vinculado e link para `/profile`
 - Destacar próximos pendentes
 - Marcar como concluído via PATCH
+- Exibir resumo visual de total, próximos e concluídos
 
 ### Estados de tela
 - Loading, erro, vazio, lista
@@ -206,6 +210,37 @@ tipo, título, data, recorrência, pet (opcional), status
 - [ ] Excluir lembrete
 - [ ] Marcar concluído
 - [ ] Próximos em destaque
+
+---
+
+## Perfil do tutor
+
+### Objetivo
+Permitir que o tutor demo edite dados básicos pessoais, contextualizando pets e lembretes sem autenticação real.
+
+### Rota
+`/profile`
+
+### Campos
+nome, cidade, UF, tipo de moradia, experiência com pets, observações gerais
+
+### Regras
+- Usuário demo via `DEMO_USER_ID` (mesmo vínculo de pets/lembretes)
+- GET retorna perfil vazio se ainda não salvo
+- PUT faz upsert do documento único por usuário
+- `npm run reset` recria perfil demo padrão junto com o catálogo
+- Formulário com feedback de salvamento
+- Links para Meu Pet e Lembretes
+
+### Estados de tela
+- Loading, erro, formulário com dados (vazios ou preenchidos)
+
+### Critérios de aceite
+- [ ] Carregar perfil demo
+- [ ] Salvar e persistir dados
+- [ ] Checklist visual de campos essenciais e barra de progresso
+- [ ] Dark mode e layout alinhados às telas de cuidado
+- [ ] Navegação acessível (TopBar, Home e BottomNav mobile)
 
 ---
 
@@ -221,8 +256,11 @@ Simular compatibilidade tutor-raça.
 moradia, quintal, crianças, outros pets, experiência, tempo livre, passeio diário, porte preferido, gosta de ativos
 
 ### Regras
-- Formulário amigável
-- API retorna perfil, 3 raças, alertas, mensagem anti-abandono
+- Formulário amigável, agrupado por casa, rotina e preferência
+- Pré-preenche moradia e experiência a partir do perfil do tutor demo, quando disponível
+- API retorna perfil, 3 raças, percentual/rótulo de compatibilidade, imagem, motivo, pontos de atenção, alertas e mensagem anti-abandono
+- Resultado deve destacar que a recomendação é educativa e exige validação de rotina, custos e temperamento individual
+- Cada recomendação deve linkar para a ficha da raça
 - Mensagem obrigatória sobre compromisso
 
 ### Estados de tela
@@ -230,8 +268,9 @@ moradia, quintal, crianças, outros pets, experiência, tempo livre, passeio di�
 
 ### Critérios de aceite
 - [ ] Formulário completo
-- [ ] 3 raças recomendadas
-- [ ] Alertas de responsabilidade
+- [ ] 3 raças recomendadas com score de compatibilidade
+- [ ] Alertas de responsabilidade e pontos de atenção por raça
+- [ ] Links para fichas recomendadas
 - [ ] Mensagem anti-abandono
 
 ---
@@ -256,24 +295,24 @@ N/A (global)
 
 ---
 
-## Exportação HTML estática (raças)
+## Exportação HTML estática (legado opcional)
 
 ### Objetivo
-Gerar fichas educativas offline por raça, reutilizáveis fora do app React.
+Gerar fichas educativas offline por raça quando houver necessidade técnica de distribuição fora do app React.
 
 ### Comando
-`npm run generate:dogs-html`
+`npm run generate:pets-html`
 
 ### Saída
-`apps/web/public/generated/dogs/{slug}.html` e `index.html`
+`apps/web/public/generated/pets/{speciesKey}/{slug}.html` e índices por espécie.
 
 ### Regras
-- Dados de `apps/api/src/data/dogBreeds.ts` (mesma fonte do seed)
+- Dados de `apps/api/src/data/allBreeds.ts` (mesma fonte do seed)
 - CSS inline, sem CDN ou imagens externas
-- Visual alinhado à ficha `/dogs/:slug`
-- Catálogo e detalhe no app linkam para os HTMLs gerados
+- Não é CTA principal no app; a ficha React é a experiência oficial do piloto
+- `generate:dogs-html` permanece apenas para compatibilidade legada
 
 ### Critérios de aceite
-- [ ] 30 HTMLs + index gerados
+- [ ] HTMLs gerados quando o comando for executado
 - [ ] Labrador completo
-- [ ] Abre em `/generated/dogs/` via Vite
+- [ ] Abre em `/generated/pets/` via Vite quando acessado diretamente

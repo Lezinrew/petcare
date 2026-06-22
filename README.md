@@ -72,23 +72,23 @@ O comando `npm run setup` instala dependências (raiz, API e Web) e cria os arqu
 | Comando | Descrição |
 |---------|-----------|
 | `npm run setup` | Instala tudo e configura `.env` |
-| `npm run reset` | Repopula **88** animais no MongoDB |
+| `npm run reset` | Repopula **132** animais no MongoDB |
 | `npm run check:api` | Valida todos os endpoints (API rodando) |
 | `npm run validate` | Alias de `check:api` |
 | `npm run check:pet-images` | Verifica `.webp` por espécie (não falha o build) |
 | `npm run generate:pet-images` | Gera placeholders `.webp` mínimos |
 | `npm run check:frontend-routes` | Smoke test das rotas SPA (Web rodando) |
-| `npm run download:pet-images` | Baixa fotos CC/Wikipedia para as 88 fichas |
+| `npm run download:pet-images` | Baixa fotos CC/Wikipedia para as 132 fichas |
 | `npm run generate:pet-images` | Gera placeholders `.webp` mínimos (sem internet) |
 | `npm run check` | Lint + build |
 | `npm run dev` | API + Web em paralelo |
 | `npm run seed` | Popula banco (mesmo que reset) |
 | `npm run build` | Build de produção |
 | `npm run lint` | ESLint em API e Web |
-| `npm run generate:pets-html` | Gera HTML estático das **88** fichas (recomendado) |
+| `npm run generate:pets-html` | Gera HTML estático das **132** fichas (legado opcional) |
 | `npm run generate:dogs-html` | Gera só cães em `generated/dogs/` (legado) |
 
-## Catálogo — 88 animais
+## Catálogo — 132 animais
 
 | Espécie | Qtd | Rota web | API |
 |---------|-----|----------|-----|
@@ -96,9 +96,16 @@ O comando `npm run setup` instala dependências (raiz, API e Web) e cria os arqu
 | Gatos | 20 | `/cats` | `/api/animals/cats` |
 | Peixes | 10 | `/fish` | `/api/animals/fish` |
 | Hamsters | 5 | `/hamsters` | `/api/animals/hamsters` |
-| Aves | 15 | `/birds` | `/api/animals/birds` |
+| Aves | 23 | `/birds` | `/api/animals/birds` |
 | Coelhos | 8 | `/rabbits` | `/api/animals/rabbits` |
-| **Total** | **88** | `/explore` | — |
+| Tartarugas | 7 | `/turtles` | `/api/animals/turtles` |
+| Twisters | 4 | `/twisters` | `/api/animals/twisters` |
+| Porquinhos-da-índia | 6 | `/guinea-pigs` | `/api/animals/guinea-pigs` |
+| Chinchilas | 4 | `/chinchillas` | `/api/animals/chinchillas` |
+| Gerbis | 4 | `/gerbils` | `/api/animals/gerbils` |
+| Furões | 4 | `/ferrets` | `/api/animals/ferrets` |
+| Lagartos | 7 | `/lizards` | `/api/animals/lizards` |
+| **Total** | **132** | `/explore` | — |
 
 ## Imagens por espécie
 
@@ -125,11 +132,13 @@ Créditos em `apps/api/src/data/imageAttributions.json`.
 npm run check:pet-images
 ```
 
-## HTML estático
+## HTML estático legado
 
 ```powershell
 npm run generate:pets-html
 ```
+
+As fichas React são a experiência principal do piloto. O HTML estático fica como artefato opcional para distribuição offline ou compatibilidade.
 
 - Índice geral: http://localhost:5173/generated/pets/index.html
 - Por espécie: http://localhost:5173/generated/pets/cats/persa.html
@@ -146,13 +155,14 @@ npm run generate:pets-html
 
 - Home institucional educativa
 - **Demo / pitch** (`/demo`) — apresentação do piloto
-- **Explorar Pets** (`/explore`) — 6 categorias, 88 fichas
+- **Explorar Pets** (`/explore`) — 13 categorias, 132 fichas
 - Catálogo por espécie com busca e filtros
 - Ficha educativa por raça/espécie
 - Cadastro de pets (demo user)
 - Lembretes de cuidado
 - Simulador de adoção responsável (cães)
-- Exportação HTML estática e PWA instalável
+- PWA instalável
+- Exportação HTML estática legada/opcional
 
 ## Estrutura
 

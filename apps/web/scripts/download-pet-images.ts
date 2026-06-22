@@ -20,7 +20,7 @@ const USER_AGENT = 'PetCareResponsavel/1.0 (https://github.com/Lezinrew/petcare;
 const COMMONS_API = 'https://commons.wikimedia.org/w/api.php';
 const WIKI_API = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
 const DELAY_MS = 2000;
-const MIN_REAL_BYTES = 8000;
+const MIN_REAL_BYTES = 3000;
 
 /** Título Wikipedia (en) ou termo Commons. */
 const WIKI_TITLES: Record<string, string> = {
@@ -104,6 +104,14 @@ const WIKI_TITLES: Record<string, string> = {
   'trinca-ferro': 'Saltator similis',
   'codorna-chinesa': 'Japanese quail',
   ganso: 'Goose',
+  carcara: 'Southern crested caracara',
+  quiriquiri: 'American kestrel',
+  'falcao-de-coleira': 'Aplomado falcon',
+  'falcao-peregrino': 'Peregrine falcon',
+  caure: 'Bat falcon',
+  'gaviao-asa-de-telha': "Harris's hawk",
+  'gaviao-carijo': 'Roadside hawk',
+  'coruja-buraqueira': 'Burrowing owl',
   'mini-lion-head': 'Lionhead rabbit',
   chinchila: 'Chinchilla rabbit',
   'holland-lop': 'Holland Lop',
@@ -112,6 +120,47 @@ const WIKI_TITLES: Record<string, string> = {
   'angora-ingles': 'English Angora rabbit',
   california: 'California rabbit',
   'fuzzy-lop': 'American Fuzzy Lop',
+  'tartaruga-de-orelha-vermelha': 'Red-eared slider',
+  'tigre-dagua': 'Trachemys dorbigni',
+  'tartaruga-russa': "Horsfield's tortoise",
+  'jabuti-piranga': 'Chelonoidis carbonarius',
+  'jabuti-tinga': 'Chelonoidis denticulatus',
+  'cagado-de-barbicha': 'Phrynops geoffroanus',
+  'tartaruga-da-amazonia': 'Podocnemis expansa',
+  'twister-dumbo': 'Fancy rat',
+  'twister-standard': 'Fancy rat',
+  'twister-rex': 'Rex rat',
+  'twister-satin': 'Fancy rat',
+  'porquinho-da-india-ingles': 'Guinea pig',
+  'porquinho-da-india-abissinio': 'Abyssinian guinea pig',
+  'porquinho-da-india-peruano': 'Peruvian guinea pig',
+  'porquinho-da-india-sheltie': 'Silkie guinea pig',
+  'porquinho-da-india-skinny': 'Skinny pig',
+  'porquinho-da-india-teddy': 'Teddy guinea pig',
+  'chinchila-standard': 'Chinchilla',
+  'chinchila-bege': 'Chinchilla',
+  'chinchila-mosaico': 'Chinchilla',
+  'chinchila-ebony': 'Chinchilla',
+  'gerbil-mongol': 'Mongolian gerbil',
+  'gerbil-argente': 'Mongolian gerbil',
+  'gerbil-burmese': 'Mongolian gerbil',
+  'gerbil-siamese': 'Mongolian gerbil',
+  'furao-sable': 'Ferret',
+  'furao-albino': 'Ferret',
+  'furao-champagne': 'Ferret',
+  'furao-cinnamon': 'Ferret',
+  'gecko-leopardo': 'Leopard gecko',
+  'dragao-barbudo': 'Central bearded dragon',
+  'iguana-verde': 'Green iguana',
+  teiu: 'Tupinambis',
+  'anolis-verde': 'Green anole',
+  uromastyx: 'Uromastyx',
+  'lagarto-de-lingua-azul': 'Blue-tongued skink',
+};
+
+/** Arquivo Commons fixo quando a busca genérica retorna ilustração/gráfico incorreto. */
+const COMMONS_FILE_OVERRIDES: Record<string, string> = {
+  'angora-ingles': 'EnglishAngoraRabbit.jpg',
 };
 
 type Attribution = {
@@ -172,6 +221,57 @@ async function fromWikipedia(title: string): Promise<{ url: string; credit: stri
   return {
     url,
     credit: `Wikipedia — ${data.title ?? title}`,
+  };
+}
+
+async function fromCommonsFile(
+  fileTitle: string,
+): Promise<{ url: string; credit: string; license: string; title: string } | null> {
+  const params = new URLSearchParams({
+    action: 'query',
+    format: 'json',
+    origin: '*',
+    titles: `File:${fileTitle}`,
+    prop: 'imageinfo',
+    iiprop: 'url|mime|extmetadata',
+    iiurlwidth: '900',
+  });
+
+  const res = await fetchWithRetry(`${COMMONS_API}?${params}`);
+  if (!res.ok) return null;
+
+  const data = (await res.json()) as {
+    query?: {
+      pages?: Record<
+        string,
+        {
+          title?: string;
+          imageinfo?: Array<{
+            thumburl?: string;
+            url?: string;
+            mime?: string;
+            extmetadata?: Record<string, { value?: string }>;
+          }>;
+        }
+      >;
+    };
+  };
+
+  const page = Object.values(data.query?.pages ?? {})[0];
+  const info = page?.imageinfo?.[0];
+  if (!info?.url) return null;
+  const mime = info.mime ?? '';
+  if (!mime.startsWith('image/') || mime.includes('svg')) return null;
+
+  const meta = info.extmetadata ?? {};
+  const artist = meta.Artist?.value?.replace(/<[^>]+>/g, '').trim() || 'Wikimedia Commons';
+  const license = meta.LicenseShortName?.value?.trim() || 'CC';
+
+  return {
+    url: info.thumburl || info.url,
+    credit: artist,
+    license,
+    title: page?.title?.replace(/^File:/, '') ?? fileTitle,
   };
 }
 
@@ -241,6 +341,20 @@ async function downloadAsWebp(url: string, dest: string): Promise<void> {
 }
 
 async function resolveImage(breed: (typeof allAnimalBreeds)[0]) {
+  const commonsFile = COMMONS_FILE_OVERRIDES[breed.slug];
+  if (commonsFile) {
+    const file = await fromCommonsFile(commonsFile);
+    if (file) {
+      return {
+        url: file.url,
+        credit: file.credit,
+        source: 'Wikimedia Commons',
+        license: file.license,
+        fileUrl: `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.title.replace(/ /g, '_'))}`,
+      };
+    }
+  }
+
   const wikiTitle = WIKI_TITLES[breed.slug];
   if (wikiTitle) {
     const wiki = await fromWikipedia(wikiTitle);

@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { PET_CATEGORIES } from '../../config/species';
 import { CreatePetInput, PetProfile } from '../../types/pet';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
@@ -24,6 +25,13 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
     notes: initial?.notes ?? '',
     photoUrl: initial?.photoUrl ?? '',
   });
+  const speciesOptions = [
+    ...PET_CATEGORIES.map((category) => ({
+      value: category.species,
+      label: category.labelPlural,
+    })),
+    { value: 'other', label: 'Outro' },
+  ];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -54,11 +62,7 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
         label="Espécie"
         value={form.species}
         onChange={(e) => setForm({ ...form, species: e.target.value as CreatePetInput['species'] })}
-        options={[
-          { value: 'dog', label: 'Cão' },
-          { value: 'cat', label: 'Gato' },
-          { value: 'other', label: 'Outro' },
-        ]}
+        options={speciesOptions}
       />
       <Input
         label="Raça (slug)"

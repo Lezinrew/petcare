@@ -7,6 +7,13 @@ const EMOJI: Record<Species, string> = {
   hamster: '🐹',
   bird: '🐦',
   rabbit: '🐰',
+  turtle: '🐢',
+  twister: '🐀',
+  guinea_pig: '🐹',
+  chinchilla: '🐭',
+  gerbil: '🐭',
+  ferret: '🦦',
+  lizard: '🦎',
 };
 
 export function getSpeciesEmoji(species: Species): string {

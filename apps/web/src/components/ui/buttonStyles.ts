@@ -26,13 +26,13 @@ const sizes: Record<ButtonSize, string> = {
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-primary text-white shadow-soft hover:bg-primary-dark hover:shadow-md',
   secondary:
-    'border border-primary/10 bg-primary-light text-primary hover:border-primary/20 hover:bg-primary-light/80',
+    'border border-primary/10 bg-primary-light font-medium text-brand hover:border-primary/20 hover:bg-primary-light/80',
   outline:
-    'border border-border bg-card text-text-secondary shadow-xs hover:border-primary/30 hover:bg-muted hover:text-primary',
+    'border border-border bg-card font-medium text-text-secondary shadow-xs hover:border-primary/30 hover:bg-muted hover:text-brand',
   'outline-accent':
-    'border border-primary/20 bg-primary-light/60 text-primary hover:border-primary/35 hover:bg-primary-light',
-  ghost: 'text-text-secondary hover:bg-muted hover:text-primary',
-  'ghost-primary': 'text-primary hover:bg-primary-light',
+    'border border-primary/20 bg-primary-light/60 font-medium text-brand hover:border-primary/35 hover:bg-primary-light',
+  ghost: 'font-medium text-text-secondary hover:bg-muted hover:text-brand',
+  'ghost-primary': 'font-medium text-brand hover:bg-primary-light',
   danger: 'bg-health text-white shadow-soft hover:bg-health/90',
   'danger-ghost': 'text-health hover:bg-health/10',
   inverse: 'bg-white text-primary shadow-md hover:bg-primary-light hover:shadow-lg',

@@ -4,6 +4,13 @@ import { allFishBreeds } from './fishBreeds';
 import { allHamsterBreeds } from './hamsterBreeds';
 import { allBirdBreeds } from './birdBreeds';
 import { allRabbitBreeds } from './rabbitBreeds';
+import { allTurtleBreeds } from './turtleBreeds';
+import { allTwisterBreeds } from './twisterBreeds';
+import { allGuineaPigBreeds } from './guineaPigBreeds';
+import { allChinchillaBreeds } from './chinchillaBreeds';
+import { allGerbilBreeds } from './gerbilBreeds';
+import { allFerretBreeds } from './ferretBreeds';
+import { allLizardBreeds } from './lizardBreeds';
 import { AnimalBreed } from '../modules/animals/animal.types';
 import imageAttributions from './imageAttributions.json';
 
@@ -23,6 +30,13 @@ export const SPECIES_ROUTE_MAP = {
   hamsters: 'hamster',
   birds: 'bird',
   rabbits: 'rabbit',
+  turtles: 'turtle',
+  twisters: 'twister',
+  'guinea-pigs': 'guinea_pig',
+  chinchillas: 'chinchilla',
+  gerbils: 'gerbil',
+  ferrets: 'ferret',
+  lizards: 'lizard',
 } as const;
 
 export const SPECIES_IMAGE_FOLDER: Record<AnimalBreed['species'], string> = {
@@ -32,6 +46,13 @@ export const SPECIES_IMAGE_FOLDER: Record<AnimalBreed['species'], string> = {
   hamster: 'hamsters',
   bird: 'birds',
   rabbit: 'rabbits',
+  turtle: 'turtles',
+  twister: 'twisters',
+  guinea_pig: 'guinea-pigs',
+  chinchilla: 'chinchillas',
+  gerbil: 'gerbils',
+  ferret: 'ferrets',
+  lizard: 'lizards',
 };
 
 export function speciesPlural(species: AnimalBreed['species']): string {
@@ -69,6 +90,13 @@ export const allAnimalBreeds: Omit<AnimalBreed, 'id'>[] = [
   ...allHamsterBreeds,
   ...allBirdBreeds,
   ...allRabbitBreeds,
+  ...allTurtleBreeds,
+  ...allTwisterBreeds,
+  ...allGuineaPigBreeds,
+  ...allChinchillaBreeds,
+  ...allGerbilBreeds,
+  ...allFerretBreeds,
+  ...allLizardBreeds,
 ].map(withImageUrl);
 
 export type SpeciesRouteKey = keyof typeof SPECIES_ROUTE_MAP;

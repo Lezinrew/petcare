@@ -29,10 +29,17 @@ Endpoints por espécie (mesmos query params de filtros onde aplicável):
 | GET | `/api/animals/cats` | 20 |
 | GET | `/api/animals/fish` | 10 |
 | GET | `/api/animals/hamsters` | 5 |
-| GET | `/api/animals/birds` | 15 |
+| GET | `/api/animals/birds` | 23 |
 | GET | `/api/animals/rabbits` | 8 |
+| GET | `/api/animals/turtles` | 7 |
+| GET | `/api/animals/twisters` | 4 |
+| GET | `/api/animals/guinea-pigs` | 6 |
+| GET | `/api/animals/chinchillas` | 4 |
+| GET | `/api/animals/gerbils` | 4 |
+| GET | `/api/animals/ferrets` | 4 |
+| GET | `/api/animals/lizards` | 7 |
 
-**Total no seed:** 88 animais.
+**Total no seed:** 132 animais.
 
 ### GET /api/animals/dogs
 
@@ -71,7 +78,7 @@ Rotas equivalentes: `/api/animals/cats/:slug`, `/fish/:slug`, etc.
 
 **Response 200:**
 ```json
-{ "message": "Seed concluído", "count": 88 }
+{ "message": "Seed concluído", "count": 132 }
 ```
 
 **Erros:**
@@ -88,6 +95,8 @@ Todos usam `DEMO_USER_ID` do `.env`.
 **Response 200:** Array de `PetProfile`
 
 ### POST /api/pets
+
+`species` aceita `dog`, `cat`, `fish`, `hamster`, `bird`, `rabbit`, `turtle`, `twister`, `guinea_pig`, `chinchilla`, `gerbil`, `ferret`, `lizard` ou `other`.
 
 **Body:**
 ```json
@@ -165,6 +174,42 @@ Todos usam `DEMO_USER_ID` do `.env`.
 
 ---
 
+## Tutor Profile
+
+Todos usam `DEMO_USER_ID` do `.env`. Um documento por usuário demo (upsert).
+
+### GET /api/tutor-profile
+
+**Descrição:** Retorna o perfil do tutor demo. Se ainda não existir, retorna objeto vazio com `userId`.
+
+**Response 200:** `TutorProfile`
+
+### PUT /api/tutor-profile
+
+**Descrição:** Cria ou atualiza o perfil do tutor demo.
+
+**Body:**
+```json
+{
+  "name": "Ana",
+  "city": "São Paulo",
+  "state": "SP",
+  "housingType": "apartment",
+  "petExperience": "some",
+  "notes": "Primeiro apartamento com pet."
+}
+```
+
+Valores de `housingType`: `apartment`, `house`, `house_with_yard`, `other`.
+
+Valores de `petExperience`: `none`, `some`, `experienced`.
+
+**Response 200:** `TutorProfile`
+
+**Erros:** 400 VALIDATION_ERROR
+
+---
+
 ## Adoption
 
 ### POST /api/adoption/match
@@ -172,6 +217,31 @@ Todos usam `DEMO_USER_ID` do `.env`.
 **Body:** `AdoptionMatchRequest`
 
 **Response 200:** `AdoptionMatchResult`
+
+Retorna perfil resumido do tutor, 3 raças de cães recomendadas, percentual de compatibilidade, rótulo de compatibilidade, imagem quando disponível, motivo da recomendação, pontos de atenção, alertas gerais e mensagem antiabandono.
+
+Exemplo parcial:
+```json
+{
+  "profile": "Tutor iniciante em apartamento com crianças",
+  "recommendedBreeds": [
+    {
+      "name": "Shih Tzu",
+      "slug": "shih-tzu",
+      "imageUrl": "/images/dogs/shih-tzu.webp",
+      "imageAlt": "Shih Tzu",
+      "compatibilityScore": 88,
+      "compatibilityLabel": "Alta compatibilidade",
+      "reason": "Boa convivência com crianças. Adaptável a apartamento. Energia moderado, adequada ao seu perfil.",
+      "attentionPoints": [
+        "Ainda assim, confirme rotina, custos e temperamento individual antes da decisão."
+      ]
+    }
+  ],
+  "responsibilityAlerts": ["Como tutor iniciante, invista tempo em treinamento básico e socialização."],
+  "antiAbandonmentMessage": "Adotar é assumir uma vida..."
+}
+```
 
 **Erros:** 400 VALIDATION_ERROR
 

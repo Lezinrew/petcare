@@ -21,9 +21,17 @@ export default {
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
         'text-primary': 'rgb(var(--color-text-primary) / <alpha-value>)',
         'text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
+        brand: 'rgb(var(--color-brand-text) / <alpha-value>)',
+        forest: {
+          DEFAULT: '#1B4332',
+          dark: '#081C15',
+          light: '#B7E4C7',
+          muted: '#2D6A4F',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
       },
       boxShadow: {
         xs: '0 1px 2px rgba(15, 23, 42, 0.05)',

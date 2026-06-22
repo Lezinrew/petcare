@@ -53,7 +53,7 @@ function writeMasterIndex(): void {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo PetCare | 88 animais</title>
+  <title>Catálogo PetCare | ${allAnimalBreeds.length} animais</title>
   <style>
     body { font-family: system-ui, sans-serif; background: #F8FAFC; color: #0F172A; padding: 2rem; max-width: 640px; margin: 0 auto; }
     h1 { color: #0B3A6E; }
@@ -65,7 +65,7 @@ function writeMasterIndex(): void {
 </head>
 <body>
   <h1>🐾 PetCare Responsável</h1>
-  <p>Catálogo HTML estático — 88 fichas educativas</p>
+  <p>Catálogo HTML estático — ${allAnimalBreeds.length} fichas educativas</p>
   <ul>${links}</ul>
 </body>
 </html>`;

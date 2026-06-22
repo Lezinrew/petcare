@@ -51,7 +51,14 @@ export type Species =
   | 'fish'
   | 'hamster'
   | 'bird'
-  | 'rabbit';
+  | 'rabbit'
+  | 'turtle'
+  | 'twister'
+  | 'guinea_pig'
+  | 'chinchilla'
+  | 'gerbil'
+  | 'ferret'
+  | 'lizard';
 
 export type AnimalBreed = {
   id?: string;

@@ -4,9 +4,26 @@ import { env } from '../../config/env';
 import { petRepository } from './pet.repository';
 import { CreatePetInput, PetProfile, UpdatePetInput } from './pet.types';
 
+const petSpecies = [
+  'dog',
+  'cat',
+  'fish',
+  'hamster',
+  'bird',
+  'rabbit',
+  'turtle',
+  'twister',
+  'guinea_pig',
+  'chinchilla',
+  'gerbil',
+  'ferret',
+  'lizard',
+  'other',
+] as const;
+
 const createPetSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
-  species: z.enum(['dog', 'cat', 'other']),
+  species: z.enum(petSpecies),
   breedSlug: z.string().optional(),
   ageMonths: z.number().min(0).optional(),
   weightKg: z.number().min(0).optional(),

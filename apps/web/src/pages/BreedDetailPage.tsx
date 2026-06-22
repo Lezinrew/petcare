@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { BreedHero } from '../components/animal/BreedHero';
-import { BreedStatsBar } from '../components/animal/BreedStatsBar';
 import { CareInfoCard } from '../components/animal/CareInfoCard';
 import { ButtonLink } from '../components/ui/ButtonLink';
 import { ErrorState } from '../components/ui/ErrorState';
@@ -21,16 +20,23 @@ export function BreedDetailPage() {
 
   if (!category) {
     return (
-      <div className="page-container">
+      <div className="page-container-wide">
         <ErrorState message="Categoria não encontrada" />
       </div>
     );
   }
 
-  if (loading) return <div className="page-container"><LoadingState /></div>;
+  if (loading) {
+    return (
+      <div className="page-container-wide">
+        <LoadingState />
+      </div>
+    );
+  }
+
   if (error || !breed) {
     return (
-      <div className="page-container">
+      <div className="page-container-wide">
         <ErrorState message={error ?? 'Ficha não encontrada'} onRetry={refetch} />
       </div>
     );
@@ -39,33 +45,22 @@ export function BreedDetailPage() {
   const sections = getCareSectionsForSpecies(breed.species);
 
   return (
-    <div className="page-container space-y-6">
-      <div className="flex flex-wrap items-center gap-2">
-        <ButtonLink to={`/${speciesKey}`} variant="ghost-primary" size="sm">
-          ← Voltar
-        </ButtonLink>
-        <ButtonLink
-          href={`/generated/pets/${speciesKey}/${breed.slug}.html`}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="outline-accent"
-          size="sm"
-        >
-          Abrir HTML deste pet
-        </ButtonLink>
-      </div>
+    <div className="page-container-wide space-y-6">
+      <ButtonLink to={`/${speciesKey}`} variant="outline-accent" size="sm" className="font-semibold">
+        ← Voltar
+      </ButtonLink>
 
       <BreedHero breed={breed} />
-      <BreedStatsBar breed={breed} />
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sections.map((section) => (
           <CareInfoCard
             key={section.key}
+            sectionKey={section.key}
             title={section.title}
             icon={section.icon}
             color={section.color}
-            borderColor={section.borderColor}
+            iconBg={section.iconBg}
             disclaimer={section.disclaimer}
           >
             {section.render(breed.care)}
@@ -73,9 +68,14 @@ export function BreedDetailPage() {
         ))}
       </div>
 
-      <aside className="disclaimer-banner">
-        ⚕️ Informação educativa. Não substitui orientação veterinária.
-      </aside>
+      <footer className="border-t border-border pt-6">
+        <p className="text-center text-sm font-medium leading-relaxed text-text-secondary">
+          <span aria-hidden>🐾 </span>
+          Lembre-se: cada animal é único! As informações são educativas e não substituem orientação
+          veterinária profissional.
+          <span aria-hidden> 🐾</span>
+        </p>
+      </footer>
     </div>
   );
 }

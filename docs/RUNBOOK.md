@@ -72,7 +72,7 @@ Instala dependências da raiz, `apps/api` e `apps/web`, e cria `.env` a partir d
 npm run reset
 ```
 
-Esperado: `88 animais inseridos` (30 cães, 20 gatos, 10 peixes, 5 hamsters, 15 aves, 8 coelhos). Também disponível: `npm run seed` (mesmo efeito, saída mais técnica).
+Esperado: `132 animais inseridos`. Também disponível: `npm run seed` (mesmo efeito, saída mais técnica).
 
 ## Rodar API e Web juntos
 
@@ -102,7 +102,7 @@ curl http://localhost:3333/api/health
 npm run reset
 ```
 
-Ou diretamente: `npm run seed`. Ambos limpam a coleção `animals` e reinserem **88** animais.
+Ou diretamente: `npm run seed`. Ambos limpam a coleção `animals` e reinserem **132** animais.
 
 ## Validar API
 
@@ -112,9 +112,9 @@ Com a API rodando (`npm run dev:api` ou `npm run dev`):
 npm run check:api
 ```
 
-Valida health, 6 espécies (contagens 30/20/10/5/15/8), total 88, detalhes labrador e persa.
+Valida health, 13 grupos, total 132 e detalhes representativos por espécie.
 
-Placeholders SVG: `apps/web/public/images/placeholders/{dog,cat,fish,hamster,bird,rabbit}.svg`
+Placeholders SVG: `apps/web/public/images/placeholders/{dog,cat,fish,hamster,bird,rabbit,turtle,twister,guinea_pig,chinchilla,gerbil,ferret,lizard}.svg`
 
 Fotos reais (Wikipedia / Wikimedia Commons):
 
@@ -133,13 +133,13 @@ npm run check:pet-images
 
 http://localhost:5173/demo — roteiro em `docs/DEMO_SCRIPT.md`
 
-## HTML estático (todas espécies)
+## HTML estático legado (todas espécies)
 
 ```bash
 npm run generate:pets-html
 ```
 
-Saída: `apps/web/public/generated/pets/`. Legado cães: `npm run generate:dogs-html`.
+Saída: `apps/web/public/generated/pets/`. As fichas React são a experiência principal; use esta saída apenas para distribuição offline ou compatibilidade. Legado cães: `npm run generate:dogs-html`.
 
 ## Demo rápida
 
@@ -203,13 +203,13 @@ Verifique `CORS_ORIGIN` em `apps/api/.env` — deve ser `http://localhost:5173`.
 
 Ou incremente `CACHE_VERSION` em `apps/web/public/service-worker.js`.
 
-## Gerar HTML das fichas
+## Gerar HTML legado das fichas
 
 ```powershell
 npm run generate:pets-html
 ```
 
-Gera 88+ arquivos em `apps/web/public/generated/pets/` + índices por espécie.
+Gera 132+ arquivos em `apps/web/public/generated/pets/` + índices por espécie. Esse fluxo é opcional e não aparece como CTA no app.
 
 Legado (só cães):
 

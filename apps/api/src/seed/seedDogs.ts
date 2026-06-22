@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { allAnimalBreeds } from '../data/allBreeds';
 import { AnimalModel } from '../modules/animals/animal.model';
+import { runTutorProfileSeed } from './seedTutorProfile';
 
 dotenv.config();
 
@@ -15,7 +16,8 @@ export async function runAnimalSeed(): Promise<number> {
   await AnimalModel.deleteMany({});
   const result = await AnimalModel.insertMany(allAnimalBreeds);
 
-  console.log(`[seed] ${result.length} animais inseridos (88 raças/espécies no total)`);
+  console.log(`[seed] ${result.length} animais inseridos (${allAnimalBreeds.length} raças/espécies no total)`);
+  await runTutorProfileSeed();
   return result.length;
 }
 

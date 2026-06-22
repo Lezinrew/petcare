@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
-import { PageHeader } from '../components/layout/PageHeader';
-import { ReminderCard } from '../components/reminder/ReminderCard';
+import { useCallback, useEffect, useState } from 'react';import { ReminderCard } from '../components/reminder/ReminderCard';
 import { ReminderForm } from '../components/reminder/ReminderForm';
+import { TutorContextBanner } from '../components/tutor/TutorContextBanner';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
-import { EmptyState } from '../components/ui/EmptyState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { LoadingState } from '../components/ui/LoadingState';
 import {
@@ -67,73 +65,115 @@ export function RemindersPage() {
   const upcoming = reminders.filter(
     (r) => r.status === 'pending' && isUpcoming(r.dueDate),
   );
+  const done = reminders.filter((r) => r.status === 'done');
   const others = reminders.filter((r) => !upcoming.includes(r));
 
   if (loading) return <div className="page-container"><LoadingState /></div>;
   if (error) return <div className="page-container"><ErrorState message={error} onRetry={load} /></div>;
 
   return (
-    <div className="page-container">
-      <div className="mb-6 flex items-center justify-between">
-        <PageHeader title="Lembretes" subtitle="Organize vacinas, banhos, consultas e cuidados do dia a dia." />
-        {!showForm && !editing && (
-          <Button size="sm" onClick={() => setShowForm(true)}>+ Novo</Button>
+    <div className="care-page px-5 pb-28 pt-6 md:px-8 md:pb-10">
+      <div className="mx-auto max-w-5xl">
+        <section className="mb-5 rounded-[2rem] border border-emerald-900/10 bg-white/85 p-5 shadow-card dark:border-slate-700/80 dark:bg-slate-900/90 md:p-7">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="inline-flex rounded-full bg-[#edf3ec] px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100">
+                Rotina de cuidado
+              </p>
+              <h1 className="mt-4 font-serif text-4xl font-bold leading-tight text-emerald-950 dark:text-emerald-50">Lembretes</h1>
+              <p className="mt-3 max-w-xl font-medium leading-relaxed text-slate-700 dark:text-slate-300">
+                Vacinas, consultas, medicação e cuidados recorrentes com prioridade visual para o que está chegando.
+              </p>            </div>
+            {!showForm && !editing && (
+              <Button size="lg" onClick={() => setShowForm(true)}>
+                Novo lembrete
+              </Button>
+            )}
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-2">
+            <div className="rounded-2xl bg-[#f3f7f2] px-3 py-4 text-center dark:bg-emerald-950/45">
+              <p className="text-2xl font-black text-emerald-950 dark:text-emerald-50">{reminders.length}</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wide text-emerald-800/70 dark:text-emerald-200/75">total</p>
+            </div>
+            <div className="rounded-2xl bg-amber-50 px-3 py-4 text-center dark:bg-amber-950/45">
+              <p className="text-2xl font-black text-amber-950 dark:text-amber-50">{upcoming.length}</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wide text-amber-800/70 dark:text-amber-200/75">próximos</p>
+            </div>
+            <div className="rounded-2xl bg-sky-50 px-3 py-4 text-center dark:bg-sky-950/45">
+              <p className="text-2xl font-black text-sky-950 dark:text-sky-50">{done.length}</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-wide text-sky-800/70 dark:text-sky-200/75">concluídos</p>
+            </div>
+          </div>
+        </section>
+
+        <TutorContextBanner context="reminders" />
+
+        {(showForm || editing) && (          <Card className="mb-5 rounded-[1.5rem] border-slate-100 bg-white shadow-card dark:border-slate-700/80 dark:bg-slate-900/90">
+            <div className="mb-4">
+              <h2 className="font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">
+                {editing ? 'Editar lembrete' : 'Novo lembrete'}
+              </h2>
+              <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+                Datas claras ajudam a rotina a não depender da memória.
+              </p>
+            </div>
+            <ReminderForm
+              initial={editing ?? undefined}
+              onSubmit={editing ? handleUpdate : handleCreate}
+              onCancel={() => { setShowForm(false); setEditing(null); }}
+            />
+          </Card>
+        )}
+
+        {reminders.length === 0 && !showForm ? (
+          <section className="rounded-[1.5rem] border border-dashed border-emerald-900/20 bg-white/70 p-8 text-center shadow-xs dark:border-emerald-200/25 dark:bg-slate-900/80">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf3ec] text-4xl dark:bg-emerald-950/50">◷</div>
+            <h2 className="mt-5 font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">Nenhum lembrete</h2>
+            <p className="mx-auto mt-2 max-w-sm font-medium leading-relaxed text-slate-600 dark:text-slate-300">
+              Crie o primeiro cuidado com data e recorrência para começar a rotina do pet.
+            </p>
+            <div className="mt-5">
+              <Button onClick={() => setShowForm(true)}>Criar lembrete</Button>
+            </div>
+          </section>
+        ) : (
+          <div className="space-y-6">
+            {upcoming.length > 0 && (
+              <section>
+                <h2 className="mb-3 font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">Próximos</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {upcoming.map((r) => (
+                    <ReminderCard
+                      key={r.id}
+                      reminder={r}
+                      highlight
+                      onDone={handleDone}
+                      onEdit={setEditing}
+                      onDelete={handleDelete}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+            {others.length > 0 && (
+              <section>
+                <h2 className="mb-3 font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">Todos</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {others.map((r) => (
+                    <ReminderCard
+                      key={r.id}
+                      reminder={r}
+                      onDone={handleDone}
+                      onEdit={setEditing}
+                      onDelete={handleDelete}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
         )}
       </div>
-
-      {(showForm || editing) && (
-        <Card className="mb-6">
-          <ReminderForm
-            initial={editing ?? undefined}
-            onSubmit={editing ? handleUpdate : handleCreate}
-            onCancel={() => { setShowForm(false); setEditing(null); }}
-          />
-        </Card>
-      )}
-
-      {reminders.length === 0 && !showForm ? (
-        <EmptyState
-          title="Nenhum lembrete"
-          description="Crie lembretes para não esquecer os cuidados do seu pet."
-          action={<Button onClick={() => setShowForm(true)}>Criar lembrete</Button>}
-        />
-      ) : (
-        <div className="space-y-6">
-          {upcoming.length > 0 && (
-            <section>
-              <h2 className="mb-3 text-lg font-semibold text-primary">Próximos lembretes</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {upcoming.map((r) => (
-                  <ReminderCard
-                    key={r.id}
-                    reminder={r}
-                    highlight
-                    onDone={handleDone}
-                    onEdit={setEditing}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-          {others.length > 0 && (
-            <section>
-              <h2 className="mb-3 text-lg font-semibold">Todos os lembretes</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {others.map((r) => (
-                  <ReminderCard
-                    key={r.id}
-                    reminder={r}
-                    onDone={handleDone}
-                    onEdit={setEditing}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      )}
     </div>
   );
 }

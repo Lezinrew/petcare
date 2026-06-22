@@ -14,6 +14,13 @@ const EMOJI = {
   hamsters: '🐹',
   birds: '🐦',
   rabbits: '🐰',
+  turtles: '🐢',
+  twisters: '🐀',
+  'guinea-pigs': '🐹',
+  chinchillas: '🐭',
+  gerbils: '🐭',
+  ferrets: '🦦',
+  lizards: '🦎',
 };
 
 const EXPECTED = {
@@ -21,8 +28,15 @@ const EXPECTED = {
   cats: 20,
   fish: 10,
   hamsters: 5,
-  birds: 15,
+  birds: 23,
   rabbits: 8,
+  turtles: 7,
+  twisters: 4,
+  'guinea-pigs': 6,
+  chinchillas: 4,
+  gerbils: 4,
+  ferrets: 4,
+  lizards: 7,
 };
 
 function loadBreeds() {

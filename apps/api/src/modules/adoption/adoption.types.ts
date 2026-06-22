@@ -15,7 +15,12 @@ export type AdoptionMatchResult = {
   recommendedBreeds: {
     name: string;
     slug: string;
+    imageUrl?: string;
+    imageAlt?: string;
+    compatibilityScore: number;
+    compatibilityLabel: string;
     reason: string;
+    attentionPoints: string[];
   }[];
   responsibilityAlerts: string[];
   antiAbandonmentMessage: string;

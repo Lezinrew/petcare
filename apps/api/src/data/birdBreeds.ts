@@ -1,4 +1,5 @@
-import { buildBreedsFromNames } from './breedFactory';
+import { AnimalBreed } from '../modules/animals/animal.types';
+import { buildBreed, buildBreedsFromNames, BreedSeedInput } from './breedFactory';
 
 const BIRD_NAMES = [
   'Calopsita',
@@ -18,4 +19,160 @@ const BIRD_NAMES = [
   'Ganso',
 ];
 
-export const allBirdBreeds = buildBreedsFromNames(BIRD_NAMES, 'bird');
+const RAPTOR_BIRDS: BreedSeedInput[] = [
+  {
+    name: 'Carcará',
+    slug: 'carcara',
+    species: 'bird',
+    origin: 'Américas',
+    originalFunction: 'Ave de rapina nativa; manejo somente com origem legal e autorização',
+    lifeExpectancy: '15 a 25 anos',
+    size: 'médio',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Rapinante nativo robusto. Não é ave doméstica; qualquer guarda exige origem legal, marcação e documentação do órgão ambiental.',
+  },
+  {
+    name: 'Quiriquiri',
+    slug: 'quiriquiri',
+    species: 'bird',
+    origin: 'Américas',
+    originalFunction: 'Falcoaria educativa e manejo autorizado',
+    lifeExpectancy: '8 a 12 anos',
+    size: 'pequeno',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Pequeno falcão de alta energia. Só deve constar como ave sob cuidados humanos quando proveniente de criadouro/empreendimento autorizado.',
+  },
+  {
+    name: 'Falcão-de-coleira',
+    slug: 'falcao-de-coleira',
+    species: 'bird',
+    origin: 'Américas',
+    originalFunction: 'Falcoaria, conservação e manejo autorizado',
+    lifeExpectancy: '12 a 18 anos',
+    size: 'médio',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Falcão veloz e especializado. Exige treinamento técnico, viveiro adequado, documentação e acompanhamento veterinário especializado.',
+  },
+  {
+    name: 'Falcão-peregrino',
+    slug: 'falcao-peregrino',
+    species: 'bird',
+    origin: 'Cosmopolita',
+    originalFunction: 'Falcoaria e conservação, conforme autorização aplicável',
+    lifeExpectancy: '12 a 20 anos',
+    size: 'médio',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Rapinante de voo extremamente exigente. Não é pet convencional e demanda estrutura profissional e autorização ambiental.',
+  },
+  {
+    name: 'Cauré',
+    slug: 'caure',
+    species: 'bird',
+    origin: 'Américas tropicais',
+    originalFunction: 'Manejo educativo e conservação sob autorização',
+    lifeExpectancy: '10 a 15 anos',
+    size: 'pequeno',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Falcão pequeno e ativo. A manutenção em cativeiro depende de procedência legal, anilha/marcação e autorização competente.',
+  },
+  {
+    name: 'Gavião-asa-de-telha',
+    slug: 'gaviao-asa-de-telha',
+    species: 'bird',
+    origin: 'Américas',
+    originalFunction: 'Falcoaria, educação ambiental e manejo autorizado',
+    lifeExpectancy: '15 a 25 anos',
+    size: 'médio',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Também conhecido como Harris hawk. É uma das rapinantes mais associadas à falcoaria, sempre com origem legal e manejo técnico.',
+  },
+  {
+    name: 'Gavião-carijó',
+    slug: 'gaviao-carijo',
+    species: 'bird',
+    origin: 'América do Sul',
+    originalFunction: 'Manejo de fauna, reabilitação e educação ambiental sob autorização',
+    lifeExpectancy: '12 a 20 anos',
+    size: 'médio',
+    energyLevel: 'alto',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Rapinante comum em áreas urbanas e rurais. Guarda particular só é aceitável com documentação, origem legal e autorização ambiental.',
+  },
+  {
+    name: 'Coruja-buraqueira',
+    slug: 'coruja-buraqueira',
+    species: 'bird',
+    origin: 'Américas',
+    originalFunction: 'Educação ambiental e manejo autorizado',
+    lifeExpectancy: '8 a 12 anos',
+    size: 'pequeno',
+    energyLevel: 'moderado',
+    apartmentFriendly: false,
+    goodWithChildren: false,
+    shortDescription: 'Coruja de hábitos terrestres. É ave silvestre de rapina; não deve ser tratada como animal doméstico comum.',
+  },
+];
+
+function withRaptorCare(breed: Omit<AnimalBreed, 'id'>): Omit<AnimalBreed, 'id'> {
+  return {
+    ...breed,
+    care: {
+      ...breed.care,
+      feeding: {
+        dailyAmount: 'Dieta carnívora calculada por veterinário de aves/animais silvestres',
+        mealsPerDay: 'Conforme espécie, peso, treino e orientação profissional',
+        forbiddenFoods: ['carne temperada', 'alimentos humanos', 'presas sem procedência sanitária', 'ração comum para aves granívoras'],
+        specialNeeds: 'Exige alimento próprio para rapinantes, controle sanitário e manejo técnico',
+      },
+      exercise: {
+        dailyWalkTime: 'Voo/treino apenas com falcoeiro ou responsável habilitado',
+        energyLevel: breed.energyLevel,
+        recommendedActivities: ['viveiro amplo', 'poleiros adequados', 'treino supervisionado', 'enriquecimento ambiental'],
+      },
+      health: {
+        idealWeight: 'Deve ser monitorado por espécie, sexo e condição corporal',
+        vaccines: ['Não há protocolo genérico; consultar veterinário de fauna silvestre'],
+        commonDiseases: ['traumas', 'pododermatite', 'parasitas', 'estresse por manejo inadequado', 'deficiências nutricionais'],
+      },
+      hygiene: {
+        bathFrequency: 'Banho voluntário em recipiente limpo; nunca forçar banho',
+        coatCare: 'Inspecionar penas, bico, garras, anilha/marcação e poleiros regularmente',
+      },
+      behavior: {
+        temperament: 'Predador silvestre, territorial e sensível ao estresse',
+        trainability: 'Só com manejo técnico, reforço positivo e licença/procedência adequada',
+        sociability: 'Não é animal de colo ou companhia convencional',
+        otherAnimals: 'Não deve conviver solta com cães, gatos, aves pequenas ou roedores',
+      },
+      environment: {
+        recommendedSpace: 'viveiro/telahado seguro, amplo, ventilado e com área de voo conforme espécie',
+        canLiveInApartment: 'não recomendado; exige estrutura especializada e autorização',
+        climateSensitivity: 'Proteger de calor extremo, frio, fumaça, estresse e fuga',
+        backyardNeed: 'estrutura externa segura costuma ser necessária',
+      },
+      curiosities: [
+        'Ave de rapina não é fauna doméstica; captura na natureza é ilegal sem autorização',
+        'A guarda legal depende de origem documentada, marcação/anilha e regras do órgão ambiental competente',
+        'Antes de qualquer aquisição, confirme criadouro/empreendimento autorizado, nota/documento de origem e exigências estaduais',
+      ],
+    },
+  };
+}
+
+export const allBirdBreeds = [
+  ...buildBreedsFromNames(BIRD_NAMES, 'bird'),
+  ...RAPTOR_BIRDS.map((input) => withRaptorCare(buildBreed(input))),
+];
