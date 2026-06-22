@@ -113,6 +113,25 @@
     background: rgba(30, 41, 59, 0.95) !important;
   }
 
+  .home-species-carousel {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 0.75rem, black calc(100% - 0.75rem), transparent);
+    mask-image: linear-gradient(to right, transparent, black 0.75rem, black calc(100% - 0.75rem), transparent);
+  }
+
+  .home-species-carousel > div {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(16, 185, 129, 0.35) transparent;
+  }
+
+  .home-species-carousel > div::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .home-species-carousel > div::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.35);
+  }
+
   .dark .home-nav-card-title {
     color: #ecfdf5 !important;
   }

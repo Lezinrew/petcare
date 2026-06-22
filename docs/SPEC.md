@@ -15,6 +15,7 @@ N/A (página informativa)
 - Exibir hero com nome e slogan
 - Saudação personalizada quando o perfil demo tiver nome
 - Banner e badge de perfil incompleto (5 campos essenciais) com link para `/profile`
+- Carrossel horizontal com as 13 espécies; clique leva a `/explore?species={routeKey}`
 - Cards de navegação para Cães, Meu Pet, Lembretes, Adoção
 - Seção "Por que isso importa?"
 - Aviso educativo sobre não substituir veterinário
@@ -42,6 +43,8 @@ Hub visual mobile-first com cards grandes por espécie.
 
 ### Regras
 - Tela com linguagem editorial clara, fundo claro e navegação mobile no topo
+- Query opcional `?species={routeKey}` filtra a grade para uma espécie (ex: `?species=dogs`)
+- Com filtro ativo: chip removível, link para ver todas e CTA para o catálogo da espécie
 - Cabeçalho: "Explorar Pets", chip com total de fichas, divisor sutil e subtítulo educativo
 - 13 cards visuais limpos com imagem, nome da espécie e seta de navegação
 - A experiência principal é a ficha React responsiva; HTML estático não aparece como CTA no app
@@ -197,6 +200,8 @@ tipo, título, data, recorrência, pet (opcional), status
 ### Regras
 - Ordenar por data
 - Banner com resumo do tutor vinculado e link para `/profile`
+- Formulário permite vincular lembrete a pet cadastrado (opcional)
+- Cards exibem nome do pet quando `petId` estiver definido
 - Destacar próximos pendentes
 - Marcar como concluído via PATCH
 - Exibir resumo visual de total, próximos e concluídos

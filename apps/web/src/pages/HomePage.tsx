@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ButtonLink } from '../components/ui/ButtonLink';
+import { SpeciesHomeCarousel } from '../components/home/SpeciesHomeCarousel';
 import { TutorProfileIncompleteBanner, TutorProfileIncompleteBadge } from '../components/tutor/TutorProfileIncompleteBadge';
 import { tutorDisplayName, useTutorProfile } from '../contexts/TutorProfileContext';
 import { PET_CATEGORIES, TOTAL_BREEDS } from '../config/species';
@@ -21,7 +22,6 @@ const stats = [
 export function HomePage() {
   const { profile, loading } = useTutorProfile();
   const firstName = tutorDisplayName(profile);
-  const featured = PET_CATEGORIES.slice(0, 5);
 
   return (
     <div className="care-page">
@@ -36,6 +36,11 @@ export function HomePage() {
                 {firstName && (
                   <p className="inline-flex rounded-full bg-[#edf3ec] px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100">
                     Olá, {firstName}
+                  </p>
+                )}
+                {!loading && profile?.userId && (
+                  <p className="inline-flex rounded-full bg-violet-100/90 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-violet-900 dark:bg-violet-950/50 dark:text-violet-100">
+                    {profile.userId}
                   </p>
                 )}
               </div>
@@ -80,22 +85,7 @@ export function HomePage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-3 grid grid-cols-5 gap-2">
-                {featured.map((category) => (
-                  <Link
-                    key={category.routeKey}
-                    to={`/${category.routeKey}`}
-                    className="home-feature-thumb group overflow-hidden rounded-2xl border border-slate-100 bg-white p-1 shadow-xs dark:border-slate-700 dark:bg-slate-800"
-                    aria-label={category.labelPlural}
-                  >
-                    <img
-                      src={category.coverImage}
-                      alt=""
-                      className="aspect-square w-full rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </Link>
-                ))}
-              </div>
+              <SpeciesHomeCarousel />
             </div>
           </div>
         </div>

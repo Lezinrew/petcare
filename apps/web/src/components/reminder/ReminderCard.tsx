@@ -6,13 +6,14 @@ import { Button } from '../ui/Button';
 
 type Props = {
   reminder: Reminder;
+  petName?: string;
   highlight?: boolean;
   onDone: (id: string) => void;
   onEdit: (reminder: Reminder) => void;
   onDelete: (id: string) => void;
 };
 
-export function ReminderCard({ reminder, highlight, onDone, onEdit, onDelete }: Props) {
+export function ReminderCard({ reminder, petName, highlight, onDone, onEdit, onDelete }: Props) {
   const overdue = reminder.status === 'pending' && isOverdue(reminder.dueDate);
   const upcoming = reminder.status === 'pending' && isUpcoming(reminder.dueDate);
   const date = new Date(reminder.dueDate);
@@ -49,6 +50,9 @@ export function ReminderCard({ reminder, highlight, onDone, onEdit, onDelete }: 
           <div className="mt-3 flex flex-wrap gap-2">
             <Badge color="bg-[#f3f7f2] text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100">{reminderTypeLabels[reminder.type]}</Badge>
             <Badge color="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">{recurrenceLabels[reminder.recurrence]}</Badge>
+            {petName && (
+              <Badge color="bg-sky-50 text-sky-800 dark:bg-sky-950/50 dark:text-sky-100">Pet: {petName}</Badge>
+            )}
           </div>
         </div>
       </div>

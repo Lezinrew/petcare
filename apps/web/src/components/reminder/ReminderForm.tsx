@@ -1,18 +1,18 @@
 import { FormEvent, useState } from 'react';
 import { CreateReminderInput, Reminder } from '../../types/reminder';
-import { recurrenceLabels, reminderTypeLabels } from '../../utils/labels';
-import { Button } from '../ui/Button';
+import { PetProfile } from '../../types/pet';
+import { recurrenceLabels, reminderTypeLabels } from '../../utils/labels';import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 
 type Props = {
   initial?: Reminder;
+  pets?: PetProfile[];
   onSubmit: (data: CreateReminderInput) => Promise<void>;
   onCancel: () => void;
 };
 
-export function ReminderForm({ initial, onSubmit, onCancel }: Props) {
-  const [loading, setLoading] = useState(false);
+export function ReminderForm({ initial, pets = [], onSubmit, onCancel }: Props) {  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState<CreateReminderInput>({
     type: initial?.type ?? 'vaccine',
     title: initial?.title ?? '',
@@ -25,8 +25,10 @@ export function ReminderForm({ initial, onSubmit, onCancel }: Props) {
     e.preventDefault();
     setLoading(true);
     try {
-      await onSubmit(form);
-    } finally {
+      await onSubmit({
+        ...form,
+        petId: form.petId || undefined,
+      });    } finally {
       setLoading(false);
     }
   };
@@ -58,7 +60,20 @@ export function ReminderForm({ initial, onSubmit, onCancel }: Props) {
         onChange={(e) => setForm({ ...form, recurrence: e.target.value as CreateReminderInput['recurrence'] })}
         options={Object.entries(recurrenceLabels).map(([value, label]) => ({ value, label }))}
       />
-      <div className="flex gap-2">
+      {pets.length > 0 && (
+        <Select
+          label="Pet (opcional)"
+          value={form.petId ?? ''}
+          onChange={(e) => setForm({ ...form, petId: e.target.value || undefined })}
+          options={[
+            { value: '', label: 'Nenhum pet específico' },
+            ...pets.map((pet) => ({
+              value: pet.id ?? '',
+              label: pet.name,
+            })).filter((opt) => opt.value),
+          ]}
+        />
+      )}      <div className="flex gap-2">
         <Button type="submit" fullWidth disabled={loading}>
           {loading ? 'Salvando...' : initial ? 'Atualizar' : 'Criar lembrete'}
         </Button>

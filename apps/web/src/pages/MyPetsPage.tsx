@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PetCard } from '../components/pet/PetCard';
 import { PetForm } from '../components/pet/PetForm';
+import { CareEmptyState } from '../components/care/CareEmptyState';
 import { TutorContextBanner } from '../components/tutor/TutorContextBanner';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ErrorState } from '../components/ui/ErrorState';
 import { LoadingState } from '../components/ui/LoadingState';
 import { createPet, deletePet, fetchPets, updatePet } from '../services/pets.service';
+import { fetchReminders } from '../services/reminders.service';
 import { CreatePetInput, PetProfile } from '../types/pet';
 
 export function MyPetsPage() {
@@ -15,12 +17,15 @@ export function MyPetsPage() {
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<PetProfile | null>(null);
+  const [reminderCount, setReminderCount] = useState(0);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      setPets(await fetchPets());
+      const [petsData, remindersData] = await Promise.all([fetchPets(), fetchReminders()]);
+      setPets(petsData);
+      setReminderCount(remindersData.length);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao carregar pets');
     } finally {
@@ -93,7 +98,7 @@ export function MyPetsPage() {
           </div>
         </section>
 
-        <TutorContextBanner context="pets" />
+        <TutorContextBanner context="pets" linkedPetCount={pets.length} linkedReminderCount={reminderCount} />
 
         {(showForm || editing) && (
           <Card className="mb-5 rounded-[1.5rem] border-slate-100 bg-white shadow-card dark:border-slate-700/80 dark:bg-slate-900/90">
@@ -114,16 +119,16 @@ export function MyPetsPage() {
         )}
 
         {pets.length === 0 && !showForm ? (
-          <section className="rounded-[1.5rem] border border-dashed border-emerald-900/20 bg-white/70 p-8 text-center shadow-xs dark:border-emerald-200/25 dark:bg-slate-900/80">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf3ec] text-4xl dark:bg-emerald-950/50">🐾</div>
-            <h2 className="mt-5 font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">Nenhum pet cadastrado</h2>
-            <p className="mx-auto mt-2 max-w-sm font-medium leading-relaxed text-slate-600 dark:text-slate-300">
-              Comece criando um perfil simples. Depois você pode conectar cuidados, observações e lembretes.
-            </p>
-            <div className="mt-5">
-              <Button onClick={() => setShowForm(true)}>Cadastrar pet</Button>
-            </div>
-          </section>
+          <CareEmptyState
+            icon="🐾"
+            title="Nenhum pet cadastrado"
+            description="Comece pelo perfil do tutor ou cadastre o primeiro companheiro. Depois você pode vincular lembretes à rotina."
+            actions={[
+              { label: 'Cadastrar pet', onClick: () => setShowForm(true) },
+              { label: 'Ver perfil', to: '/profile', variant: 'secondary' },
+              { label: 'Ver lembretes', to: '/reminders', variant: 'secondary' },
+            ]}
+          />
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             {pets.map((pet) => (

@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';import { ReminderCard } from '../components/reminder/ReminderCard';
+import { useCallback, useEffect, useState } from 'react';
+import { ReminderCard } from '../components/reminder/ReminderCard';
 import { ReminderForm } from '../components/reminder/ReminderForm';
+import { CareEmptyState } from '../components/care/CareEmptyState';
 import { TutorContextBanner } from '../components/tutor/TutorContextBanner';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -12,11 +14,14 @@ import {
   markReminderDone,
   updateReminder,
 } from '../services/reminders.service';
+import { fetchPets } from '../services/pets.service';
 import { CreateReminderInput, Reminder } from '../types/reminder';
+import { PetProfile } from '../types/pet';
 import { isUpcoming } from '../utils/formatDate';
 
 export function RemindersPage() {
   const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [pets, setPets] = useState<PetProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -26,7 +31,9 @@ export function RemindersPage() {
     setLoading(true);
     setError(null);
     try {
-      setReminders(await fetchReminders());
+      const [remindersData, petsData] = await Promise.all([fetchReminders(), fetchPets()]);
+      setReminders(remindersData);
+      setPets(petsData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao carregar lembretes');
     } finally {
@@ -67,6 +74,7 @@ export function RemindersPage() {
   );
   const done = reminders.filter((r) => r.status === 'done');
   const others = reminders.filter((r) => !upcoming.includes(r));
+  const petNameById = new Map(pets.filter((pet) => pet.id).map((pet) => [pet.id!, pet.name]));
 
   if (loading) return <div className="page-container"><LoadingState /></div>;
   if (error) return <div className="page-container"><ErrorState message={error} onRetry={load} /></div>;
@@ -106,9 +114,14 @@ export function RemindersPage() {
           </div>
         </section>
 
-        <TutorContextBanner context="reminders" />
+        <TutorContextBanner
+          context="reminders"
+          linkedPetCount={pets.length}
+          linkedReminderCount={reminders.length}
+        />
 
-        {(showForm || editing) && (          <Card className="mb-5 rounded-[1.5rem] border-slate-100 bg-white shadow-card dark:border-slate-700/80 dark:bg-slate-900/90">
+        {(showForm || editing) && (
+          <Card className="mb-5 rounded-[1.5rem] border-slate-100 bg-white shadow-card dark:border-slate-700/80 dark:bg-slate-900/90">
             <div className="mb-4">
               <h2 className="font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">
                 {editing ? 'Editar lembrete' : 'Novo lembrete'}
@@ -119,6 +132,7 @@ export function RemindersPage() {
             </div>
             <ReminderForm
               initial={editing ?? undefined}
+              pets={pets}
               onSubmit={editing ? handleUpdate : handleCreate}
               onCancel={() => { setShowForm(false); setEditing(null); }}
             />
@@ -126,16 +140,26 @@ export function RemindersPage() {
         )}
 
         {reminders.length === 0 && !showForm ? (
-          <section className="rounded-[1.5rem] border border-dashed border-emerald-900/20 bg-white/70 p-8 text-center shadow-xs dark:border-emerald-200/25 dark:bg-slate-900/80">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf3ec] text-4xl dark:bg-emerald-950/50">◷</div>
-            <h2 className="mt-5 font-serif text-2xl font-bold text-emerald-950 dark:text-emerald-50">Nenhum lembrete</h2>
-            <p className="mx-auto mt-2 max-w-sm font-medium leading-relaxed text-slate-600 dark:text-slate-300">
-              Crie o primeiro cuidado com data e recorrência para começar a rotina do pet.
-            </p>
-            <div className="mt-5">
-              <Button onClick={() => setShowForm(true)}>Criar lembrete</Button>
-            </div>
-          </section>
+          <CareEmptyState
+            icon="◷"
+            title="Nenhum lembrete"
+            description={
+              pets.length === 0
+                ? 'Cadastre um pet em Meu Pet para vincular lembretes com mais contexto. Tudo fica no mesmo usuário demo.'
+                : 'Crie o primeiro cuidado com data e recorrência. Você pode associar a um pet cadastrado.'
+            }
+            actions={
+              pets.length === 0
+                ? [
+                    { label: 'Cadastrar pet', to: '/my-pets' },
+                    { label: 'Ver perfil', to: '/profile', variant: 'secondary' },
+                  ]
+                : [
+                    { label: 'Criar lembrete', onClick: () => setShowForm(true) },
+                    { label: 'Ver pets', to: '/my-pets', variant: 'secondary' },
+                  ]
+            }
+          />
         ) : (
           <div className="space-y-6">
             {upcoming.length > 0 && (
@@ -146,6 +170,7 @@ export function RemindersPage() {
                     <ReminderCard
                       key={r.id}
                       reminder={r}
+                      petName={r.petId ? petNameById.get(r.petId) : undefined}
                       highlight
                       onDone={handleDone}
                       onEdit={setEditing}
@@ -163,6 +188,7 @@ export function RemindersPage() {
                     <ReminderCard
                       key={r.id}
                       reminder={r}
+                      petName={r.petId ? petNameById.get(r.petId) : undefined}
                       onDone={handleDone}
                       onEdit={setEditing}
                       onDelete={handleDelete}

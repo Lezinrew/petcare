@@ -12,6 +12,8 @@ import { TutorProfileIncompleteBadge } from './TutorProfileIncompleteBadge';
 type Props = {
   context: 'pets' | 'reminders';
   className?: string;
+  linkedPetCount?: number;
+  linkedReminderCount?: number;
 };
 
 function labelFor<T extends { value: string; label: string }>(options: T[], value?: string): string | undefined {
@@ -38,7 +40,12 @@ const contextCopy = {
   },
 } as const;
 
-export function TutorContextBanner({ context, className }: Props) {
+export function TutorContextBanner({
+  context,
+  className,
+  linkedPetCount,
+  linkedReminderCount,
+}: Props) {
   const { profile, loading } = useTutorProfile();
 
   if (loading || !profile) return null;
@@ -89,6 +96,21 @@ export function TutorContextBanner({ context, className }: Props) {
             </span>
           )
         )}
+        <span className="mt-2 flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-white/70 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-violet-800/70 dark:bg-slate-900/50 dark:text-violet-200/70">
+            demo · {profile.userId}
+          </span>
+          {linkedPetCount !== undefined && (
+            <span className="rounded-full bg-white/70 px-2 py-0.5 text-[0.65rem] font-bold text-violet-800/70 dark:bg-slate-900/50 dark:text-violet-200/70">
+              {linkedPetCount} {linkedPetCount === 1 ? 'pet' : 'pets'}
+            </span>
+          )}
+          {linkedReminderCount !== undefined && (
+            <span className="rounded-full bg-white/70 px-2 py-0.5 text-[0.65rem] font-bold text-violet-800/70 dark:bg-slate-900/50 dark:text-violet-200/70">
+              {linkedReminderCount} {linkedReminderCount === 1 ? 'lembrete' : 'lembretes'}
+            </span>
+          )}
+        </span>
       </span>
       <span className="shrink-0 pt-1 text-sm font-bold text-violet-800 transition-transform group-hover:translate-x-0.5 dark:text-violet-200">
         Perfil →

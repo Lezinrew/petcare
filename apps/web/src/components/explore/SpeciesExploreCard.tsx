@@ -10,15 +10,15 @@ export function SpeciesExploreCard({ category }: Props) {
     <Link
       to={`/${category.routeKey}`}
       aria-label={`Explorar fichas de ${category.labelPlural}`}
-      className="group relative flex min-h-[5.75rem] items-center gap-4 rounded-[1.35rem] border border-white/80 bg-white px-3.5 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(15,23,42,0.12)] active:scale-[0.99] dark:border-slate-700/80 dark:bg-slate-900/90 dark:shadow-[0_16px_36px_rgba(0,0,0,0.28)] dark:hover:border-emerald-300/25 md:min-h-[9rem] md:flex-col md:items-start md:gap-4 md:p-5"
+      className="group relative flex min-h-[5.75rem] items-center gap-4 rounded-[1.35rem] border border-white/80 bg-white px-3.5 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(15,23,42,0.12)] active:scale-[0.99] dark:border-slate-700/80 dark:bg-slate-900/90 dark:shadow-[0_16px_36px_rgba(0,0,0,0.28)] dark:hover:border-emerald-300/25 md:min-h-[15rem] md:flex-col md:items-start md:gap-4 md:p-5"
     >
-      <div className="relative h-[4.25rem] w-[4.25rem] shrink-0 overflow-hidden rounded-full bg-[#f4f1eb] shadow-sm ring-1 ring-black/5 dark:bg-slate-800 dark:ring-emerald-200/15 md:h-24 md:w-full md:rounded-3xl">
+      <div className="relative h-[4.25rem] w-[4.25rem] shrink-0 overflow-hidden rounded-full bg-[#f4f1eb] shadow-sm ring-1 ring-black/5 dark:bg-slate-800 dark:ring-emerald-200/15 md:aspect-[16/10] md:h-auto md:w-full md:rounded-3xl md:bg-[#eef3ea] md:p-2 dark:md:bg-slate-800/80">
         <img
           src={category.coverImage}
           alt={category.labelPlural}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 md:object-contain"
           onError={(e) => {
             e.currentTarget.src = category.coverFallback;
           }}
