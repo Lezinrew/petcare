@@ -184,7 +184,14 @@ jobs:
           GHCR_USER: ${{ github.actor }}
         run: |
           set -euo pipefail
-          SSH_OPTS=(-i .ssh/deploy_key -o UserKnownHostsFile=.ssh/known_hosts)
+          SSH_OPTS=(
+            -i .ssh/deploy_key
+            -o UserKnownHostsFile=.ssh/known_hosts
+            -o ConnectTimeout=20
+            -o ConnectionAttempts=3
+            -o ServerAliveInterval=15
+            -o ServerAliveCountMax=2
+          )
 
           ssh "${SSH_OPTS[@]}" "$SSH_USER@$SSH_HOST" "mkdir -p /apps/petcare"
           scp "${SSH_OPTS[@]}" deploy/docker-compose.prod.yml "$SSH_USER@$SSH_HOST:/apps/petcare/docker-compose.prod.yml"
