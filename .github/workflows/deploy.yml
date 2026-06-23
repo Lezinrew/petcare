@@ -212,9 +212,20 @@ jobs:
           docker compose up -d --remove-orphans
           docker compose exec -T petcare node dist/seed/seedDogs.js
 
-          WEB_ROOT=$(grep -Rsl "PetCare Responsável" /var/www /usr/share/nginx/html 2>/dev/null | while read -r file; do
-            grep -q "/assets/index-" "$file" && dirname "$file" && break
-          done)
+          SITE_FILE=$(grep -Rsl "petcaretutor.com" /etc/nginx 2>/dev/null | head -n 1 || true)
+          WEB_ROOT=""
+          if [ -n "${SITE_FILE:-}" ]; then
+            WEB_ROOT=$(awk '$1 == "root" { gsub(";", "", $2); print $2; exit }' "$SITE_FILE")
+          fi
+
+          if [ -z "${WEB_ROOT:-}" ]; then
+            WEB_ROOT=$(grep -Rsl "PetCare Responsável" /var/www /usr/share/nginx/html /home 2>/dev/null | while read -r file; do
+              grep -q "/assets/index-" "$file" && dirname "$file" && break
+            done)
+          fi
+
+          echo "Nginx site file: ${SITE_FILE:-not-found}"
+          echo "Nginx web root: ${WEB_ROOT:-not-found}"
 
           if [ -n "${WEB_ROOT:-}" ]; then
             docker cp petcare_app:/app/apps/web/dist/. "$WEB_ROOT"/
