@@ -7,7 +7,5 @@ node_modules
 *.md
 docs
 .env
-.env.*
-!.env.example
 docker-compose.yml
 deploy

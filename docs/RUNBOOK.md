@@ -159,7 +159,17 @@ Ver `docs/DEMO.md` — roteiro de ~5 min para apresentação.
 npm run build
 ```
 
-Em produção atrás de proxy reverso, configure a API para escutar apenas no loopback:
+### Deploy via GitHub Actions (VPS)
+
+Push na branch `main` dispara `.github/workflows/deploy.yml`:
+
+1. Build da imagem com `Dockerfile` (API + frontend estático na porta `3000`)
+2. Push para `ghcr.io/lezinrew/petcare:latest`
+3. Deploy na VPS via SSH com `deploy/docker-compose.prod.yml`
+
+Secret opcional no repositório: `MONGODB_URI` (padrão na VPS: `mongodb://172.17.0.1:27017/petcare`).
+
+Em produção atrás de proxy reverso local (desenvolvimento na VPS), configure a API para escutar apenas no loopback:
 
 ```env
 NODE_ENV=production
