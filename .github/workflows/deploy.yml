@@ -49,6 +49,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -63,48 +64,56 @@ jobs:
       packages: read
 
     steps:
-      - name: Executar Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Copiar docker-compose para a VPS
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOSTINGER_SSH_HOST }}
           username: ${{ secrets.HOSTINGER_SSH_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: 22
+          source: deploy/docker-compose.prod.yml
+          target: /apps/petcare
+
+      - name: Executar Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_USER: ${{ github.actor }}
+        with:
+          host: ${{ secrets.HOSTINGER_SSH_HOST }}
+          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          envs: MONGODB_URI,GHCR_TOKEN,GHCR_USER
           script: |
-            # Criar diretório da aplicação caso não exista
+            set -euo pipefail
             mkdir -p /apps/petcare
             cd /apps/petcare
 
-            # Criar ou atualizar o arquivo docker-compose.yml localmente na VPS
-            cat << 'EOF' > docker-compose.yml
-            version: '3.8'
+            if [ -f deploy/docker-compose.prod.yml ]; then
+              mv -f deploy/docker-compose.prod.yml docker-compose.yml
+              rmdir deploy 2>/dev/null || true
+            else
+              mv -f docker-compose.prod.yml docker-compose.yml
+            fi
 
-            services:
-              petcare:
-                image: ghcr.io/lezinrew/petcare:latest
-                container_name: petcare_app
-                restart: always
-                networks:
-                  - traefik-net
-                labels:
-                  - "traefik.enable=true"
-                  - "traefik.http.routers.petcare.rule=Host(`petcaretutor.com`) || Host(`www.petcaretutor.com`)"
-                  - "traefik.http.routers.petcare.entrypoints=websecure"
-                  - "traefik.http.routers.petcare.tls=true"
-                  - "traefik.http.routers.petcare.tls.certresolver=myresolver"
-                  - "traefik.http.services.petcare.loadbalancer.server.port=3000"
+            : "${MONGODB_URI:=mongodb://172.17.0.1:27017/petcare}"
 
-            networks:
-              traefik-net:
-                external: true
-            EOF
+            printf '%s\n' \
+              "NODE_ENV=production" \
+              "HOST=0.0.0.0" \
+              "PORT=3000" \
+              "MONGODB_URI=${MONGODB_URI}" \
+              "CORS_ORIGIN=https://petcaretutor.com" \
+              "DEMO_USER_ID=demo-user" \
+              > .env
 
-            # Autenticar o Docker da VPS no GHCR usando o token do GitHub Actions
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin
 
-            # Pull da nova imagem e atualização do container
             docker compose pull
             docker compose up -d --remove-orphans
-
-            # Limpar imagens antigas sem uso para poupar espaço em disco na VPS
             docker image prune -f

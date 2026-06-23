@@ -1,0 +1,19 @@
+services:
+  petcare:
+    image: ghcr.io/lezinrew/petcare:latest
+    container_name: petcare_app
+    restart: always
+    env_file: .env
+    networks:
+      - traefik-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.petcare.rule=Host(`petcaretutor.com`) || Host(`www.petcaretutor.com`)"
+      - "traefik.http.routers.petcare.entrypoints=websecure"
+      - "traefik.http.routers.petcare.tls=true"
+      - "traefik.http.routers.petcare.tls.certresolver=myresolver"
+      - "traefik.http.services.petcare.loadbalancer.server.port=3000"
+
+networks:
+  traefik-net:
+    external: true

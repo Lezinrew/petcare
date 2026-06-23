@@ -9,10 +9,22 @@ import petRoutes from './modules/pets/pet.routes';
 import reminderRoutes from './modules/reminders/reminder.routes';
 import adoptionRoutes from './modules/adoption/adoption.routes';
 import tutorProfileRoutes from './modules/tutor-profile/tutor-profile.routes';
+import { serveWebApp } from './middlewares/serveWebApp';
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'connect-src': ["'self'", "https://petcaretutor.com", "wss://petcaretutor.com", "https://fonts.gstatic.com"],
+        'font-src': ["'self'", "https://fonts.gstatic.com", "https://fonts.googleapis.com"],
+        'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      },
+    },
+  })
+);
 app.use(corsOptions);
 app.use(express.json());
 app.use(requestLogger);
@@ -26,6 +38,8 @@ app.use('/api/pets', petRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/adoption', adoptionRoutes);
 app.use('/api/tutor-profile', tutorProfileRoutes);
+
+serveWebApp(app);
 
 app.use(notFound);
 app.use(errorHandler);

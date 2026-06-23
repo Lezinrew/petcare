@@ -21,14 +21,21 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith(fetch(event.request).catch(() => caches.match('/index.html')));
+    event.respondWith(
+      fetch(event.request).catch(() =>
+        caches.match('/index.html').then((cached) => {
+          if (cached) return cached;
+          return Promise.reject(new TypeError('Failed to fetch and no offline fallback available'));
+        })
+      )
+    );
     return;
   }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
-      return fetch(event.request).catch(() => caches.match('/index.html'));
+      return fetch(event.request);
     }),
   );
 });
