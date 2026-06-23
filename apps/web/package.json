@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .ts,.tsx",
+    "convert:avatars": "tsx scripts/convert-avatars.ts",
     "generate:dogs-html": "tsx scripts/generate-dog-html.ts",
     "generate:pets-html": "tsx scripts/generate-pets-html.ts",
     "check:pet-images": "tsx scripts/check-pet-images.ts",

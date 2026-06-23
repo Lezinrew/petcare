@@ -27,8 +27,8 @@ export function HomePage() {
     <div className="care-page">
       <section className="relative overflow-hidden px-5 pb-6 pt-5 md:px-8 md:pb-8 md:pt-8">
         <div className="mx-auto max-w-5xl">
-          <div className="grid gap-5 md:grid-cols-[1.05fr_0.95fr] md:items-center">
-            <div>
+          <div className="grid min-w-0 gap-5 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+            <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="inline-flex rounded-full border border-emerald-900/10 bg-white/90 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-emerald-900 shadow-xs dark:border-emerald-200/20 dark:bg-white/10 dark:text-emerald-100">
                   PetCare Responsável
@@ -76,12 +76,12 @@ export function HomePage() {
               </div>
             </div>
 
-              <div className="home-summary-card rounded-[1.75rem] border border-emerald-950/10 bg-white/80 p-3.5 shadow-card backdrop-blur-sm dark:border-emerald-200/10 dark:bg-slate-900/80">
-                <div className="grid grid-cols-3 gap-2">
+              <div className="home-summary-card min-w-0 overflow-hidden rounded-[1.5rem] border border-emerald-950/10 bg-white/80 p-3 shadow-card backdrop-blur-sm dark:border-emerald-200/10 dark:bg-slate-900/80 md:max-w-full">
+                <div className="grid grid-cols-3 gap-1.5">
                   {stats.map((stat) => (
-                    <div key={stat.label} className="home-stat-tile rounded-[1.15rem] bg-[#f3f7f2] px-2.5 py-3.5 text-center dark:bg-emerald-950/50">
-                    <p className="text-2xl font-black text-emerald-950 dark:text-emerald-50">{stat.value}</p>
-                    <p className="mt-1 text-[0.68rem] font-bold leading-tight text-emerald-800/75 dark:text-emerald-200/75">{stat.label}</p>
+                    <div key={stat.label} className="home-stat-tile rounded-xl bg-[#f3f7f2] px-1.5 py-2.5 text-center dark:bg-emerald-950/50">
+                    <p className="text-xl font-black text-emerald-950 dark:text-emerald-50 md:text-2xl">{stat.value}</p>
+                    <p className="mt-0.5 text-[0.62rem] font-bold leading-tight text-emerald-800/75 dark:text-emerald-200/75">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -97,7 +97,7 @@ export function HomePage() {
             <Link
               key={card.to}
               to={card.to}
-              className="home-nav-card group relative flex items-center gap-4 rounded-[1.5rem] border border-slate-100 bg-white p-4 shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-card dark:border-slate-700/80 dark:bg-slate-900/80"
+              className="card-animated home-nav-card group relative flex items-center gap-4 rounded-[1.5rem] border border-slate-100 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-card dark:border-slate-700/80 dark:bg-slate-900/80"
             >
               <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold ${card.tone}`}>
                 {card.icon}

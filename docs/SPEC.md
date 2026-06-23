@@ -166,7 +166,7 @@ CRUD de pets do usuário demo.
 `/my-pets`
 
 ### Campos
-nome, espécie (13 grupos catalogados + outro), raça/variedade (slug), idade (meses), peso (kg), sexo, castrado, observações, foto URL
+nome, espécie (seleção visual com os 13 avatares de categoria em WebP + outro), raça/variedade (slug), idade (meses), peso (kg), sexo, castrado, observações, foto URL
 
 ### Regras
 - Usuário demo via API

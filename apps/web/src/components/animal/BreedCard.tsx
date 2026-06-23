@@ -13,7 +13,7 @@ export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
   const meta = getBreedCardMeta(breed);
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden p-0">
+    <Card className="card-animal-animated flex h-full flex-col overflow-hidden rounded-[1.5rem] border-slate-100 bg-white p-0 shadow-card dark:border-slate-700/80 dark:bg-slate-900/90 max-md:shadow-none">
       <AnimalImage
         src={breed.imageUrl}
         fallbackSrc={breed.placeholderUrl}
@@ -23,15 +23,15 @@ export function BreedCard({ breed, routeKey = 'dogs' }: Props) {
       />
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
-          <h3 className="text-lg font-semibold text-text-primary">{breed.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm font-medium leading-relaxed text-text-secondary">
+          <h3 className="font-serif text-xl font-bold leading-tight text-emerald-950 dark:text-emerald-50">{breed.name}</h3>
+          <p className="mt-2 line-clamp-2 text-sm font-semibold leading-relaxed text-slate-600 dark:text-slate-300">
             {breed.shortDescription}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge>{meta.primary}</Badge>
           <Badge color="bg-orange-100 text-exercise">{meta.secondary}</Badge>
-          <Badge color="bg-muted text-text-secondary">{meta.tertiary}</Badge>
+          <Badge color="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">{meta.tertiary}</Badge>
           {meta.beginnerFriendly && (
             <Badge color="bg-green-100 text-feeding">Iniciantes</Badge>
           )}

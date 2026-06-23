@@ -14,7 +14,7 @@ export function SpeciesExploreCard({ category }: Props) {
     >
       <div className="relative h-[4.25rem] w-[4.25rem] shrink-0 overflow-hidden rounded-full bg-[#f4f1eb] shadow-sm ring-1 ring-black/5 dark:bg-slate-800 dark:ring-emerald-200/15 md:aspect-[16/10] md:h-auto md:w-full md:rounded-3xl md:bg-[#eef3ea] md:p-2 dark:md:bg-slate-800/80">
         <img
-          src={category.coverImage}
+          src={category.avatarImage}
           alt={category.labelPlural}
           loading="lazy"
           decoding="async"

@@ -9,14 +9,20 @@ type Props = {
 
 export function PageHeader({ title, subtitle, backTo, backLabel = '← Voltar' }: Props) {
   return (
-    <div className="mb-6">
+    <div className="mb-7">
       {backTo && (
-        <ButtonLink to={backTo} variant="ghost-primary" size="sm" className="-ml-2 mb-2">
+        <ButtonLink to={backTo} variant="ghost-primary" size="sm" className="-ml-2 mb-3 font-bold">
           {backLabel}
         </ButtonLink>
       )}
-      <h1 className="text-2xl font-bold tracking-tight text-text-primary md:text-3xl">{title}</h1>
-      {subtitle && <p className="mt-2 max-w-2xl font-medium leading-relaxed text-text-secondary">{subtitle}</p>}
+      <h1 className="font-serif text-4xl font-bold leading-tight text-emerald-950 dark:text-emerald-50 md:text-5xl">
+        {title}
+      </h1>
+      {subtitle && (
+        <p className="mt-3 max-w-2xl text-base font-semibold leading-relaxed text-slate-700 dark:text-slate-300 md:text-lg">
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 }

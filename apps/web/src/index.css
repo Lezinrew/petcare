@@ -14,6 +14,13 @@
     --color-muted: 241 245 249;
     --shadow-soft: 0 1px 3px rgba(11, 58, 110, 0.08), 0 4px 14px rgba(11, 58, 110, 0.06);
     --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.04);
+    --card-animated-translate-y: 1.25rem;
+    --card-animated-scale: 0.97;
+    --card-animated-shadow-final: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(0, 0, 0, 0.05);
+    --card-animated-range-end: cover 35%;
+    --card-animal-animated-translate-y: 1.25rem;
+    --card-animal-animated-scale: 0.98;
+    --card-animal-animated-shadow-final: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(0, 0, 0, 0.05);
   }
 
   .dark {
@@ -27,6 +34,20 @@
     --color-muted: 51 65 85;
     --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.2);
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+    --card-animated-shadow-final: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    --card-animal-animated-shadow-final: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .dark-mode {
+    --card-animated-shadow-final: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    --card-animal-animated-shadow-final: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  @media (max-width: 767px) {
+    :root {
+      --card-animated-translate-y: 0.625rem;
+      --card-animated-range-end: cover 25%;
+    }
   }
 
   body {
@@ -114,22 +135,7 @@
   }
 
   .home-species-carousel {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 0.75rem, black calc(100% - 0.75rem), transparent);
-    mask-image: linear-gradient(to right, transparent, black 0.75rem, black calc(100% - 0.75rem), transparent);
-  }
-
-  .home-species-carousel > div {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(16, 185, 129, 0.35) transparent;
-  }
-
-  .home-species-carousel > div::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .home-species-carousel > div::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: rgba(16, 185, 129, 0.35);
+    contain: inline-size;
   }
 
   .dark .home-nav-card-title {
@@ -148,6 +154,86 @@
   .dark .home-nav-card:hover .home-nav-card-arrow {
     background: #059669 !important;
     color: #ffffff !important;
+  }
+
+  .card-animated {
+    animation: cardsSurgindo auto linear both;
+    animation-timeline: view();
+    animation-range: entry 0% var(--card-animated-range-end);
+    will-change: transform, opacity;
+  }
+
+  @supports not (animation-timeline: view()) {
+    .card-animated {
+      opacity: 1;
+      transform: none;
+      box-shadow: var(--card-animated-shadow-final);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-animated {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      box-shadow: var(--card-animated-shadow-final);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .card-animal-animated {
+      animation: cardsAnimaisSurgindo auto linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+      will-change: transform, opacity;
+    }
+  }
+
+  @media (max-width: 767px) {
+    @supports not (animation-timeline: view()) {
+      .card-animal-animated {
+        opacity: 1;
+        transform: none;
+        box-shadow: var(--card-animal-animated-shadow-final);
+      }
+    }
+  }
+
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .card-animal-animated {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      box-shadow: var(--card-animal-animated-shadow-final);
+    }
+  }
+}
+
+@keyframes cardsSurgindo {
+  from {
+    opacity: 0;
+    transform: translateY(var(--card-animated-translate-y)) scale(var(--card-animated-scale));
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: var(--card-animated-shadow-final);
+  }
+}
+
+@keyframes cardsAnimaisSurgindo {
+  from {
+    opacity: 0;
+    transform: translateY(var(--card-animal-animated-translate-y)) scale(var(--card-animal-animated-scale));
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: var(--card-animal-animated-shadow-final);
   }
 }
 
