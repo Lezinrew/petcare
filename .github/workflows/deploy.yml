@@ -189,7 +189,7 @@ jobs:
           ssh "${SSH_OPTS[@]}" "$SSH_USER@$SSH_HOST" "mkdir -p /apps/petcare"
           scp "${SSH_OPTS[@]}" deploy/docker-compose.prod.yml "$SSH_USER@$SSH_HOST:/apps/petcare/docker-compose.prod.yml"
 
-          : "${MONGODB_URI:=mongodb://172.17.0.1:27017/petcare}"
+          : "${MONGODB_URI:=mongodb://mongo:27017/petcare}"
 
           ssh "${SSH_OPTS[@]}" "$SSH_USER@$SSH_HOST" bash -s <<REMOTE
           set -euo pipefail
@@ -210,5 +210,6 @@ jobs:
           docker network inspect traefik-net >/dev/null 2>&1 || docker network create traefik-net
           docker compose pull
           docker compose up -d --remove-orphans
+          docker compose exec -T petcare node dist/seed/seedDogs.js
           docker image prune -f
           REMOTE

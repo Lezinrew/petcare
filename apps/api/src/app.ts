@@ -18,7 +18,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'connect-src': ["'self'", "https://petcaretutor.com", "wss://petcaretutor.com", "https://fonts.gstatic.com"],
+        'connect-src': ["'self'", "https://petcaretutor.com", "wss://petcaretutor.com", "https://fonts.gstatic.com", "https://fonts.googleapis.com"],
         'font-src': ["'self'", "https://fonts.gstatic.com", "https://fonts.googleapis.com"],
         'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       },

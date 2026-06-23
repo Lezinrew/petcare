@@ -1,11 +1,23 @@
 services:
+  mongo:
+    image: mongo:7
+    container_name: petcare_mongo
+    restart: always
+    volumes:
+      - petcare_mongo_data:/data/db
+    networks:
+      - petcare-internal
+
   petcare:
     image: ghcr.io/lezinrew/petcare:latest
     container_name: petcare_app
     restart: always
     env_file: .env
+    depends_on:
+      - mongo
     networks:
       - traefik-net
+      - petcare-internal
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.petcare.rule=Host(`petcaretutor.com`) || Host(`www.petcaretutor.com`)"
@@ -17,3 +29,8 @@ services:
 networks:
   traefik-net:
     external: true
+  petcare-internal:
+    internal: true
+
+volumes:
+  petcare_mongo_data:

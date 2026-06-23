@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'petcare-v2';
+const CACHE_VERSION = 'petcare-v3';
 const STATIC_ASSETS = ['/manifest.webmanifest', '/icons/favicon.svg', '/icons/icon.svg'];
 
 self.addEventListener('install', (event) => {
@@ -19,6 +19,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (new URL(event.request.url).origin !== self.location.origin) return;
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
