@@ -50,5 +50,7 @@ Também pode criar uma expectativa falsa sobre o animal. O tutor precisa ver ima
 - `coverImage`: informação educativa, sempre com foto real.
 - PNGs de avatar: manter como fonte, não usar diretamente na interface.
 - WebPs de avatar: usar na interface por performance.
+- Imagens geradas por IA para fichas educativas devem ser tratadas como fotos realistas e creditadas em `apps/api/src/data/imageAttributions.json`.
+- Para recriar as imagens da página de cães no Antigravity, use `docs/ANTIGRAVITY_DOG_IMAGES_PROMPT.md`.
 
 Essa separação preserva o equilíbrio do produto: entrada amigável, conteúdo confiável.

@@ -129,6 +129,8 @@ Créditos: `apps/api/src/data/imageAttributions.json`
 npm run check:pet-images
 ```
 
+Para substituir as imagens da página de cães por imagens geradas no Antigravity, use `docs/ANTIGRAVITY_DOG_IMAGES_PROMPT.md`. Depois da geração, confirme que os 30 registros de cães em `imageAttributions.json` usam `source: "Antigravity image generation"` e não mantêm `fileUrl` de Wikipedia/Wikimedia.
+
 Avatares de navegação:
 
 ```bash
@@ -161,11 +163,13 @@ npm run build
 
 ### Deploy via GitHub Actions (VPS)
 
-Push na branch `main` dispara `.github/workflows/deploy.yml`:
+O workflow `.github/workflows/deploy.yml` roda validações em PRs e publica/deploya em `main`:
 
-1. Build da imagem com `Dockerfile` (API + frontend estático na porta `3000`)
-2. Push para `ghcr.io/lezinrew/petcare:latest`
-3. Deploy na VPS via SSH com `deploy/docker-compose.prod.yml`
+1. `ci`: instala dependências, roda `npm run lint`, `npm run build` e `npm run check:pet-images`
+2. `docker`: em `push` para `main` ou execução manual, cria a imagem com `Dockerfile` e publica no GHCR
+3. `deploy`: em `main`, atualiza a VPS via SSH usando `deploy/docker-compose.prod.yml`
+
+Também é possível iniciar manualmente pelo GitHub Actions (`workflow_dispatch`) e escolher se o deploy deve rodar depois da publicação da imagem.
 
 Secret opcional no repositório: `MONGODB_URI` (padrão na VPS: `mongodb://172.17.0.1:27017/petcare`).
 
@@ -175,7 +179,9 @@ Secrets obrigatórios em **Settings → Secrets and variables → Actions**:
 |--------|----------|
 | `HOSTINGER_SSH_HOST` | IP ou hostname da VPS |
 | `HOSTINGER_SSH_USER` | Usuário SSH (ex.: `root`) |
-| `HOSTINGER_SSH_KEY` | Chave privada OpenSSH **inteira**, com `-----BEGIN ... KEY-----` e quebras de linha |
+| `HOSTINGER_SSH_KEY` | Chave privada OpenSSH **inteira**, com `-----BEGIN ... KEY-----` e quebras de linha, ou o mesmo conteúdo em base64 |
+
+O erro `HOSTINGER_SSH_KEY inválida` significa que o secret recebeu a chave pública `.pub`, uma senha, uma chave truncada ou perdeu as quebras de linha.
 
 A chave pública correspondente deve estar em `~/.ssh/authorized_keys` na VPS.
 

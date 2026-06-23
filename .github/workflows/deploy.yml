@@ -1,36 +1,98 @@
 # -----------------------------------------------------------------------------
 # Autor: Leandro Xavier
-# Projeto: Petcare Deployment Workflow
-# Descrição: CI/CD para automação de Build, Push (GHCR) e Deploy na VPS Hostinger
+# Projeto: PetCare Responsável
+# Descrição: CI/CD com validação, build Docker, push GHCR e deploy na VPS
 # -----------------------------------------------------------------------------
 
-name: Deploy Petcare App
+name: CI/CD PetCare
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Executar deploy na VPS após validar e publicar a imagem"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+concurrency:
+  group: petcare-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  NODE_VERSION: "22"
 
 jobs:
-  build-and-push:
+  ci:
+    name: Validar aplicação
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/api/package-lock.json
+            apps/web/package-lock.json
+
+      - name: Instalar dependências da raiz
+        run: npm ci
+
+      - name: Instalar dependências da API
+        run: npm --prefix apps/api ci
+
+      - name: Instalar dependências do Web
+        run: npm --prefix apps/web ci
+
+      - name: Verificar lint
+        run: npm run lint
+
+      - name: Verificar build
+        run: npm run build
+
+      - name: Verificar imagens do catálogo
+        run: npm run check:pet-images
+
+  docker:
+    name: Build e publicação da imagem
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.event_name != 'pull_request'
     permissions:
       contents: read
       packages: write
 
+    outputs:
+      image-tags: ${{ steps.meta.outputs.tags }}
+
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Autenticar no GitHub Container Registry (GHCR)
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -38,15 +100,15 @@ jobs:
 
       - name: Extrair metadados do Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest
+            type=raw,value=latest,enable={{is_default_branch}}
             type=sha,format=short
 
-      - name: Build e Push da Imagem Docker
-        uses: docker/build-push-action@v5
+      - name: Build e push da imagem Docker
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
@@ -57,27 +119,34 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
+    name: Deploy na VPS
     runs-on: ubuntu-latest
-    needs: build-and-push
+    needs: docker
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy == 'true'))
+    environment:
+      name: production
+      url: https://petcaretutor.com
     permissions:
       contents: read
       packages: read
 
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Preparar chave SSH
+      - name: Validar secrets de deploy
         env:
           SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
           SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
           SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
         run: |
           set -euo pipefail
+
           missing=()
           [ -z "${SSH_HOST:-}" ] && missing+=("HOSTINGER_SSH_HOST")
           [ -z "${SSH_USER:-}" ] && missing+=("HOSTINGER_SSH_USER")
           [ -z "${SSH_KEY:-}" ] && missing+=("HOSTINGER_SSH_KEY")
+
           if [ "${#missing[@]}" -gt 0 ]; then
             echo "::error::Secrets ausentes no GitHub: ${missing[*]}"
             exit 1
@@ -93,7 +162,11 @@ jobs:
           fi
 
           if ! ssh-keygen -y -f .ssh/deploy_key >/dev/null 2>&1; then
-            echo "::error::HOSTINGER_SSH_KEY inválida. Cole a chave privada OpenSSH completa, incluindo as linhas BEGIN/END."
+            {
+              echo "::error title=HOSTINGER_SSH_KEY inválida::Cole uma chave privada OpenSSH completa no secret HOSTINGER_SSH_KEY."
+              echo "::notice::O valor deve começar com -----BEGIN OPENSSH PRIVATE KEY----- ou ser esse mesmo conteúdo codificado em base64."
+              echo "::notice::Não use a chave pública .pub, não use a senha da VPS e preserve as quebras de linha."
+            }
             exit 1
           fi
 
