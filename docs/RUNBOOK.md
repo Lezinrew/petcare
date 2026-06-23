@@ -129,6 +129,14 @@ Créditos: `apps/api/src/data/imageAttributions.json`
 npm run check:pet-images
 ```
 
+Avatares de navegação:
+
+```bash
+npm --prefix apps/web run convert:avatars
+```
+
+Converte os PNGs fonte em `apps/web/public/avatars/pets/` para WebP 512x512. Use os `.webp` na interface; mantenha os `.png` como fonte/original.
+
 ## Demo / pitch
 
 http://localhost:5173/demo — roteiro em `docs/DEMO_SCRIPT.md`
@@ -150,6 +158,18 @@ Ver `docs/DEMO.md` — roteiro de ~5 min para apresentação.
 ```bash
 npm run build
 ```
+
+Em produção atrás de proxy reverso, configure a API para escutar apenas no loopback:
+
+```env
+NODE_ENV=production
+HOST=127.0.0.1
+PORT=3333
+MONGODB_URI=mongodb://127.0.0.1:27017/petcare
+CORS_ORIGIN=https://petcaretutor.com
+```
+
+Assim apenas o Nginx acessa a API localmente; a porta da aplicação não precisa ficar exposta na internet.
 
 ## URLs
 

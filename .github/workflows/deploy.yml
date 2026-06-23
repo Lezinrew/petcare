@@ -1,0 +1,110 @@
+# -----------------------------------------------------------------------------
+# Autor: Leandro Xavier
+# Projeto: Petcare Deployment Workflow
+# Descrição: CI/CD para automação de Build, Push (GHCR) e Deploy na VPS Hostinger
+# -----------------------------------------------------------------------------
+
+name: Deploy Petcare App
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Autenticar no GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extrair metadados do Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
+
+      - name: Build e Push da Imagem Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - name: Executar Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_SSH_HOST }}
+          username: ${{ secrets.HOSTINGER_SSH_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          script: |
+            # Criar diretório da aplicação caso não exista
+            mkdir -p /apps/petcare
+            cd /apps/petcare
+
+            # Criar ou atualizar o arquivo docker-compose.yml localmente na VPS
+            cat << 'EOF' > docker-compose.yml
+            version: '3.8'
+
+            services:
+              petcare:
+                image: ghcr.io/lezinrew/petcare:latest
+                container_name: petcare_app
+                restart: always
+                networks:
+                  - traefik-net
+                labels:
+                  - "traefik.enable=true"
+                  - "traefik.http.routers.petcare.rule=Host(`petcaretutor.com`) || Host(`www.petcaretutor.com`)"
+                  - "traefik.http.routers.petcare.entrypoints=websecure"
+                  - "traefik.http.routers.petcare.tls=true"
+                  - "traefik.http.routers.petcare.tls.certresolver=myresolver"
+                  - "traefik.http.services.petcare.loadbalancer.server.port=3000"
+
+            networks:
+              traefik-net:
+                external: true
+            EOF
+
+            # Autenticar o Docker da VPS no GHCR usando o token do GitHub Actions
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            # Pull da nova imagem e atualização do container
+            docker compose pull
+            docker compose up -d --remove-orphans
+
+            # Limpar imagens antigas sem uso para poupar espaço em disco na VPS
+            docker image prune -f

@@ -7,8 +7,8 @@ async function bootstrap(): Promise<void> {
   await connectDatabase();
   await ensureIndexes();
 
-  app.listen(env.port, () => {
-    console.log(`[api] Rodando em http://localhost:${env.port}`);
+  app.listen(env.port, env.host, () => {
+    console.log(`[api] Rodando em http://${env.host}:${env.port}`);
   });
 }
 

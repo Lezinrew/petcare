@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3333/api';
+const API_BASE = API_URL.replace(/\/$/, '');
 
 export class ApiClientError extends Error {
   constructor(
@@ -26,7 +27,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
 }
 
 export async function apiGet<T>(path: string, params?: Record<string, string>): Promise<T> {
-  const url = new URL(`${API_URL}${path}`);
+  const url = new URL(`${API_BASE}${path}`, window.location.origin);
   if (params) {
     Object.entries(params).forEach(([k, v]) => {
       if (v) url.searchParams.set(k, v);
@@ -37,7 +38,7 @@ export async function apiGet<T>(path: string, params?: Record<string, string>): 
 }
 
 export async function apiPost<T>(path: string, body?: unknown): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(new URL(`${API_BASE}${path}`, window.location.origin), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
@@ -46,7 +47,7 @@ export async function apiPost<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export async function apiPut<T>(path: string, body: unknown): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(new URL(`${API_BASE}${path}`, window.location.origin), {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -55,7 +56,7 @@ export async function apiPut<T>(path: string, body: unknown): Promise<T> {
 }
 
 export async function apiPatch<T>(path: string, body?: unknown): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(new URL(`${API_BASE}${path}`, window.location.origin), {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: body ? JSON.stringify(body) : undefined,
@@ -64,6 +65,6 @@ export async function apiPatch<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export async function apiDelete(path: string): Promise<void> {
-  const response = await fetch(`${API_URL}${path}`, { method: 'DELETE' });
+  const response = await fetch(new URL(`${API_BASE}${path}`, window.location.origin), { method: 'DELETE' });
   await handleResponse<void>(response);
 }

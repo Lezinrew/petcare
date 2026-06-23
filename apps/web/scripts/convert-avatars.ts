@@ -75,4 +75,7 @@ async function run() {
   console.log(`- Redução de peso acumulada: ${((1 - totalWebpSize / totalPngSize) * 100).toFixed(2)}%\n`);
 }
 
-run();
+run().catch((error) => {
+  console.error('Erro inesperado ao converter avatares:', error);
+  process.exit(1);
+});

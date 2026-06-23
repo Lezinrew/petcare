@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, KeyboardEvent, useState } from 'react';
 import { PET_CATEGORIES } from '../../config/species';
 import { CreatePetInput, PetProfile, PetSpecies } from '../../types/pet';
 import { Button } from '../ui/Button';
@@ -29,6 +29,32 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
     setForm({ ...form, species });
   };
 
+  const speciesChoices: PetSpecies[] = [...PET_CATEGORIES.map((category) => category.species), 'other'];
+
+  const handleSpeciesKeyDown = (event: KeyboardEvent<HTMLButtonElement>, species: PetSpecies) => {
+    const currentIndex = speciesChoices.indexOf(species);
+    let nextIndex = currentIndex;
+
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      nextIndex = (currentIndex + 1) % speciesChoices.length;
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      nextIndex = (currentIndex - 1 + speciesChoices.length) % speciesChoices.length;
+    } else if (event.key === 'Home') {
+      nextIndex = 0;
+    } else if (event.key === 'End') {
+      nextIndex = speciesChoices.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextSpecies = speciesChoices[nextIndex];
+    selectSpecies(nextSpecies);
+    requestAnimationFrame(() => {
+      document.querySelector<HTMLButtonElement>(`[data-species-option="${nextSpecies}"]`)?.focus();
+    });
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -56,7 +82,7 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
       />
       <fieldset className="space-y-2">
         <legend className="text-sm font-semibold text-slate-700 dark:text-slate-200">Espécie</legend>
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4" role="radiogroup" aria-label="Espécie do pet">
           {PET_CATEGORIES.map((category) => {
             const selected = form.species === category.species;
 
@@ -64,8 +90,11 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
               <button
                 key={category.species}
                 type="button"
+                role="radio"
+                aria-checked={selected}
+                data-species-option={category.species}
                 onClick={() => selectSpecies(category.species)}
-                aria-pressed={selected}
+                onKeyDown={(e) => handleSpeciesKeyDown(e, category.species)}
                 className={`group flex min-h-[5.6rem] flex-col items-center justify-center gap-1.5 rounded-2xl border p-2 text-center transition-all ${
                   selected
                     ? 'border-emerald-500 bg-emerald-50 text-emerald-950 shadow-[0_10px_24px_rgba(16,185,129,0.16)] dark:border-emerald-300/70 dark:bg-emerald-950/50 dark:text-emerald-50'
@@ -90,8 +119,11 @@ export function PetForm({ initial, onSubmit, onCancel }: Props) {
           })}
           <button
             type="button"
+            role="radio"
+            aria-checked={form.species === 'other'}
+            data-species-option="other"
             onClick={() => selectSpecies('other')}
-            aria-pressed={form.species === 'other'}
+            onKeyDown={(e) => handleSpeciesKeyDown(e, 'other')}
             className={`flex min-h-[5.6rem] flex-col items-center justify-center gap-1.5 rounded-2xl border p-2 text-center transition-all ${
               form.species === 'other'
                 ? 'border-emerald-500 bg-emerald-50 text-emerald-950 shadow-[0_10px_24px_rgba(16,185,129,0.16)] dark:border-emerald-300/70 dark:bg-emerald-950/50 dark:text-emerald-50'
