@@ -217,7 +217,7 @@ jobs:
 
           docker compose pull
           docker compose up -d --remove-orphans
-          docker compose exec -T petcare node dist/seed/seedDogs.js
+          docker compose exec -T petcare node dist/seed/seedDogs.js </dev/null
 
           SITE_FILE=$(grep -Rsl "petcaretutor.com" /etc/nginx 2>/dev/null | head -n 1 || true)
           WEB_ROOT=""
