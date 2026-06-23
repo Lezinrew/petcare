@@ -208,6 +208,13 @@ jobs:
           echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin
 
           docker network inspect traefik-net >/dev/null 2>&1 || docker network create traefik-net
+          LEGACY_API_PIDS=$(ss -tlnp | sed -n 's/.*127\.0\.0\.1:3333.*pid=\([0-9]\+\).*/\1/p' | sort -u || true)
+          if [ -n "${LEGACY_API_PIDS:-}" ]; then
+            echo "Stopping legacy API listener on 127.0.0.1:3333: ${LEGACY_API_PIDS}"
+            kill ${LEGACY_API_PIDS} || true
+            sleep 2
+          fi
+
           docker compose pull
           docker compose up -d --remove-orphans
           docker compose exec -T petcare node dist/seed/seedDogs.js
