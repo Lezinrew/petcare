@@ -167,7 +167,7 @@ O workflow `.github/workflows/deploy.yml` roda validações em PRs e publica/dep
 
 1. `ci`: instala dependências, roda `npm run lint`, `npm run build` e `npm run check:pet-images`
 2. `docker`: em `push` para `main` ou execução manual, cria a imagem com `Dockerfile` e publica no GHCR
-3. `deploy`: em `main`, atualiza a VPS via SSH usando `deploy/docker-compose.prod.yml`
+3. `deploy`: em `main`, atualiza a VPS via SSH usando `deploy/docker-compose.prod.yml` e garante a rede Docker `traefik-net`
 
 Também é possível iniciar manualmente pelo GitHub Actions (`workflow_dispatch`) e escolher se o deploy deve rodar depois da publicação da imagem.
 
