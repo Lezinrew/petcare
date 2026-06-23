@@ -67,53 +67,71 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Copiar docker-compose para a VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: 22
-          source: deploy/docker-compose.prod.yml
-          target: /apps/petcare
-
-      - name: Executar Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Preparar chave SSH
         env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          missing=()
+          [ -z "${SSH_HOST:-}" ] && missing+=("HOSTINGER_SSH_HOST")
+          [ -z "${SSH_USER:-}" ] && missing+=("HOSTINGER_SSH_USER")
+          [ -z "${SSH_KEY:-}" ] && missing+=("HOSTINGER_SSH_KEY")
+          if [ "${#missing[@]}" -gt 0 ]; then
+            echo "::error::Secrets ausentes no GitHub: ${missing[*]}"
+            exit 1
+          fi
+
+          install -m 700 -d .ssh
+          printf '%s\n' "$SSH_KEY" > .ssh/deploy_key
+          chmod 600 .ssh/deploy_key
+
+          if ! ssh-keygen -y -f .ssh/deploy_key >/dev/null 2>&1; then
+            printf '%s' "$SSH_KEY" | base64 -d > .ssh/deploy_key 2>/dev/null || true
+            chmod 600 .ssh/deploy_key
+          fi
+
+          if ! ssh-keygen -y -f .ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::HOSTINGER_SSH_KEY inválida. Cole a chave privada OpenSSH completa, incluindo as linhas BEGIN/END."
+            exit 1
+          fi
+
+          ssh-keyscan -H "$SSH_HOST" >> .ssh/known_hosts 2>/dev/null || true
+
+      - name: Deploy na VPS
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GHCR_USER: ${{ github.actor }}
-        with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: 22
-          envs: MONGODB_URI,GHCR_TOKEN,GHCR_USER
-          script: |
-            set -euo pipefail
-            mkdir -p /apps/petcare
-            cd /apps/petcare
+        run: |
+          set -euo pipefail
+          SSH_OPTS=(-i .ssh/deploy_key -o UserKnownHostsFile=.ssh/known_hosts)
 
-            if [ -f deploy/docker-compose.prod.yml ]; then
-              mv -f deploy/docker-compose.prod.yml docker-compose.yml
-              rmdir deploy 2>/dev/null || true
-            else
-              mv -f docker-compose.prod.yml docker-compose.yml
-            fi
+          ssh "${SSH_OPTS[@]}" "$SSH_USER@$SSH_HOST" "mkdir -p /apps/petcare"
+          scp "${SSH_OPTS[@]}" deploy/docker-compose.prod.yml "$SSH_USER@$SSH_HOST:/apps/petcare/docker-compose.prod.yml"
 
-            : "${MONGODB_URI:=mongodb://172.17.0.1:27017/petcare}"
+          : "${MONGODB_URI:=mongodb://172.17.0.1:27017/petcare}"
 
-            printf '%s\n' \
-              "NODE_ENV=production" \
-              "HOST=0.0.0.0" \
-              "PORT=3000" \
-              "MONGODB_URI=${MONGODB_URI}" \
-              "CORS_ORIGIN=https://petcaretutor.com" \
-              "DEMO_USER_ID=demo-user" \
-              > .env
+          ssh "${SSH_OPTS[@]}" "$SSH_USER@$SSH_HOST" bash -s <<REMOTE
+          set -euo pipefail
+          cd /apps/petcare
+          mv -f docker-compose.prod.yml docker-compose.yml
 
-            echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin
+          printf '%s\n' \
+            "NODE_ENV=production" \
+            "HOST=0.0.0.0" \
+            "PORT=3000" \
+            "MONGODB_URI=${MONGODB_URI}" \
+            "CORS_ORIGIN=https://petcaretutor.com" \
+            "DEMO_USER_ID=demo-user" \
+            > .env
 
-            docker compose pull
-            docker compose up -d --remove-orphans
-            docker image prune -f
+          echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin
+
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f
+          REMOTE

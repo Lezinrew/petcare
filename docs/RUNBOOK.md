@@ -169,6 +169,26 @@ Push na branch `main` dispara `.github/workflows/deploy.yml`:
 
 Secret opcional no repositório: `MONGODB_URI` (padrão na VPS: `mongodb://172.17.0.1:27017/petcare`).
 
+Secrets obrigatórios em **Settings → Secrets and variables → Actions**:
+
+| Secret | Conteúdo |
+|--------|----------|
+| `HOSTINGER_SSH_HOST` | IP ou hostname da VPS |
+| `HOSTINGER_SSH_USER` | Usuário SSH (ex.: `root`) |
+| `HOSTINGER_SSH_KEY` | Chave privada OpenSSH **inteira**, com `-----BEGIN ... KEY-----` e quebras de linha |
+
+A chave pública correspondente deve estar em `~/.ssh/authorized_keys` na VPS.
+
+Para gerar um par dedicado ao CI:
+
+```bash
+ssh-keygen -t ed25519 -C "github-actions-petcare" -f petcare-deploy -N ""
+cat petcare-deploy.pub >> ~/.ssh/authorized_keys   # na VPS
+# Cole o conteúdo de petcare-deploy (privada) em HOSTINGER_SSH_KEY
+```
+
+Se o GitHub remover quebras de linha ao colar, salve a chave em base64 e use esse valor no secret (o workflow tenta decodificar automaticamente).
+
 Em produção atrás de proxy reverso local (desenvolvimento na VPS), configure a API para escutar apenas no loopback:
 
 ```env
