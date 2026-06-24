@@ -232,9 +232,12 @@ jobs:
           fi
           WEB_ROOT=""
 
-          CURRENT_ASSET=$(curl -fsS --max-time 10 -H "Host: petcaretutor.com" http://127.0.0.1/ 2>/dev/null | grep -oE '/assets/index-[^"]+\.js' | head -n 1 || true)
+          CURRENT_ASSET=$(curl -kfsS --max-time 10 --resolve petcaretutor.com:443:127.0.0.1 https://petcaretutor.com/ 2>/dev/null | grep -oE '/assets/index-[^"]+\.js' | head -n 1 || true)
+          if [ -z "${CURRENT_ASSET:-}" ]; then
+            CURRENT_ASSET=$(curl -fsS --max-time 10 -H "Host: petcaretutor.com" http://127.0.0.1/ 2>/dev/null | grep -oE '/assets/index-[^"]+\.js' | head -n 1 || true)
+          fi
           if [ -n "${CURRENT_ASSET:-}" ]; then
-            WEB_ROOT=$(find /var/www /usr/share/nginx/html /home -maxdepth 4 -name index.html -print 2>/dev/null | while read -r file; do
+            WEB_ROOT=$(find /var/www /usr/share/nginx/html /home /apps -maxdepth 5 -name index.html -print 2>/dev/null | while read -r file; do
               if grep -q "$CURRENT_ASSET" "$file"; then
                 dirname "$file"
                 break
