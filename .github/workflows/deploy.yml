@@ -255,7 +255,7 @@ jobs:
             exit 1
           fi
 
-          find /etc/nginx/sites-enabled -maxdepth 1 -type f -name "*.bak" -delete 2>/dev/null || true
+          find /etc/nginx/sites-enabled -maxdepth 1 \( -type f -o -type l \) -name "*.bak" -delete 2>/dev/null || true
 
           NGINX_PROXY_FILES=$(grep -RslE "127\\.0\\.0\\.1:3333|localhost:3333" /etc/nginx 2>/dev/null | grep -vE "\\.bak$" || true)
           if [ -n "${NGINX_PROXY_FILES:-}" ]; then
