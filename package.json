@@ -8,6 +8,9 @@
     "reset": "node scripts/reset.mjs",
     "validate": "node scripts/check-api.js",
     "check:api": "node scripts/check-api.js",
+    "check:browser-console": "node scripts/check-browser-console.mjs",
+    "setup:browser-console": "npx playwright install chromium",
+    "watch:browser-console": "node scripts/check-browser-console.mjs --watch",
     "check:pet-images": "node scripts/check-pet-images.js",
     "check:frontend-routes": "node scripts/check-frontend-routes.mjs",
     "generate:pet-images": "npm --prefix apps/web run generate:pet-images",
@@ -27,6 +30,7 @@
     "generate:pets-html": "npm --prefix apps/web run generate:pets-html"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.61.1"
   }
 }

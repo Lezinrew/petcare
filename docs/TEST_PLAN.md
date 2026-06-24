@@ -57,6 +57,23 @@
 npm run check:api
 ```
 
+## Checklist browser automatizado
+
+Com a Web rodando:
+
+```bash
+npm run setup:browser-console   # primeira vez
+npm run check:browser-console
+```
+
+Para manter a checagem em loop durante correções:
+
+```bash
+npm run watch:browser-console
+```
+
+Esperado: nenhuma saída de `console.error`, nenhuma exceção de página e navegação válida nas rotas representativas.
+
 ## Checklist curl manual
 
 ```bash
