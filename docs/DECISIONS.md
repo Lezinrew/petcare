@@ -66,6 +66,12 @@
 
 **Motivo:** Reduz fricção no Windows/Linux sem depender de shell scripts separados. `setup` centraliza install + `.env`; `validate` cobre smoke test da API; `reset` encapsula seed com mensagens claras.
 
+## Verificação automatizada do console do navegador
+
+**Decisão:** Usar Playwright como dependência de desenvolvimento para abrir rotas representativas e capturar `console.error` e exceções de página via `scripts/check-browser-console.mjs`.
+
+**Motivo:** Erros do console do browser não aparecem de forma confiável no build, lint ou validação da API. O script elimina o ciclo manual de copiar mensagens do DevTools e oferece modo contínuo (`npm run watch:browser-console`) durante correções locais.
+
 ## ESLint da API em CommonJS
 
 **Decisão:** `eslint.config.cjs` em vez de `.js` ESM na API.

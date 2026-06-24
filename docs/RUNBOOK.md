@@ -27,6 +27,13 @@ Validação (segundo terminal):
 npm run validate
 ```
 
+Verificação contínua do console do navegador (com `npm run dev` rodando):
+
+```powershell
+npm run setup:browser-console   # primeira vez
+npm run watch:browser-console
+```
+
 Health check:
 
 ```powershell
@@ -113,6 +120,31 @@ npm run check:api
 ```
 
 Valida health, 13 grupos, total 132 e detalhes representativos por espécie.
+
+## Validar console do browser
+
+Com a Web rodando em `http://localhost:5173` (`npm run dev:web` ou `npm run dev`):
+
+```bash
+npm run setup:browser-console   # primeira vez
+npm run check:browser-console
+```
+
+O comando abre rotas representativas no Chromium via Playwright e falha se encontrar `console.error`, exceções da página ou navegação sem resposta válida.
+
+Para repetir automaticamente enquanto corrige erros:
+
+```bash
+npm run watch:browser-console
+```
+
+Opções úteis:
+
+```bash
+npm run check:browser-console -- --url=http://localhost:5173
+npm run check:browser-console -- --routes=/,/explore,/dogs/labrador-retriever
+npm run watch:browser-console -- --interval=5000
+```
 
 Placeholders SVG: `apps/web/public/images/placeholders/{dog,cat,fish,hamster,bird,rabbit,turtle,twister,guinea_pig,chinchilla,gerbil,ferret,lizard}.svg`
 
