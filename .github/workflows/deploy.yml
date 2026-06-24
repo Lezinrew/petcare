@@ -226,16 +226,33 @@ jobs:
           docker compose up -d --remove-orphans
           docker compose exec -T petcare node dist/seed/seedDogs.js </dev/null
 
-          SITE_FILE=$(grep -Rsl "petcaretutor.com" /etc/nginx 2>/dev/null | head -n 1 || true)
+          SITE_FILE=$(grep -Rsl "petcaretutor.com" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null | grep -vE "\\.bak$" | head -n 1 || true)
+          if [ -z "${SITE_FILE:-}" ]; then
+            SITE_FILE=$(grep -Rsl "petcaretutor.com" /etc/nginx 2>/dev/null | grep -vE "\\.bak$" | head -n 1 || true)
+          fi
           WEB_ROOT=""
-          if [ -n "${SITE_FILE:-}" ]; then
+
+          CURRENT_ASSET=$(curl -fsS --max-time 10 -H "Host: petcaretutor.com" http://127.0.0.1/ 2>/dev/null | grep -oE '/assets/index-[^"]+\.js' | head -n 1 || true)
+          if [ -n "${CURRENT_ASSET:-}" ]; then
+            WEB_ROOT=$(find /var/www /usr/share/nginx/html /home -maxdepth 4 -name index.html -print 2>/dev/null | while read -r file; do
+              if grep -q "$CURRENT_ASSET" "$file"; then
+                dirname "$file"
+                break
+              fi
+            done)
+          fi
+
+          if [ -z "${WEB_ROOT:-}" ] && [ -n "${SITE_FILE:-}" ]; then
             WEB_ROOT=$(awk '$1 == "root" { gsub(";", "", $2); print $2; exit }' "$SITE_FILE")
           fi
 
           if [ -z "${WEB_ROOT:-}" ]; then
             for candidate in \
               /var/www/petcaretutor.com/html \
+              /var/www/petcaretutor.com/public_html \
               /var/www/petcaretutor.com \
+              /home/*/domains/petcaretutor.com/public_html \
+              /home/*/public_html \
               /var/www/html \
               /usr/share/nginx/html; do
               if [ -f "$candidate/index.html" ] && grep -q "/assets/index-" "$candidate/index.html"; then
@@ -250,6 +267,8 @@ jobs:
 
           if [ -n "${WEB_ROOT:-}" ]; then
             docker cp petcare_app:/app/apps/web/dist/. "$WEB_ROOT"/
+            grep -m 1 "CACHE_VERSION" "$WEB_ROOT/service-worker.js"
+            stat -c "Published beagle.webp size: %s" "$WEB_ROOT/images/dogs/beagle.webp"
           else
             echo "::error::Raiz estática do Nginx não encontrada nos caminhos esperados."
             exit 1
