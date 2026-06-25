@@ -26,14 +26,20 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
-export async function apiGet<T>(path: string, params?: Record<string, string>): Promise<T> {
+export async function apiGet<T>(
+  path: string,
+  params?: Record<string, string>,
+  headers?: Record<string, string>,
+): Promise<T> {
   const url = new URL(`${API_BASE}${path}`, window.location.origin);
   if (params) {
     Object.entries(params).forEach(([k, v]) => {
       if (v) url.searchParams.set(k, v);
     });
   }
-  const response = await fetch(url.toString());
+  const response = await fetch(url.toString(), {
+    headers: headers ? { ...headers } : undefined,
+  });
   return handleResponse<T>(response);
 }
 

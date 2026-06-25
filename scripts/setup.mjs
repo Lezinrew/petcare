@@ -39,6 +39,9 @@ console.log('\n📄 Configurando variáveis de ambiente...');
 copyEnvIfMissing('apps/api/.env.example', 'apps/api/.env');
 copyEnvIfMissing('apps/web/.env.example', 'apps/web/.env');
 
+console.log('\n🎭 Instalando Playwright Chromium...');
+execSync('npx playwright install chromium', { cwd: root, stdio: 'inherit' });
+
 console.log(`
 ✨ Setup concluído!
 
@@ -47,6 +50,7 @@ Próximos passos:
   2. npm run reset
   3. npm run dev
 
-Validação rápida (com API rodando):
+Validação rápida (com API e Web rodando):
   npm run validate
+  npm run check:playwright
 `);

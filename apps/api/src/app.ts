@@ -9,9 +9,13 @@ import petRoutes from './modules/pets/pet.routes';
 import reminderRoutes from './modules/reminders/reminder.routes';
 import adoptionRoutes from './modules/adoption/adoption.routes';
 import tutorProfileRoutes from './modules/tutor-profile/tutor-profile.routes';
+import analyticsRoutes from './modules/analytics/analytics.routes';
+import adminRoutes from './modules/admin/admin.routes';
 import { serveWebApp } from './middlewares/serveWebApp';
 
 const app = express();
+
+app.set('trust proxy', true);
 
 app.use(
   helmet({
@@ -38,6 +42,8 @@ app.use('/api/pets', petRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/adoption', adoptionRoutes);
 app.use('/api/tutor-profile', tutorProfileRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 serveWebApp(app);
 

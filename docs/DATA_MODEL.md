@@ -155,3 +155,91 @@ Resposta do POST `/api/adoption/match`:
   "antiAbandonmentMessage": "Adotar é assumir uma vida..."
 }
 ```
+
+## PageView
+
+Coleção: `pageviews`.
+
+Registra visualizações de página para a tela administrativa de métricas. No MVP, não há autenticação real nem identificação nominal do tutor; os registros são agregados. O frontend só envia eventos após consentimento explícito (LGPD). Retenção recomendada: **12 meses**, com revisão periódica.
+
+```json
+{
+  "path": "/dogs/labrador-retriever",
+  "title": "PetCare Responsável",
+  "referrer": "/explore",
+  "externalReferrer": "www.tiktok.com",
+  "utmSource": "tiktok",
+  "utmMedium": "social",
+  "utmCampaign": "verao",
+  "speciesGroup": "dogs",
+  "ipHash": "a1b2c3d4e5f6g7h8",
+  "countryCode": "BR",
+  "region": "SP",
+  "city": "São Paulo",
+  "deviceType": "mobile",
+  "browser": "Chrome",
+  "os": "Android",
+  "locale": "pt-br",
+  "createdAt": "2026-06-24T12:00:00.000Z"
+}
+```
+
+Índices:
+
+- `path`
+- `createdAt`
+- `path + createdAt`
+- `countryCode`
+- `deviceType`
+- `countryCode + region + createdAt`
+- `ipHash`
+- `os`
+- `speciesGroup`
+- `externalReferrer`
+- `utmSource`
+- `utmCampaign`
+
+## AnalyticsSummary
+
+Resposta agregada de `GET /api/analytics/summary`:
+
+```json
+{
+  "totalViews": 42,
+  "uniquePages": 8,
+  "engagement": {
+    "uniqueVisitors": 18,
+    "estimatedSessions": 24,
+    "avgPagesPerSession": 1.8
+  },
+  "topPages": [
+    {
+      "path": "/dogs",
+      "title": "PetCare Responsável",
+      "views": 12,
+      "lastViewedAt": "2026-06-24T12:00:00.000Z"
+    }
+  ],
+  "recentViews": [],
+  "geoByCountry": [{ "countryCode": "BR", "views": 30 }],
+  "areaInsights": [
+    {
+      "countryCode": "BR",
+      "region": "SP",
+      "views": 18,
+      "topPages": [{ "path": "/dogs", "views": 8 }]
+    }
+  ],
+  "deviceBreakdown": [{ "deviceType": "mobile", "views": 25 }],
+  "localeBreakdown": [{ "locale": "pt-br", "views": 35 }],
+  "osBreakdown": [{ "label": "Android", "views": 20 }],
+  "hourlyBreakdown": [{ "label": "14", "views": 8 }],
+  "weekdayBreakdown": [{ "label": "Segunda", "views": 12 }],
+  "speciesBreakdown": [{ "label": "dogs", "views": 15 }],
+  "externalReferrerBreakdown": [{ "label": "www.tiktok.com", "views": 5 }],
+  "utmSourceBreakdown": [{ "label": "tiktok", "views": 5 }],
+  "utmCampaignBreakdown": [{ "label": "verao", "views": 5 }]
+}
+```
+
+Sessões estimadas: agrupamento por `ipHash` + janela de 30 minutos (`America/Sao_Paulo`).

@@ -1,5 +1,41 @@
 # Decisões Técnicas — PetCare Responsável
 
+## Três pilares oficiais do produto
+
+**Decisão:** PetCareTutor.com / PetCare Responsável passa a operar com três pilares: educação, ferramentas para tutores e monetização por afiliados.
+
+**Motivo:** O catálogo e as ferramentas resolvem valor educativo e operacional; afiliados criam monetização sem exigir venda direta, estoque, checkout, logística ou suporte transacional.
+
+## Sem marketplace ou intermediação entre pessoas
+
+**Decisão:** Não construir marketplace, venda direta de animais, intermediação de adoções, chat entre usuários ou comunicação comprador/vendedor.
+
+**Motivo:** Reduz fraude, golpes, moderação, responsabilidade jurídica e risco reputacional. O produto permanece educativo e editorial.
+
+## Monetização por afiliados
+
+**Decisão:** O fluxo comercial oficial é usuário → conteúdo → produto recomendado → loja parceira.
+
+**Motivo:** Permite capturar receita de recomendações úteis mantendo a venda, pagamento, entrega e garantia sob responsabilidade das lojas parceiras.
+
+## Growth por conteúdo curto e SEO
+
+**Decisão:** Topo de funil em TikTok, Instagram Reels e YouTube Shorts; meio de funil em artigos, guias e fichas no PetCareTutor.com; fundo de funil em recomendações afiliadas.
+
+**Motivo:** O nicho pet possui forte apelo visual e recorrência de dúvidas. Conteúdo curto gera descoberta; SEO captura intenção; afiliados monetizam necessidades reais.
+
+## AI Content Intelligence Engine
+
+**Decisão:** Planejar uma camada futura para monitorar vídeos virais, extrair metadados, transcrever áudio, detectar padrões e sugerir pautas.
+
+**Motivo:** Reduz custo de pesquisa editorial, acelera produção de conteúdo e permite reagir a tendências com consistência estratégica.
+
+## Execução local de IA no MVP
+
+**Decisão:** Rodar automações e LLMs locais inicialmente, com hardware alvo RTX 4070 ou superior, priorizando Llama, Qwen e DeepSeek.
+
+**Motivo:** Evita custo recorrente de cloud antes da validação de tráfego e receita. Cloud só deve entrar quando houver necessidade comprovada.
+
 ## Monorepo simples
 
 **Decisão:** Estrutura monorepo com `apps/api` e `apps/web` na raiz, scripts centralizados via `npm-run-all`.
@@ -41,6 +77,14 @@
 **Decisão:** Coleção `tutorprofiles` com upsert por `userId`, tela `/profile` e seed no `npm run reset` — sem login real.
 
 **Motivo:** Contextualiza pets, lembretes e adoção responsável no modo demo; a migração futura reutiliza o mesmo `userId` quando a autenticação entrar.
+
+## Proteção operacional do admin
+
+**Decisão:** `ADMIN_PASSWORD` e `ADMIN_SESSION_SECRET` na API protegem `GET /analytics/summary` e a tela `/admin` com senha operacional e token HMAC de sessão (8h).
+
+**Motivo:** Métricas administrativas não devem ficar públicas em produção, mas isso não é login real de tutores — `DEMO_USER_ID` e o fluxo do tutor permanecem inalterados.
+
+**Comportamento:** `GET /analytics/summary` e `/admin` exigem sempre autenticação administrativa. `POST /analytics/page-view` permanece público (tracking do app).
 
 ## Mongoose vs MongoDB Driver
 

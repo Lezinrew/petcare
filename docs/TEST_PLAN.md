@@ -33,8 +33,9 @@
 | 14 | Pet criar | Meu Pet → Novo | Pet na lista |
 | 15 | Lembrete CRUD | Lembretes | Criar/concluir/excluir |
 | 16 | Adoção | Preencher form | 3 raças + alertas |
-| 17 | Layout mobile | DevTools 375px | BottomNav visível |
-| 18 | Build | `npm run build` | Sem erros |
+| 17 | Admin métricas | Abrir `/dogs`, `/cats`, depois `/admin` | Ranking mostra páginas acessadas |
+| 18 | Layout mobile | DevTools 375px | BottomNav visível |
+| 19 | Build | `npm run build` | Sem erros |
 
 ## Rotas frontend (smoke)
 

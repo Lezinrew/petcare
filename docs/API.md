@@ -247,6 +247,116 @@ Exemplo parcial:
 
 ---
 
+## Admin
+
+### POST /api/admin/login
+
+**Descrição:** Valida a senha operacional configurada em `ADMIN_PASSWORD` e retorna token de sessão para acessar métricas administrativas.
+
+**Body:**
+```json
+{
+  "password": "sua-senha-admin"
+}
+```
+
+**Response 200:**
+```json
+{
+  "token": "eyJ...",
+  "expiresAt": "2026-06-24T20:00:00.000Z"
+}
+```
+
+**Erros:** 401 ADMIN_INVALID_PASSWORD, 503 ADMIN_DISABLED (quando `ADMIN_PASSWORD` não está configurada)
+
+**Notas:**
+- Token expira em 8 horas.
+- Assinado com `ADMIN_SESSION_SECRET` (ou `ADMIN_PASSWORD` em desenvolvimento, se o secret estiver vazio).
+
+---
+
+## Analytics
+
+### POST /api/analytics/page-view
+
+**Descrição:** Registra uma visualização de página do app, com contexto técnico do visitante. O frontend só envia eventos após consentimento LGPD.
+
+**Body:**
+```json
+{
+  "path": "/dogs/labrador-retriever?utm_source=tiktok&utm_campaign=verao",
+  "title": "PetCare Responsável",
+  "referrer": "/explore",
+  "externalReferrer": "www.tiktok.com",
+  "utmSource": "tiktok",
+  "utmMedium": "social",
+  "utmCampaign": "verao"
+}
+```
+
+**Campos derivados no servidor:** `speciesGroup`, normalização de `path` (sem query string), `os`, `browser`, `deviceType`, `locale`, geolocalização aproximada e `ipHash`.
+
+**Response 201:** `PageView` (inclui `countryCode`, `region`, `city`, `deviceType`, `browser`, `os`, `locale`, `speciesGroup`, `utmSource`, `utmMedium`, `utmCampaign`, `externalReferrer`, `ipHash` quando disponíveis)
+
+**Erros:** 400 VALIDATION_ERROR
+
+**Notas de privacidade:**
+- O IP completo não é armazenado; apenas `ipHash` (SHA-256 truncado) para visitantes únicos e sessões estimadas.
+- User-agent completo **não** é persistido.
+- País/região/cidade vêm de headers da infraestrutura (`cf-ipcountry`, `x-vercel-ip-country`, etc.), sem API externa obrigatória.
+- `externalReferrer` armazena apenas o hostname (ex.: `www.google.com`).
+
+### GET /api/analytics/summary
+
+**Descrição:** Retorna resumo administrativo de visualizações, geolocalização, perfil de dispositivo e nicho por área.
+
+**Autenticação:** Exige header `Authorization: Bearer <token>` obtido via `POST /api/admin/login`. `ADMIN_PASSWORD` deve estar configurada no servidor.
+
+**Response 200:**
+```json
+{
+  "totalViews": 42,
+  "uniquePages": 8,
+  "engagement": {
+    "uniqueVisitors": 18,
+    "estimatedSessions": 24,
+    "avgPagesPerSession": 1.8
+  },
+  "topPages": [
+    {
+      "path": "/dogs",
+      "title": "PetCare Responsável",
+      "views": 12,
+      "lastViewedAt": "2026-06-24T12:00:00.000Z"
+    }
+  ],
+  "recentViews": [],
+  "geoByCountry": [{ "countryCode": "BR", "views": 30 }],
+  "areaInsights": [
+    {
+      "countryCode": "BR",
+      "region": "SP",
+      "views": 18,
+      "topPages": [{ "path": "/dogs", "title": "Cães", "views": 8 }]
+    }
+  ],
+  "deviceBreakdown": [{ "deviceType": "mobile", "views": 25 }],
+  "localeBreakdown": [{ "locale": "pt-br", "views": 35 }],
+  "osBreakdown": [{ "label": "Android", "views": 20 }],
+  "hourlyBreakdown": [{ "label": "14", "views": 8 }],
+  "weekdayBreakdown": [{ "label": "Segunda", "views": 12 }],
+  "speciesBreakdown": [{ "label": "dogs", "views": 15 }],
+  "externalReferrerBreakdown": [{ "label": "www.tiktok.com", "views": 5 }],
+  "utmSourceBreakdown": [{ "label": "tiktok", "views": 5 }],
+  "utmCampaignBreakdown": [{ "label": "verao", "views": 5 }]
+}
+```
+
+**Erros:** 401 ADMIN_UNAUTHORIZED (quando proteção admin está ativa e token ausente/inválido)
+
+---
+
 ## Formato de erro
 
 ```json

@@ -1,4 +1,18 @@
-# Contexto — PetCare Responsável
+# Contexto — PetCareTutor.com / PetCare Responsável
+
+## Nova visão oficial
+
+O PetCareTutor.com não é apenas uma plataforma educativa. A visão atual combina educação, ferramentas para tutores, crescimento por conteúdo e monetização por afiliados.
+
+O produto passa a operar em três pilares:
+
+1. **Educação:** reduzir adoções impulsivas, compra mal informada e abandono ao explicar porte, comportamento, custos, necessidades e cuidados antes da decisão.
+2. **Ferramentas para tutores:** apoiar a rotina de cuidado com cadastro de pets, cadastro de tutores e lembretes de vacinação, alimentação, consultas veterinárias e medicação.
+3. **Monetização por afiliados:** recomendar produtos relevantes dentro do contexto educativo e direcionar o usuário para lojas parceiras. A venda ocorre fora da plataforma.
+
+O fluxo comercial oficial é: **usuário → conteúdo → produto recomendado → loja parceira**.
+
+O produto não será marketplace entre pessoas, não venderá animais, não fará venda direta, não intermediará adoções e não oferecerá comunicação direta entre usuários. Essa decisão reduz exposição a fraude, golpes e responsabilidade jurídica.
 
 ## O problema do abandono
 
@@ -41,6 +55,18 @@ O PetCare Responsável é uma ferramenta educativa que:
 
 > O app transforma informação em cuidado prático.
 
+## Objetivo de crescimento
+
+O crescimento deve partir de conteúdo curto e educativo em TikTok, Instagram Reels e YouTube Shorts, levando usuários para PetCareTutor.com. No site, artigos, guias e fichas aprofundam confiança; recomendações de produtos fazem a conversão por afiliados.
+
+Temas prioritários de aquisição:
+- Erros comuns de tutores
+- Curiosidades sobre espécies
+- Produtos essenciais por espécie e fase de vida
+- Mitos e verdades
+- Comparativos de raças, espécies, acessórios e rotinas
+- Guias de custo e preparação antes da adoção ou compra
+
 ## Escopo do catálogo (piloto)
 
 | Espécie | Fichas |
@@ -71,7 +97,7 @@ A navegação principal passa por **Explorar Pets** (`/explore`), com cards visu
 
 ## Papel preventivo
 
-O app atua preventivamente, antes que o tutor tome uma decisão irreversível ou negligencie cuidados essenciais. Não é marketplace, não vende animais — educa e organiza.
+O app atua preventivamente, antes que o tutor tome uma decisão irreversível ou negligencie cuidados essenciais. Não é marketplace, não vende animais e não conecta compradores, vendedores ou adotantes. Educa, organiza e recomenda produtos úteis com transparência editorial.
 
 ## Aviso importante
 
@@ -85,7 +111,7 @@ Toda seção de saúde nas fichas deve conter aviso discreto reforçando esse li
 - Famílias com crianças
 - Pessoas pensando em adotar
 - Protetores independentes
-- ONGs (futuro)
+- ONGs como parceiras educativas (futuro, sem intermediação de adoções)
 - Clínicas veterinárias (futuro)
 - Pet shops (futuro)
 
@@ -95,3 +121,7 @@ Toda seção de saúde nas fichas deve conter aviso discreto reforçando esse li
 - Sem autenticação real (`DEMO_USER_ID` simula usuário)
 - Sem APIs externas obrigatórias em runtime
 - Sem Next.js nem banco relacional
+
+## Infraestrutura estratégica
+
+Na fase MVP, a execução estratégica de IA e automação deve permanecer local, com hardware alvo RTX 4070 ou superior. Não há necessidade inicial de VPS, AWS, Azure ou Google Cloud para o motor de inteligência de conteúdo. Escalar infraestrutura apenas quando houver tráfego real, receita validada ou gargalo comprovado.

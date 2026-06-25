@@ -5,6 +5,7 @@ const WEB_ROUTES = [
   '/demo',
   '/explore',
   '/profile',
+  '/admin',
   '/dogs',
   '/dogs/labrador-retriever',
   '/cats',

@@ -9,6 +9,8 @@
     "validate": "node scripts/check-api.js",
     "check:api": "node scripts/check-api.js",
     "check:browser-console": "node scripts/check-browser-console.mjs",
+    "check:admin-login": "node scripts/check-admin-login.mjs",
+    "check:playwright": "npm-run-all check:browser-console check:admin-login",
     "setup:browser-console": "npx playwright install chromium",
     "watch:browser-console": "node scripts/check-browser-console.mjs --watch",
     "check:pet-images": "node scripts/check-pet-images.js",

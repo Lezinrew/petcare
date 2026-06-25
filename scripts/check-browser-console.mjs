@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { dismissPrivacyConsentIfVisible } from './playwright-utils.mjs';
 
 const DEFAULT_URLS = [
   '/',
@@ -88,6 +89,7 @@ async function checkOnce() {
         });
       }
 
+      await dismissPrivacyConsentIfVisible(page);
       await page.waitForTimeout(settleMs);
     }
   } finally {

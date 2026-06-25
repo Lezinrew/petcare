@@ -18,6 +18,16 @@
 [MongoDB - Docker Compose]
 ```
 
+## Visão estratégica de arquitetura
+
+A arquitetura atual cobre o MVP operacional. A arquitetura futura adiciona três camadas estratégicas:
+
+1. **Conteúdo e SEO:** blog, guias, páginas programáticas e interlinking com o catálogo.
+2. **Afiliados:** recomendações editoriais, tracking de cliques e saída para lojas parceiras.
+3. **AI Content Intelligence Engine:** pipeline local de monitoramento de tendências, transcrição, análise e geração de pautas.
+
+Essas camadas não transformam o produto em marketplace. A plataforma educa, organiza e recomenda; transações ocorrem nas lojas parceiras.
+
 ## Decisões arquiteturais
 
 - Monorepo com apps separados (api/web)
@@ -97,6 +107,52 @@
 - Sem push notifications
 - Service worker com cache simples
 - Dados de raças estáticos (seed)
+- Sem marketplace, venda direta, intermediação de adoções ou comunicação direta entre usuários
+
+## Arquitetura futura — AI Content Intelligence Engine
+
+Fluxo planejado:
+
+```
+[YouTube Data API]
+        |
+        v
+[Coletor de vídeos e metadados]
+        |
+        v
+[Download/extração de áudio quando permitido]
+        |
+        v
+[Whisper - transcrição]
+        |
+        v
+[Pandas - organização, filtros e agrupamentos]
+        |
+        v
+[LangChain - agentes, memória e decisões]
+        |
+        v
+[LLM local - Llama / Qwen / DeepSeek]
+        |
+        v
+[Insights, pautas, roteiros e backlog editorial]
+```
+
+Responsabilidades:
+
+| Componente | Responsabilidade |
+|------------|------------------|
+| YouTube Data API | Buscar vídeos, ranking, tendências e metadados públicos |
+| Whisper | Transcrever áudio para análise textual |
+| Pandas | Organizar datasets, filtrar, agrupar e calcular métricas |
+| LangChain | Orquestrar agentes, memória, contexto e decisões |
+| LLM local | Gerar insights e sugestões de conteúdo com menor custo operacional |
+
+## Infraestrutura futura de IA
+
+Na fase MVP, a execução da camada de IA deve ser local. Hardware alvo: RTX 4070 ou superior. Prioridade de modelos locais: Llama, Qwen e DeepSeek.
+
+Não há necessidade inicial de VPS, AWS, Azure ou Google Cloud para o motor de inteligência de conteúdo. Cloud deve entrar apenas quando houver tráfego real, necessidade de processamento recorrente, colaboração em equipe ou retorno financeiro comprovado.
 
 ## Evolução: Capacitor
 

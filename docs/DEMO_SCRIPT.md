@@ -2,6 +2,8 @@
 
 Apresentação do piloto (~7 min) para reuniões e validação.
 
+Linha de posicionamento: PetCareTutor.com é uma plataforma educacional com ferramentas de rotina e monetização futura por afiliados. A proposta evita marketplace, venda direta e intermediação de adoções.
+
 ## Antes da demo
 
 ```bash
@@ -73,6 +75,7 @@ npm run check:frontend-routes
 - *"O app transforma informação em cuidado prático."*
 - *"Antes de adotar, o tutor entende porte, energia e rotina."*
 - *"132 fichas educativas em 13 grupos de pets."*
+- *"O caminho comercial é conteúdo educativo levando a produtos recomendados em lojas parceiras."*
 
 ---
 

@@ -2,6 +2,8 @@
 
 Roteiro rápido (~5 min) para apresentar o piloto com **132 animais** em 13 grupos.
 
+Mensagem estratégica: o PetCareTutor.com combina educação, ferramentas para tutores e monetização futura por afiliados. Não é marketplace, não vende animais e não intermedeia adoções.
+
 ## Antes da demo
 
 ```bash
@@ -74,6 +76,7 @@ URLs:
 - *"O app transforma informação em cuidado prático."*
 - *"Antes de adotar, o tutor entende porte, energia e rotina."*
 - *"Adotar é assumir uma vida — tempo, espaço, custos e paciência."*
+- *"A monetização futura vem de recomendações responsáveis em lojas parceiras, não de venda direta."*
 
 ---
 

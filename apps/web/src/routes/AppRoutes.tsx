@@ -9,6 +9,8 @@ import { MyPetsPage } from '../pages/MyPetsPage';
 import { RemindersPage } from '../pages/RemindersPage';
 import { AdoptionMatchPage } from '../pages/AdoptionMatchPage';
 import { ProfilePage } from '../pages/ProfilePage';
+import { AdminPage } from '../pages/AdminPage';
+import { PrivacyPolicyPage } from '../pages/PrivacyPolicyPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export function AppRoutes() {
@@ -21,6 +23,8 @@ export function AppRoutes() {
         <Route path="my-pets" element={<MyPetsPage />} />
         <Route path="reminders" element={<RemindersPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="admin" element={<AdminPage />} />
+        <Route path="privacidade" element={<PrivacyPolicyPage />} />
         <Route path="adoption-match" element={<AdoptionMatchPage />} />
         <Route path=":speciesKey" element={<BreedCatalogPage />} />
         <Route path=":speciesKey/:slug" element={<BreedDetailPage />} />

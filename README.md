@@ -1,12 +1,20 @@
-# PetCare Responsável
+# PetCareTutor.com — PetCare Responsável
 
 > Conheça melhor. Cuide melhor. Abandone menos.
 
-MVP educativo para tutores de pets conhecerem raças, organizarem cuidados e simularem adoção responsável.
+Plataforma educacional para tutores de animais conhecerem espécies, organizarem cuidados, consumirem conteúdo responsável e encontrarem produtos recomendados em lojas parceiras.
 
 ## Objetivo
 
-Reduzir abandono causado por falta de informação, escolha inadequada do animal ou ausência de planejamento. O app transforma informação em cuidado prático.
+Reduzir abandono causado por falta de informação, escolha inadequada do animal ou ausência de planejamento. O produto transforma informação em cuidado prático e cria um caminho de monetização por afiliados sem marketplace, venda direta ou intermediação entre pessoas.
+
+## Pilares do produto
+
+1. **Educação:** fichas, guias e conteúdos que ajudam futuros tutores a entender porte, comportamento, custos, necessidades e cuidados antes de adquirir um animal.
+2. **Ferramentas para tutores:** cadastro de pets, perfil do tutor e lembretes de vacinação, alimentação, consultas e medicação.
+3. **Monetização por afiliados:** recomendações editoriais de produtos essenciais com saída para lojas parceiras como Petz, Cobasi, Amazon, Mercado Livre e programas de afiliados pet.
+
+Fluxo comercial oficial: **usuário → conteúdo → produto recomendado → loja parceira**. A venda acontece fora do PetCareTutor.com.
 
 ## Stack
 
@@ -164,6 +172,16 @@ As fichas React são a experiência principal do piloto. O HTML estático fica c
 - PWA instalável
 - Exportação HTML estática legada/opcional
 
+## Estratégia de crescimento
+
+- **Topo do funil:** TikTok, Instagram Reels e YouTube Shorts com erros comuns de tutores, curiosidades, produtos essenciais, mitos e comparativos.
+- **Meio do funil:** artigos, guias, fichas e conteúdos educativos em PetCareTutor.com para gerar confiança.
+- **Fundo do funil:** recomendações de ração, coleiras, peitorais, brinquedos, caixas de transporte e produtos veterinários por links de afiliado.
+
+## Estratégia de IA
+
+A arquitetura futura inclui um **AI Content Intelligence Engine** para buscar vídeos virais do nicho pet, extrair metadados, transcrever áudio com Whisper, organizar dados com Pandas, orquestrar agentes com LangChain e usar LLMs locais como Llama, Qwen ou DeepSeek em GPU local.
+
 ## Estrutura
 
 ```
@@ -176,7 +194,7 @@ petcare-responsavel/
 
 ## Roadmap
 
-Ver `docs/ROADMAP.md` para fases futuras (login, push, Capacitor, etc.).
+Ver `docs/ROADMAP.md` para fases futuras: consolidação do catálogo, Blog SEO, afiliados, conteúdo TikTok, inteligência de conteúdo por IA, SEO programático e escala nacional.
 
 ## Aviso educativo
 
