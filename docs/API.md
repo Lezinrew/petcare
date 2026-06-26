@@ -249,6 +249,12 @@ Exemplo parcial:
 
 ## Admin
 
+### GET /api/admin
+
+**Descrição:** Fallback de compatibilidade para servir o app React quando um proxy legado da VPS encaminhar `/admin` para o backend admin. A autenticação administrativa continua sendo feita por `POST /api/admin/login`.
+
+**Response 200:** HTML da SPA.
+
 ### POST /api/admin/login
 
 **Descrição:** Valida a senha operacional configurada em `ADMIN_PASSWORD` e retorna token de sessão para acessar métricas administrativas.
